@@ -16,6 +16,7 @@ Future<void> main() async {
     MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (_) => ThemeProvider(lightTheme)),
+        ChangeNotifierProvider(create: (_) => UserProvider())
       ],
       
       child: const MyApp(),
@@ -38,6 +39,7 @@ class MyApp extends StatelessWidget {
         '/': (_) => const SplashPage(),
         '/login': (_) => const Login(),
         '/signUp': (_) => SignUp(),
+        '/Home' : (_) => Home(),
       }
     );
   }
