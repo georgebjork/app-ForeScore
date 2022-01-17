@@ -29,11 +29,12 @@ final darkTheme = ThemeData(
 );
 
 final lightTheme = ThemeData(
-  primarySwatch: Colors.grey,
-  primaryColor: HexColor('#89A057'),
-  brightness: Brightness.light,
-  backgroundColor:HexColor("#EEEEEE"),
-  accentColor: Colors.black,
-  accentIconTheme: IconThemeData(color: Colors.white),
-  dividerColor: Colors.white54,
+  colorScheme: ColorScheme.light(
+    primary: HexColor('#89A057'),
+    secondary: HexColor("#CFB784"),
+    tertiary: HexColor("#C56824"),
+    error: HexColor("#A13333"),
+    background: HexColor("#EEEEEE"), 
+  )
+
 );
