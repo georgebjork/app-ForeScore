@@ -29,7 +29,7 @@ class _LoginPageState extends AuthState<Login> {
       _emailController.clear();
       _passwordController.clear();
        Navigator.of(context)
-          .pushNamedAndRemoveUntil('/home', (route) => false);
+          .pushNamedAndRemoveUntil('/Home', (route) => false);
     }
 
     setState(() {
