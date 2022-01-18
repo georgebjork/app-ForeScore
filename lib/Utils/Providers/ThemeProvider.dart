@@ -5,9 +5,18 @@ import 'package:google_fonts/google_fonts.dart';
 class ThemeProvider with ChangeNotifier {
   ThemeData _themeData;
 
+  final Color _green = HexColor('#89A057');
+  final Color _tan = HexColor("#CFB784");
+  final Color _orange = HexColor("#C56824");
+  final Color _red = HexColor("#A13333");
+
   ThemeProvider(this._themeData);
 
   getTheme() => _themeData;
+  getGreen() => _green;
+  getTan() => _tan;
+  getOrange() => _orange;
+  getRed() => _red;
 
   setTheme(ThemeData themeData) async {
     _themeData = themeData;
