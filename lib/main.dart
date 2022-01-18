@@ -40,6 +40,7 @@ class MyApp extends StatelessWidget {
         '/login': (_) => const Login(),
         '/signUp': (_) => SignUp(),
         '/Home' : (_) => Home(),
+        '/AddPlayers' : (_) => AddPlayers(),
       }
     );
   }

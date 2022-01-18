@@ -40,7 +40,7 @@ class HomeState extends State<Home> {
                   btn2onPressed: () {},
                   btn3text: 'Start Round',
                   btn3Color: themeProvider.getOrange(),
-                  btn3onPressed: () {},
+                  btn3onPressed: () => Navigator.pushNamed(context, '/AddPlayers'),
                 ))
           ],
         ),
