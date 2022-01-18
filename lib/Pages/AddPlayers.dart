@@ -1,6 +1,7 @@
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:golf_app/Components/CheckBox.dart';
 import 'package:golf_app/Utils/Providers/ThemeProvider.dart';
 import 'package:golf_app/Utils/all.dart';
 import 'package:provider/provider.dart';
@@ -81,10 +82,12 @@ class FriendsState extends State<Friends> {
                 itemCount: provider.friends.length,
                 itemBuilder: (BuildContext context, int index) {
                   return ListTile(
+                    leading: CheckMarkBox(isChecked: false),
                     title: Text(
                       provider.friends[index].firstName + ' ' + provider.friends[index].lastName,
                       style: Theme.of(context).primaryTextTheme.headline4,
                     ),
+                    trailing: IconTheme(data: Theme.of(context).iconTheme, child: Icon(Icons.star))
                   );
                 }
               );

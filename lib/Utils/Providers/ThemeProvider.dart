@@ -42,6 +42,12 @@ final darkTheme = ThemeData(
     colorScheme: ColorScheme.light(
       primary: HexColor('#89A057')
     ),
+
+    iconTheme: const IconThemeData(
+      color: Colors.black,
+      size: 30,
+    ),
+
     primaryTextTheme: TextTheme(
       headline1: GoogleFonts.openSans( fontSize: 40, color: Colors.black),
       headline2: GoogleFonts.openSans( fontSize: 26, color: Colors.black),
