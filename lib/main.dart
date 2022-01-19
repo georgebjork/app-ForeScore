@@ -41,6 +41,7 @@ class MyApp extends StatelessWidget {
         '/signUp': (_) => SignUp(),
         '/Home' : (_) => Home(),
         '/AddPlayers' : (_) => AddPlayers(),
+        '/SelectCourse' : (_) => SelectCourse()
       }
     );
   }
