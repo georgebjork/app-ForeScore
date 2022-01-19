@@ -1,4 +1,6 @@
 import 'dart:convert';
+import 'package:golf_app/Utils/Course.dart';
+
 import 'Player.dart';
 import 'package:http/http.dart' as http;
 import 'package:http/http.dart';
@@ -21,5 +23,17 @@ class API{
 
     //Return list
     return friends;
+  }
+
+  Future<List<Course>> getFavoriteCourses() async {
+    List<Course> courses;
+
+    var res = await get(Uri.parse(baseURL + "courses"));
+
+    List<dynamic> body = jsonDecode(res.body);
+
+    courses = body.map((dynamic c) => Course.fromJson(c)).toList();
+
+    return courses;
   }
 }

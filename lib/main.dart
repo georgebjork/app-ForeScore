@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:golf_app/Utils/Providers/MatchSetUpProvider.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:provider/provider.dart';
 import '/Utils/all.dart';
@@ -16,7 +17,8 @@ Future<void> main() async {
     MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (_) => ThemeProvider(lightTheme)),
-        ChangeNotifierProvider(create: (_) => UserProvider())
+        ChangeNotifierProvider(create: (_) => UserProvider()),
+        ChangeNotifierProvider(create: (_) => MatchSetUpProvider())
       ],
       
       child: const MyApp(),

@@ -75,6 +75,9 @@ class FriendsState extends State<Friends> {
           return FutureBuilder(
             future: provider.friends.isEmpty ? provider.getFriends() : null,
             builder: (context, snapshot) {
+              if(provider.friends.isEmpty == true){
+                return Center(child: CircularProgressIndicator(color: context.read<ThemeProvider>().getGreen(), strokeWidth: 6.0,));
+              }
               return ListView.separated(
                 separatorBuilder: (context, index) => const Divider(
                   color: Colors.black,

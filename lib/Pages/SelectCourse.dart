@@ -2,6 +2,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:golf_app/Components/CheckBox.dart';
+import 'package:golf_app/Utils/Providers/MatchSetUpProvider.dart';
 import 'package:golf_app/Utils/Providers/ThemeProvider.dart';
 import 'package:provider/provider.dart';
 
@@ -70,27 +71,26 @@ class FavoriteCoursesState extends State<FavoriteCourses> {
   Widget build(BuildContext context) {
 
     return Expanded(
-      child: Consumer<UserProvider>(
+      child: Consumer<MatchSetUpProvider>(
         builder: (context, provider, child) {
           return FutureBuilder(
-            future: provider.friends.isEmpty ? provider.getFriends() : null,
+            future: provider.favoriteCourses.isEmpty ? provider.getFavoriteCourses() : null,
             builder: (context, snapshot) {
+              if(provider.favoriteCourses.isEmpty == true){
+                return Center(child: CircularProgressIndicator(color: context.read<ThemeProvider>().getGreen(), strokeWidth: 6.0,));
+              }
               return ListView.separated(
                 separatorBuilder: (context, index) => const Divider(
                   color: Colors.black,
                 ),
                 shrinkWrap: true,
-                itemCount: provider.friends.length,
+                itemCount: provider.favoriteCourses.length,
                 itemBuilder: (BuildContext context, int index) {
                   return ListTile(
                     leading: CheckMarkBox(isChecked: false),
                     title: Text(
-                      provider.friends[index].firstName + ' ' + provider.friends[index].lastName,
+                      provider.favoriteCourses[index].name,
                       style: Theme.of(context).primaryTextTheme.headline4,
-                    ),
-                    subtitle: Text(
-                      'Hdcp: ' + provider.friends[index].handicap.toString(),
-                      style: Theme.of(context).primaryTextTheme.headline5
                     ),
                     trailing: IconTheme(data: Theme.of(context).iconTheme, child: Icon(Icons.star))
                   );
