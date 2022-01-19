@@ -2,6 +2,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:golf_app/Utils/constants.dart';
 import 'dart:convert';
+import 'package:http/http.dart' as http;
+import 'package:http/http.dart';
 
 import '../Player.dart';
 
@@ -22,27 +24,19 @@ class UserProvider extends ChangeNotifier{
 
 
   //This function will return the friends of the user and put them in the friends list
-  Future<List<Player>> getFriends() async {
-
-    //Player list
-    List<Player> f = [];
+  Future<void> getFriends() async {
 
     //Run stored procedure to get friends
-    final res = await supabase
-      .from('users')
-      .select('*')
-      .execute();
+    String url = "https://tgin-api.azurewebsites.net/api/players";
     
-    //Get the body from the data
-    List<dynamic> body = res.data;
-    //Map the players into the f list
-    f = body.map((dynamic c) => Player.fromJson(c)).toList();
-    friends = f;
-    friends.removeWhere((element) => element.uuid == uuid);
+    //Call the api
+    var res = await get(Uri.parse(url));
 
+    //Move raw data into a list
+    List<dynamic> body = jsonDecode(res.body);
 
-    //Return list
-    return f;
+    //Map into friends list
+    friends = body.map((dynamic c) => Player.fromJson(c)).toList();
   }
 
 }

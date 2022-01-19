@@ -40,7 +40,7 @@ final darkTheme = ThemeData(
     scaffoldBackgroundColor: HexColor("#EEEEEE"),
     primaryColor: HexColor('#89A057'),
     colorScheme: ColorScheme.light(
-      primary: HexColor('#89A057')
+      primary: HexColor('#89A057'),
     ),
 
     iconTheme: const IconThemeData(

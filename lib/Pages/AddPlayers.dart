@@ -25,6 +25,7 @@ class AddPlayersState extends State<AddPlayers> {
       appBar: AppBar(
         elevation: 0.0,
         leading: null,
+        backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       ),
       body: Container(
         padding: const EdgeInsets.only(left: 20.0, right: 20.0),
@@ -86,6 +87,10 @@ class FriendsState extends State<Friends> {
                     title: Text(
                       provider.friends[index].firstName + ' ' + provider.friends[index].lastName,
                       style: Theme.of(context).primaryTextTheme.headline4,
+                    ),
+                    subtitle: Text(
+                      'Hdcp: ' + provider.friends[index].hanidcap.toString(),
+                      style: Theme.of(context).primaryTextTheme.headline5
                     ),
                     trailing: IconTheme(data: Theme.of(context).iconTheme, child: Icon(Icons.star))
                   );
