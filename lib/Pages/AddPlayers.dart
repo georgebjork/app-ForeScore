@@ -89,7 +89,7 @@ class FriendsState extends State<Friends> {
                       style: Theme.of(context).primaryTextTheme.headline4,
                     ),
                     subtitle: Text(
-                      'Hdcp: ' + provider.friends[index].hanidcap.toString(),
+                      'Hdcp: ' + provider.friends[index].handicap.toString(),
                       style: Theme.of(context).primaryTextTheme.headline5
                     ),
                     trailing: IconTheme(data: Theme.of(context).iconTheme, child: Icon(Icons.star))

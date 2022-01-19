@@ -4,10 +4,10 @@ class Player {
   String name;
   String firstName;
   String lastName;
-  int hanidcap;
+  int handicap;
   
 
-  Player(this.id, this.firstName, this.lastName, this.name, this.hanidcap) ;
+  Player(this.id, this.firstName, this.lastName, this.name, this.handicap) ;
 
 
   Player.fromPlayer({
@@ -15,7 +15,7 @@ class Player {
     required this.name,
     required this.firstName,
     required this.lastName,
-    required this.hanidcap
+    required this.handicap
   });
 
   factory Player.fromJson(dynamic res) {
@@ -24,7 +24,7 @@ class Player {
         name: res['name'],
         firstName: res['firstName'],
         lastName: res['lastName'],
-        hanidcap: res['handicap']
+        handicap: res['handicap']
       );
   }
 
