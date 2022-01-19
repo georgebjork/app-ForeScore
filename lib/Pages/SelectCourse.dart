@@ -8,12 +8,12 @@ import 'package:provider/provider.dart';
 import '../Components/NavWidget.dart';
 import '../Utils/Providers/UserProvider.dart';
 
-class AddPlayers extends StatefulWidget {
+class SelectCourse extends StatefulWidget {
   @override
-  AddPlayersState createState() => AddPlayersState();
+  SelectCourseState createState() => SelectCourseState();
 }
 
-class AddPlayersState extends State<AddPlayers> {
+class SelectCourseState extends State<SelectCourse> {
   @override
   void initState() {
     // TODO: implement initState
@@ -32,18 +32,18 @@ class AddPlayersState extends State<AddPlayers> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text('Add Players', style: Theme.of(context).primaryTextTheme.headline2),
+            Text('Select Course', style: Theme.of(context).primaryTextTheme.headline2),
             const SizedBox(height: 10,),
 
-            Text('Friends', style: Theme.of(context).primaryTextTheme.headline3),
-            Friends(),
+            Text('Favorite Courses', style: Theme.of(context).primaryTextTheme.headline3),
+            FavoriteCourses(),
 
 
             NavWidget(
               btn1text: 'Prev',
               btn1onPressed: () => Navigator.pop(context),
               btn2text: 'Next',
-              btn2onPressed: () {},
+              btn2onPressed: () => Navigator.pushNamed(context, '/AddPlayers'),
               btn3text: 'Cancel',
               btn3onPressed: () => Navigator.popUntil(context, ModalRoute.withName('/Home'))
             ),
@@ -56,12 +56,12 @@ class AddPlayersState extends State<AddPlayers> {
   }
 }
 
-class Friends extends StatefulWidget {
+class FavoriteCourses extends StatefulWidget {
   @override
-  FriendsState createState() => FriendsState();
+  FavoriteCoursesState createState() => FavoriteCoursesState();
 }
 
-class FriendsState extends State<Friends> {
+class FavoriteCoursesState extends State<FavoriteCourses> {
   
   void initState() {
 
