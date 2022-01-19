@@ -40,12 +40,26 @@ final darkTheme = ThemeData(
     scaffoldBackgroundColor: HexColor("#EEEEEE"),
     primaryColor: HexColor('#89A057'),
     colorScheme: ColorScheme.light(
-      primary: HexColor('#89A057')
+      primary: HexColor('#89A057'),
     ),
 
+    iconTheme: const IconThemeData(
+      color: Colors.black,
+      size: 30,
+    ),
+
+    primaryTextTheme: TextTheme(
+      headline1: GoogleFonts.openSans( fontSize: 40, color: Colors.black),
+      headline2: GoogleFonts.openSans( fontSize: 26, color: Colors.black),
+      headline3: GoogleFonts.openSans( fontSize: 16, color: Colors.black),
+      headline4: GoogleFonts.openSans( fontSize: 14, color: Colors.black),
+      headline5: GoogleFonts.openSans( fontSize: 12, color: Colors.black),
+    ),
     textTheme: TextTheme(
       headline1: GoogleFonts.openSans( fontSize: 40, color: Colors.white),
       headline2: GoogleFonts.openSans( fontSize: 26, color: Colors.white),
       headline3: GoogleFonts.openSans( fontSize: 16, color: Colors.white),
+      headline4: GoogleFonts.openSans( fontSize: 14, color: Colors.white),
+      headline5: GoogleFonts.openSans( fontSize: 12, color: Colors.white),
     ),
   );

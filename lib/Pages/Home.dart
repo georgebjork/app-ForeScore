@@ -28,6 +28,7 @@ class HomeState extends State<Home> {
         child: Column(
           children: [
             PlayerDetails(),
+            
             Container(
                 padding: const EdgeInsets.only(
                     left: 20.0, right: 20.0), //add left right padding
@@ -40,7 +41,7 @@ class HomeState extends State<Home> {
                   btn2onPressed: () {},
                   btn3text: 'Start Round',
                   btn3Color: themeProvider.getOrange(),
-                  btn3onPressed: () {},
+                  btn3onPressed: () => Navigator.pushNamed(context, '/AddPlayers'),
                 ))
           ],
         ),
@@ -60,8 +61,7 @@ class PlayerDetailsState extends State<PlayerDetails> {
         padding: const EdgeInsets.only(
             left: 20.0, right: 20.0), //add left right padding
         width: double.infinity, //width takes up whole screen
-        height: MediaQuery.of(context).size.height *
-            0.3333, //height only takes up part of the screen
+        height: MediaQuery.of(context).size.height*0.3333, //height only takes up part of the screen
         decoration: BoxDecoration(
             color: Theme.of(context).primaryColor,
             //Add rounded border to the bottom of the container
