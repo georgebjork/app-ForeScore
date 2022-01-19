@@ -1,7 +1,7 @@
 import 'dart:convert';
 import 'package:golf_app/Utils/Course.dart';
 
-import 'Player.dart';
+import '../Player.dart';
 import 'package:http/http.dart' as http;
 import 'package:http/http.dart';
 class API{
