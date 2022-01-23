@@ -2,6 +2,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:golf_app/Components/CheckBox.dart';
+import 'package:golf_app/Utils/Providers/MatchSetUpProvider.dart';
 import 'package:golf_app/Utils/Providers/ThemeProvider.dart';
 import 'package:provider/provider.dart';
 
@@ -68,7 +69,8 @@ class FriendsState extends State<Friends> {
   }
 
   Widget build(BuildContext context) {
-
+    
+    final match = context.read<MatchSetUpProvider>();
     return Expanded(
       child: Consumer<UserProvider>(
         builder: (context, provider, child) {
@@ -86,7 +88,20 @@ class FriendsState extends State<Friends> {
                 itemCount: provider.friends.length,
                 itemBuilder: (BuildContext context, int index) {
                   return ListTile(
-                    leading: CheckMarkBox(isChecked: false),
+                    onTap: () {
+                      setState(() {
+                        //if tapped and exists within list, then we should remove the player
+                        if(match.selectedPlayers.contains(provider.friends[index])){
+                          match.removePlayer(provider.friends[index]);
+                        }
+                        //add player to the selected player list. set state to rerender 
+                        else{
+                          match.addPlayer(provider.friends[index]);
+                        }
+                      });
+                    },
+                    //if in the list then set checkmark to true
+                    leading: match.selectedPlayers.contains(provider.friends[index]) == true ? const CheckMarkBox(isChecked: true) : const CheckMarkBox(isChecked: false),
                     title: Text(
                       provider.friends[index].firstName + ' ' + provider.friends[index].lastName,
                       style: Theme.of(context).primaryTextTheme.headline4,
