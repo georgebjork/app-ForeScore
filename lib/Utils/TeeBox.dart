@@ -1,3 +1,5 @@
+import 'Hole.dart';
+
 class TeeBox {
 
     int id;
@@ -8,6 +10,7 @@ class TeeBox {
     int adjustment;
     double rating;
     int teeBoxType;
+    List<Hole> holes = [];
 
     TeeBox(this.id, this.courseId, this.name, this.slope, this.rating, this.teeBoxType, this.par, this.adjustment);
 
@@ -19,10 +22,12 @@ class TeeBox {
       required this.rating,
       required this.teeBoxType,
       required this.par,
-      required this.adjustment
+      required this.adjustment,
+      required this.holes
     });
 
     factory TeeBox.fromJson(dynamic res){
+      List<dynamic> holes = res['holes'];
       return TeeBox.fromTeeBox(
         id: res['id'],
         courseId: res['courseId'],
@@ -31,7 +36,8 @@ class TeeBox {
         par: res['par'],
         rating: res['rating'],
         teeBoxType: res['type'],
-        adjustment: res['adjustment']
+        adjustment: res['adjustment'],
+        holes: holes.map((e) => Hole.fromJson(e)).toList()
       );
     }
 }
