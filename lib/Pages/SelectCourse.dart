@@ -87,7 +87,14 @@ class FavoriteCoursesState extends State<FavoriteCourses> {
                 itemCount: provider.favoriteCourses.length,
                 itemBuilder: (BuildContext context, int index) {
                   return ListTile(
-                    leading: CheckMarkBox(isChecked: false),
+                    onTap: () {
+                      //Sets the selected course. We need to update the state in order for it to re rerender
+                      setState(() {
+                        provider.selectedCourse = provider.favoriteCourses[index];
+                      });
+                    },
+                    //check if its equal to the seleced course so we can update the checkbox
+                    leading:  provider.selectedCourse == provider.favoriteCourses[index] ? const CheckMarkBox(isChecked: true) : const CheckMarkBox(isChecked: false),
                     title: Text(
                       provider.favoriteCourses[index].name,
                       style: Theme.of(context).primaryTextTheme.headline4,

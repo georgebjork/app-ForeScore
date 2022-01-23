@@ -9,7 +9,7 @@ class MatchSetUpProvider extends ChangeNotifier {
 
   late List<Player> players;
 
-  late Course selectedCourse;
+  Course selectedCourse = Course(-1, "null");
   List<Course> favoriteCourses = [];
 
 
