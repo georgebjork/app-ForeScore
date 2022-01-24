@@ -1,6 +1,7 @@
 
 import 'package:flutter/cupertino.dart';
 import 'package:golf_app/Utils/Player.dart';
+import 'package:golf_app/Utils/TeeBox.dart';
 import 'package:golf_app/Utils/all.dart';
 
 import '../Course.dart';
@@ -10,6 +11,10 @@ class MatchSetUpProvider extends ChangeNotifier {
   List<Player> selectedPlayers = [];
 
   Course selectedCourse = Course(-1, "null");
+
+  List<TeeBox> courseTeeBoxes = [];
+  TeeBox selectedTeeBox = TeeBox(-1, -1, 'null', -1, -1, -1, -1, -1);
+
   List<Course> favoriteCourses = [];
 
 
@@ -17,6 +22,11 @@ class MatchSetUpProvider extends ChangeNotifier {
     //get favorite courses from the api
     favoriteCourses = await service.getFavoriteCourses();
     return favoriteCourses;
+  }
+
+  Future<List<TeeBox>> getTeeBoxes() async {
+    courseTeeBoxes = await service.getCourseTeeBox(selectedCourse.id);
+    return courseTeeBoxes;
   }
 
   void addPlayer(Player p){

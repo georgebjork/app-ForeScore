@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:golf_app/Pages/SelectTeeBox.dart';
 import 'package:golf_app/Utils/Providers/MatchSetUpProvider.dart';
+import 'package:golf_app/Utils/TeeBox.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:provider/provider.dart';
 import '/Utils/all.dart';
@@ -43,7 +45,8 @@ class MyApp extends StatelessWidget {
         '/signUp': (_) => SignUp(),
         '/Home' : (_) => Home(),
         '/AddPlayers' : (_) => AddPlayers(),
-        '/SelectCourse' : (_) => SelectCourse()
+        '/SelectCourse' : (_) => SelectCourse(),
+        '/TeeBox' : (_) => SelectTeeBox()
       }
     );
   }

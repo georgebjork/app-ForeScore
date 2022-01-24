@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:golf_app/Utils/Course.dart';
+import 'package:golf_app/Utils/TeeBox.dart';
 
 import '../Player.dart';
 import '../Match.dart';
@@ -24,6 +25,19 @@ class API{
 
     //Return list
     return friends;
+  }
+
+  Future<List<TeeBox>> getCourseTeeBox(int courseId) async {
+    List <TeeBox> teeboxs;
+
+    var res = await get(Uri.parse(baseURL + "courses/$courseId"));
+
+    dynamic body = jsonDecode(res.body);
+    List<dynamic> bodyTeeBox = body['teeBoxes'];
+
+    teeboxs = bodyTeeBox.map((e) => TeeBox.fromJson(e)).toList();
+
+    return teeboxs;
   }
 
   Future<List<Course>> getFavoriteCourses() async {
