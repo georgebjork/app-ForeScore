@@ -35,7 +35,7 @@ class HomeState extends State<Home> {
                 child: NavWidget(
                   btn1text: 'Stats',
                   btn1Color: themeProvider.getTan(),
-                  btn1onPressed: () {},
+                  btn1onPressed: () => service.getMatch(119),
                   btn2text: 'Friends',
                   btn2Color: themeProvider.getTan(),
                   btn2onPressed: () {},

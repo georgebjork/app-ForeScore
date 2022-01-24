@@ -4,7 +4,7 @@ class Player {
   String name;
   String firstName;
   String lastName;
-  int handicap;
+  double handicap;
   
 
   Player(this.id, this.firstName, this.lastName, this.name, this.handicap) ;

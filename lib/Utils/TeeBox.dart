@@ -27,7 +27,7 @@ class TeeBox {
     });
 
     factory TeeBox.fromJson(dynamic res){
-      List<dynamic> holes = res['holes'];
+      List<dynamic> h = res['holes'];
       return TeeBox.fromTeeBox(
         id: res['id'],
         courseId: res['courseId'],
@@ -37,7 +37,7 @@ class TeeBox {
         rating: res['rating'],
         teeBoxType: res['type'],
         adjustment: res['adjustment'],
-        holes: holes.map((e) => Hole.fromJson(e)).toList()
+        holes: h.map((e) => Hole.fromJson(e)).toList()
       );
     }
 }
