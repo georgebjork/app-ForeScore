@@ -1,11 +1,15 @@
 
 import 'package:flutter/cupertino.dart';
+import '../Match.dart';
 
 class MatchProvider extends ChangeNotifier{
 
   late Match match;
 
   MatchProvider();
-  
-  MatchProvider.fromMatchProvider(this.match);
+
+
+  void setMatch(Match m){
+    match = m;
+  }
 }

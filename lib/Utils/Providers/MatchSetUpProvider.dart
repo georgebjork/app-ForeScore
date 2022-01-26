@@ -1,5 +1,6 @@
 
 import 'package:flutter/cupertino.dart';
+import 'package:golf_app/Utils/Match.dart';
 import 'package:golf_app/Utils/Player.dart';
 import 'package:golf_app/Utils/TeeBox.dart';
 import 'package:golf_app/Utils/all.dart';
@@ -50,9 +51,11 @@ class MatchSetUpProvider extends ChangeNotifier {
     }
   }
 
-  void createMatch(){
+  Future<Match> createMatch() async {
     List<int> g =  [3, 4];
 
-    service.createMatch(selectedTeeBox.courseId, g, selectedPlayers);
+    Match m = await service.createMatch(selectedTeeBox.id, g, selectedPlayers);
+
+    return m;
   }
 }

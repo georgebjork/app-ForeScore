@@ -70,6 +70,7 @@ class API{
 
   Future<Match> createMatch(int teeboxId, List<int>gameIds, List<Player> players) async {
     Match match;
+    dynamic body;
 
     //Create the match
     var payLoad = jsonEncode({
@@ -82,7 +83,7 @@ class API{
         },
     );
 
-    dynamic body = jsonDecode(res.body);
+    body = jsonDecode(res.body);
 
     match = Match.fromJson(body);
 
@@ -102,7 +103,10 @@ class API{
       );
     }
 
-    
+    body = jsonDecode(res.body);
+
+    match = Match.fromJson(body);
+
     return match;
 
   }

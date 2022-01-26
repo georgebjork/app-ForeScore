@@ -2,6 +2,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:golf_app/Components/CheckBox.dart';
+import 'package:golf_app/Utils/Match.dart';
+import 'package:golf_app/Utils/Providers/MatchProvider.dart';
 import 'package:golf_app/Utils/Providers/MatchSetUpProvider.dart';
 import 'package:provider/provider.dart';
 
@@ -45,7 +47,10 @@ class SelectTeeBoxState extends State<SelectTeeBox> {
               btn1text: 'Prev',
               btn1onPressed: () => Navigator.pop(context),
               btn2text: 'Next',
-              btn2onPressed: () => provider.createMatch(),
+              btn2onPressed: () async {
+                Match m = await provider.createMatch();
+                context.read<MatchProvider>().setMatch(m);
+              },
               btn3text: 'Cancel',
               btn3onPressed: () => Navigator.popUntil(context, ModalRoute.withName('/Home'))
             ),
