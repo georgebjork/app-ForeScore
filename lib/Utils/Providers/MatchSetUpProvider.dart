@@ -11,8 +11,6 @@ class MatchSetUpProvider extends ChangeNotifier {
   List<Player> selectedPlayers = [];
 
   Course selectedCourse = Course(-1, "null");
-
-  List<TeeBox> courseTeeBoxes = [];
   TeeBox selectedTeeBox = TeeBox(-1, -1, 'null', -1, -1, -1, -1, -1);
 
   List<Course> favoriteCourses = [];
@@ -24,9 +22,12 @@ class MatchSetUpProvider extends ChangeNotifier {
     return favoriteCourses;
   }
 
-  Future<List<TeeBox>> getTeeBoxes() async {
-    courseTeeBoxes = await service.getCourseTeeBox(selectedCourse.id);
-    return courseTeeBoxes;
+  void setCourse(Course c){
+    selectedCourse = c;
+  }
+
+  void setTeeBox(TeeBox t){
+    selectedTeeBox = t;
   }
 
   void addPlayer(Player p){

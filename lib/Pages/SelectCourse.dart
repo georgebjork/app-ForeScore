@@ -90,7 +90,7 @@ class FavoriteCoursesState extends State<FavoriteCourses> {
                     onTap: () {
                       //Sets the selected course. We need to update the state in order for it to re rerender
                       setState(() {
-                        provider.selectedCourse = provider.favoriteCourses[index];
+                        provider.setCourse(provider.favoriteCourses[index]);
                       });
                     },
                     //check if its equal to the seleced course so we can update the checkbox
