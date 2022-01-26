@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:golf_app/Pages/SelectTeeBox.dart';
 import 'package:golf_app/Utils/Providers/MatchSetUpProvider.dart';
+import 'package:golf_app/Utils/Providers/MatchProvider.dart';
 import 'package:golf_app/Utils/TeeBox.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:provider/provider.dart';
@@ -20,7 +21,8 @@ Future<void> main() async {
       providers: [
         ChangeNotifierProvider(create: (_) => ThemeProvider(lightTheme)),
         ChangeNotifierProvider(create: (_) => UserProvider()),
-        ChangeNotifierProvider(create: (_) => MatchSetUpProvider())
+        ChangeNotifierProvider(create: (_) => MatchSetUpProvider()),
+        ChangeNotifierProvider(create: (_) => MatchProvider())
       ],
       
       child: const MyApp(),
