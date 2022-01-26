@@ -58,6 +58,5 @@ class Match {
       gamePlayerResult: gpr.map((e) => GamePlayerResult.fromJson(e)).toList(),
       matchPlayerResult: mpr.map((e) => MatchPlayerResult.fromJson(e)).toList(),
     );
-
   }
 }

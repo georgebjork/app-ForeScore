@@ -68,4 +68,45 @@ class API{
   }
 
 
+  Future<Match> createMatch(int teeboxId, List<int>gameIds, List<Player> players) async {
+    Match match;
+
+    //Create the match
+    var payLoad = jsonEncode({
+      'id' : '$teeboxId'
+    });
+    var res = await post(Uri.parse(baseURL + "match"), body: payLoad,
+      headers: {
+          "Accept": "application/json",
+          "content-type": "application/json"
+        },
+    );
+
+    dynamic body = jsonDecode(res.body);
+
+    match = Match.fromJson(body);
+
+    //Add players
+    for(int i = 0; i < players.length; i++){
+
+      var payLoad = jsonEncode({
+        'id' : players[i].id.toString(),
+        'handicap' : players[i].handicap.toString(),
+      });
+
+      res = await post(Uri.parse(baseURL + "matches/" + match.id.toString() + "/player"), body: payLoad,
+      headers: {
+          "Accept": "application/json",
+          "content-type": "application/json"
+        },
+      );
+    }
+
+    
+
+    return match;
+
+  }
+
+
 }

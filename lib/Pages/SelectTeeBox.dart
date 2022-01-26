@@ -7,6 +7,7 @@ import 'package:provider/provider.dart';
 
 import '../Components/NavWidget.dart';
 import '../Utils/Providers/ThemeProvider.dart';
+import '../Utils/constants.dart';
 
 class SelectTeeBox extends StatefulWidget {
   @override
@@ -21,6 +22,8 @@ class SelectTeeBoxState extends State<SelectTeeBox> {
   }
 
   Widget build(BuildContext context) {
+    final provider = context.read<MatchSetUpProvider>();
+
     return Scaffold(
       appBar: AppBar(
         elevation: 0.0,
@@ -42,7 +45,7 @@ class SelectTeeBoxState extends State<SelectTeeBox> {
               btn1text: 'Prev',
               btn1onPressed: () => Navigator.pop(context),
               btn2text: 'Next',
-              btn2onPressed: () {},
+              btn2onPressed: () => provider.createMatch(),
               btn3text: 'Cancel',
               btn3onPressed: () => Navigator.popUntil(context, ModalRoute.withName('/Home'))
             ),

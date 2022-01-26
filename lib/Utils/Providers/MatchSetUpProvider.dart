@@ -48,4 +48,10 @@ class MatchSetUpProvider extends ChangeNotifier {
       selectedPlayers.removeWhere((element) => element == p);
     }
   }
+
+  void createMatch(){
+    List<int> g =  [3, 4];
+
+    service.createMatch(selectedTeeBox.courseId, g, selectedPlayers);
+  }
 }
