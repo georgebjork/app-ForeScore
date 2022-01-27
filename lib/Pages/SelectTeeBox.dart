@@ -50,6 +50,7 @@ class SelectTeeBoxState extends State<SelectTeeBox> {
               btn2onPressed: () async {
                 Match m = await provider.createMatch();
                 context.read<MatchProvider>().setMatch(m);
+                Navigator.pushNamedAndRemoveUntil(context, '/EnterScore', ModalRoute.withName('/home'));
               },
               btn3text: 'Cancel',
               btn3onPressed: () => Navigator.popUntil(context, ModalRoute.withName('/Home'))
