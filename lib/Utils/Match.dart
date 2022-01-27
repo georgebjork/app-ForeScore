@@ -21,9 +21,9 @@ class Match {
   List<GamePlayerPoint> gamePlayerPoints;
   List<GamePlayerResult> gamePlayerResult;
   List<MatchPlayerResult> matchPlayerResult;
-  //List<Round> rounds;this.rounds
+  List<Round> rounds;
 
-  Match(this.id, this.course, this.teeBox, this.players, this.games, this.matchPoints, this.gamePlayerPoints, this.gamePlayerResult, this.matchPlayerResult, );
+  Match(this.id, this.course, this.teeBox, this.players, this.games, this.matchPoints, this.gamePlayerPoints, this.gamePlayerResult, this.matchPlayerResult, this.rounds );
 
   Match.fromMatch({
     required this.id,
@@ -36,7 +36,7 @@ class Match {
     required this.gamePlayerPoints,
     required this.gamePlayerResult,
     required this.matchPlayerResult,
-    //required this.rounds
+    required this.rounds
   });
 
   factory Match.fromJson(dynamic res){
@@ -46,6 +46,7 @@ class Match {
     List<dynamic> gpp = res['gamePlayerPoints'];
     List<dynamic> gpr = res['gamePlayerResults'];
     List<dynamic> mpr = res['matchPlayerResults'];
+    List<dynamic> r = res['rounds'];
     return Match.fromMatch(
       id: res['id'],
       teeBox: TeeBox.fromJson(res['teeBox']),
@@ -57,6 +58,7 @@ class Match {
       gamePlayerPoints: gpp.map((e) => GamePlayerPoint.fromJson(e)).toList(),
       gamePlayerResult: gpr.map((e) => GamePlayerResult.fromJson(e)).toList(),
       matchPlayerResult: mpr.map((e) => MatchPlayerResult.fromJson(e)).toList(),
+      rounds: r.map((e) => Round.fromJson(e)).toList()
     );
   }
 }
