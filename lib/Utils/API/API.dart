@@ -10,6 +10,11 @@ class API{
 
   final String baseURL = "https://tgin-api.azurewebsites.net/api/";
 
+  final postHeaders = {
+          "Accept": "application/json",
+          "content-type": "application/json"
+        };
+
   Future<List<Player>> getFriends() async {
     //Hold list of players
     List<Player> friends;
@@ -67,6 +72,21 @@ class API{
     return match;
   }
 
+  Future<Match> addMatchPlayers(Match m, List<Player> players) async {
+    Match match = m;
+    
+    for(int i = 0; i < players.length; i++){
+
+      var payLoad = jsonEncode({
+      'id' : players[i].id.toString()
+      });
+
+      var res = await post(Uri.parse(baseURL + "matches/" + m.id.toString() + "/player"), body: payLoad, headers: postHeaders);
+    }
+
+    return match;
+  }
+
 
   Future<Match> createMatch(int teeboxId, List<int>gameIds, List<Player> players) async {
     Match match;
@@ -76,37 +96,28 @@ class API{
     var payLoad = jsonEncode({
       'id' : '$teeboxId'
     });
+    
     var res = await post(Uri.parse(baseURL + "match"), body: payLoad,
       headers: {
           "Accept": "application/json",
           "content-type": "application/json"
         },
-    );
+    ).then((response) async {
+      if(response.statusCode == 200){
+        body = jsonDecode(response.body);
 
-    body = jsonDecode(res.body);
+        match = Match.fromJson(body);
 
-    match = Match.fromJson(body);
+        match = await addMatchPlayers(match, players);
+        return match;
+      } 
+      else{
+        throw Exception("Error creating match");
+      }
+    });
 
-    //Add players
-    for(int i = 0; i < players.length; i++){
-
-      var payLoad = jsonEncode({
-        'id' : players[i].id.toString(),
-        'handicap' : players[i].handicap.toString(),
-      });
-
-      res = await post(Uri.parse(baseURL + "matches/" + match.id.toString() + "/player"), body: payLoad,
-      headers: {
-          "Accept": "application/json",
-          "content-type": "application/json"
-        },
-      );
-    }
-
-    body = jsonDecode(res.body);
-
-    match = Match.fromJson(body);
-
+    match = res;
+    print("Match with id: ${match.id} created");
     return match;
 
   }
