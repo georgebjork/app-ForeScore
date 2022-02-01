@@ -73,8 +73,13 @@ class DisplayPlayerScoresState extends State<DisplayPlayerScores> {
             itemCount: provider.match.players.length,
             itemBuilder: (BuildContext context, int index) {
               return ListTile(
-                leading: Text(provider.match.players[index].firstName),
-                title: Text(provider.match.rounds[index].HoleScores[provider.currentHole].score.toString()),
+                leading: Icon(Icons.account_circle),
+                title: Text(provider.getPlayerName(index), style: Theme.of(context).primaryTextTheme.headline3),
+                subtitle: Text("Strokes: " + provider.getStrokesGiven(index).toString()),
+                trailing: Text(
+                  "Gross: " + provider.getGrossScore(index).toString() + "   " +
+                  "Net: " + provider.getNetScore(index).toString(),
+                  style: Theme.of(context).primaryTextTheme.headline3),
                 onTap: () => showBarModalBottomSheet(
                   context: context, 
                   expand: true,

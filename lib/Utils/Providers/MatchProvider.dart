@@ -51,4 +51,20 @@ class MatchProvider extends ChangeNotifier{
     notifyListeners();   
 
   }
+
+  String getPlayerName(int index){
+    return match.players[index].firstName;
+  }
+
+  int getGrossScore(int index){
+    return match.rounds[index].HoleScores[currentHole].score;
+  }
+
+  int getNetScore(int index){
+    return match.rounds[index].HoleScores[currentHole].net;
+  }
+
+  int getStrokesGiven(int index){
+    return match.rounds[index].HoleScores[currentHole].strokes;
+  }
 }
