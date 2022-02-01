@@ -74,6 +74,7 @@ class API{
 
   Future<Match> addMatchPlayers(Match m, List<Player> players) async {
     Match match = m;
+    var res;
     
     for(int i = 0; i < players.length; i++){
 
@@ -81,8 +82,12 @@ class API{
       'id' : players[i].id.toString()
       });
 
-      var res = await post(Uri.parse(baseURL + "matches/" + m.id.toString() + "/player"), body: payLoad, headers: postHeaders);
+      res = await post(Uri.parse(baseURL + "matches/" + m.id.toString() + "/player"), body: payLoad, headers: postHeaders);
+      
     }
+
+    dynamic body = jsonDecode(res.body);
+    match = Match.fromJson(body);
 
     return match;
   }
@@ -116,11 +121,40 @@ class API{
       }
     });
 
-    match = res;
-    print("Match with id: ${match.id} created");
-    return match;
+    
+    print("Match with id: ${res.id} created");
+    return res;
 
   }
 
+  Future<Match> postHoleScore(int playerId, int holeId, int matchId, int score) async {
+    //https://tgin-api.azurewebsites.net/api/matches/{matchid}/players/{playerid}
 
+    var payLoad = jsonEncode({
+      'number' : '$holeId',
+      'score' : '$score'
+    });
+
+    var res = await post(Uri.parse(baseURL + "matches/$matchId/players/$playerId"), body: payLoad,
+      headers: {
+          "Accept": "application/json",
+          "content-type": "application/json"
+        },
+    ).then((response) {
+      if(response.statusCode == 200) {
+        print("Score posted");
+
+        var body = jsonDecode(response.body);
+
+        Match match = Match.fromJson(body);
+
+        return match;
+      } 
+      else{
+        throw Exception("Error posting score");
+      }
+    });
+
+    return res;
+  }
 }

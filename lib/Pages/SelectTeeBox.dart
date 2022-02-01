@@ -11,6 +11,7 @@ import '../Components/NavWidget.dart';
 import '../Utils/Providers/ThemeProvider.dart';
 import '../Utils/constants.dart';
 
+
 class SelectTeeBox extends StatefulWidget {
   @override
   SelectTeeBoxState createState() => SelectTeeBoxState();
@@ -48,9 +49,12 @@ class SelectTeeBoxState extends State<SelectTeeBox> {
               btn1onPressed: () => Navigator.pop(context),
               btn2text: 'Next',
               btn2onPressed: () async {
-                Match m = await provider.createMatch();
+                Match m = await service.getMatch(119);
+                //Match m = await provider.createMatch();
                 context.read<MatchProvider>().setMatch(m);
                 Navigator.pushNamedAndRemoveUntil(context, '/EnterScore', ModalRoute.withName('/home'));
+
+                context.showSnackBar(message: "Created Match id ${m.id}", backgroundColor: Colors.green);
               },
               btn3text: 'Cancel',
               btn3onPressed: () => Navigator.popUntil(context, ModalRoute.withName('/Home'))

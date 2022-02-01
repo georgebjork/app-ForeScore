@@ -38,6 +38,7 @@ dependencies:
   hexcolor: ^2.0.6
   supabase_flutter: ^0.2.11
   google_fonts: ^2.2.0
+  modal_bottom_sheet: ^2.0.0
 
 dev_dependencies:
   flutter_test:
