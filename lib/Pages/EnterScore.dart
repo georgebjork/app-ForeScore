@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:golf_app/Components/CheckBox.dart';
 import 'package:golf_app/Components/ScoreInputWidget.dart';
 import 'package:golf_app/Utils/Providers/MatchProvider.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
@@ -121,7 +122,7 @@ class ModalDataState extends State<ModalData> {
               //This will be to enter the gross score since we will always want that.
               Row(
                 children: [
-                  SizedBox(height: 60,),
+                  const SizedBox(height: 60,),
                   Text('Gross Score: ', style: Theme.of(context).primaryTextTheme.headline3),
                   
                   Expanded(child: Center()),
@@ -132,6 +133,43 @@ class ModalDataState extends State<ModalData> {
                     playerId: provider.match.players[widget.currentIndex].id,
                     matchId: provider.match.id,
                   ))
+                ],
+              ),
+
+              //This will be for all stats
+              const SizedBox(height: 10),
+              Text('Stats', style: Theme.of(context).primaryTextTheme.headline2),
+
+              const SizedBox(height: 10),
+              Text('Putts', style: Theme.of(context).primaryTextTheme.headline3),
+
+              const SizedBox(height: 10),
+              Row(
+                children: const [
+                  SizedBox(height: 10),
+                  CheckMarkBox(isChecked: false),
+                ],
+              ),
+
+              const SizedBox(height: 10),
+              Text('Fairway', style: Theme.of(context).primaryTextTheme.headline3),
+
+              const SizedBox(height: 10),
+              Row(
+                children: const [
+                  SizedBox(height: 10),
+                  CheckMarkBox(isChecked: false),
+                ],
+              ),
+
+              const SizedBox(height: 10),
+              Text('GIR', style: Theme.of(context).primaryTextTheme.headline3),
+
+              const SizedBox(height: 10),
+              Row(
+                children: const [
+                  SizedBox(height: 10),
+                  CheckMarkBox(isChecked: false),
                 ],
               )
             ],
