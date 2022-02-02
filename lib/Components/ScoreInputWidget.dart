@@ -36,7 +36,7 @@ class ScoreInputWidget extends StatelessWidget {
         )
       ),
 
-      onFieldSubmitted: (string) {
+      onChanged: (string) {
         print(_scoreController.text);
         matchProvider.postHoleScore(playerId, holeId, matchId, int.parse(_scoreController.text));
       },
