@@ -49,12 +49,16 @@ class SelectTeeBoxState extends State<SelectTeeBox> {
               btn1onPressed: () => Navigator.pop(context),
               btn2text: 'Next',
               btn2onPressed: () async {
-                Match m = await service.getMatch(119);
-                //Match m = await provider.createMatch();
-                context.read<MatchProvider>().setMatch(m);
-                Navigator.pushNamedAndRemoveUntil(context, '/EnterScore', ModalRoute.withName('/home'));
+                if(context.read<MatchSetUpProvider>().isTeeBoxSelected){
+                  Match m = await service.getMatch(119);
+                  //Match m = await provider.createMatch();
+                  context.read<MatchProvider>().setMatch(m);
+                  Navigator.pushNamedAndRemoveUntil(context, '/EnterScore', ModalRoute.withName('/home'));
 
-                context.showSnackBar(message: "Created Match id ${m.id}", backgroundColor: Colors.green);
+                  context.showSnackBar(message: "Created Match id ${m.id}", backgroundColor: Colors.green);
+                } else{
+                  context.showSnackBar(message: "A teebox must be selected", backgroundColor: Colors.red);
+                }
               },
               btn3text: 'Cancel',
               btn3onPressed: () => Navigator.popUntil(context, ModalRoute.withName('/Home'))

@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:golf_app/Components/CheckBox.dart';
 import 'package:golf_app/Utils/Providers/MatchSetUpProvider.dart';
 import 'package:golf_app/Utils/Providers/ThemeProvider.dart';
+import 'package:golf_app/Utils/constants.dart';
 import 'package:provider/provider.dart';
 
 import '../Components/NavWidget.dart';
@@ -44,7 +45,13 @@ class AddPlayersState extends State<AddPlayers> {
               btn1text: 'Prev',
               btn1onPressed: () => Navigator.pop(context),
               btn2text: 'Next',
-              btn2onPressed: () => Navigator.pushNamed(context, '/TeeBox'),
+              btn2onPressed: () {
+                if(context.read<MatchSetUpProvider>().selectedPlayers.isEmpty){
+                  context.showSnackBar(message: "At least one player must be selected", backgroundColor: Colors.red);
+                } else{
+                  Navigator.pushNamed(context, '/TeeBox');
+                }
+              }, 
               btn3text: 'Cancel',
               btn3onPressed: () => Navigator.popUntil(context, ModalRoute.withName('/Home'))
             ),

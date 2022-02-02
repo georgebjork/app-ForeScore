@@ -12,7 +12,10 @@ class MatchSetUpProvider extends ChangeNotifier {
   List<Player> selectedPlayers = [];
 
   Course selectedCourse = Course(-1, "null");
-  TeeBox selectedTeeBox = TeeBox(-1, -1, 'null', -1, -1, -1, -1, -1);
+  bool isCourseSelected = false;
+
+  TeeBox selectedTeeBox = TeeBox(-1, -1, "null", -1, -1, -1, -1, -1);
+  bool isTeeBoxSelected = false;
 
   List<Course> favoriteCourses = [];
 
@@ -25,10 +28,12 @@ class MatchSetUpProvider extends ChangeNotifier {
 
   void setCourse(Course c){
     selectedCourse = c;
+    isCourseSelected = true;
   }
 
   void setTeeBox(TeeBox t){
     selectedTeeBox = t;
+    isTeeBoxSelected = true;
   }
 
   void addPlayer(Player p){
