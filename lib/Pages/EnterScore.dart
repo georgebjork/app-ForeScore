@@ -37,12 +37,17 @@ class EnterScoreState extends State<EnterScore> {
                 Expanded(
                   child: DisplayPlayerScores(),
                 ),
-        
+
+                
                 NavWidget(
                   btn1text: 'Prev',
                   btn1onPressed: () => provider.prevHole(),
-                  btn2text: 'Next',
-                  btn2onPressed: () => provider.nextHole(),
+
+
+                  btn2text: provider.currentHole == 17 ? 'Finish' : 'Next',
+                  btn2onPressed: provider.currentHole == 17 ? () => Navigator.pushNamed(context, '/Home') : () => provider.nextHole(),
+
+
                   btn3text: 'Cancel',
                   btn3onPressed: () {}
                 ),
@@ -140,6 +145,7 @@ class ModalDataState extends State<ModalData> {
               const SizedBox(height: 10),
               Text('Stats', style: Theme.of(context).primaryTextTheme.headline2),
 
+              //Track Putts
               const SizedBox(height: 10),
               Text('Putts', style: Theme.of(context).primaryTextTheme.headline3),
 
@@ -151,6 +157,7 @@ class ModalDataState extends State<ModalData> {
                 ],
               ),
 
+              //Track fairways
               const SizedBox(height: 10),
               Text('Fairway', style: Theme.of(context).primaryTextTheme.headline3),
 
@@ -162,6 +169,8 @@ class ModalDataState extends State<ModalData> {
                 ],
               ),
 
+
+              //Track gir's 
               const SizedBox(height: 10),
               Text('GIR', style: Theme.of(context).primaryTextTheme.headline3),
 
