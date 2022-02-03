@@ -189,3 +189,10 @@ class ModalDataState extends State<ModalData> {
 }
 
 
+/*
+
+  Match m = await service.getMatch(119);
+  //Match m = await provider.createMatch();
+  context.read<MatchProvider>().setMatch(m);
+  Navigator.pushNamedAndRemoveUntil(context, '/EnterScore', ModalRoute.withName('/home'));
+*/

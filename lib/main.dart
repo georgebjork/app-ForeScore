@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:golf_app/Pages/EnterScore.dart';
+import 'package:golf_app/Pages/SelectGame.dart';
 import 'package:golf_app/Pages/SelectTeeBox.dart';
 import 'package:golf_app/Utils/Providers/MatchSetUpProvider.dart';
 import 'package:golf_app/Utils/Providers/MatchProvider.dart';
@@ -51,6 +52,7 @@ class MyApp extends StatelessWidget {
         '/SelectCourse' : (_) => SelectCourse(),
         '/TeeBox' : (_) => SelectTeeBox(),
         '/EnterScore' : (_) => EnterScore(),
+        '/SelectGame' : (_) => SelectGame(),
       }
     );
   }
