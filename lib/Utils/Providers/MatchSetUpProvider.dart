@@ -1,5 +1,6 @@
 
 import 'package:flutter/cupertino.dart';
+import 'package:golf_app/Utils/Game.dart';
 import 'package:golf_app/Utils/Match.dart';
 import 'package:golf_app/Utils/Player.dart';
 import 'package:golf_app/Utils/TeeBox.dart';
@@ -16,6 +17,9 @@ class MatchSetUpProvider extends ChangeNotifier {
 
   TeeBox selectedTeeBox = TeeBox(-1, -1, "null", -1, -1, -1, -1, -1);
   bool isTeeBoxSelected = false;
+
+  List<Game> games = [Game(3, 'Skins'), Game(4, 'Nassau')];
+  List<Game> selectedGames = []; 
 
   List<Course> favoriteCourses = [];
 
@@ -57,9 +61,8 @@ class MatchSetUpProvider extends ChangeNotifier {
   }
 
   Future<Match> createMatch() async {
-    List<int> g =  [3, 4];
 
-    Match m = await service.createMatch(selectedTeeBox.id, g, selectedPlayers);
+    Match m = await service.createMatch(selectedTeeBox.id, selectedGames, selectedPlayers);
 
     return m;
   }

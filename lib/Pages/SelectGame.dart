@@ -1,10 +1,14 @@
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:golf_app/Components/CheckBox.dart';
+import 'package:golf_app/Utils/Match.dart';
 import 'package:golf_app/Utils/Providers/MatchSetUpProvider.dart';
 import 'package:provider/provider.dart';
 
 import '../Components/NavWidget.dart';
+import '../Utils/Providers/MatchProvider.dart';
+import '../Utils/constants.dart';
 
 class SelectGame extends StatefulWidget {
   @override
@@ -40,8 +44,15 @@ class SelectGameState extends State<SelectGame> {
             NavWidget(
               btn1text: 'Prev',
               btn1onPressed: () => Navigator.pop(context),
+
               btn2text: 'Next',
-              btn2onPressed: () {},
+              btn2onPressed: () async {
+                //Match m = await service.getMatch(119);
+                Match m = await context.read<MatchSetUpProvider>().createMatch();
+                context.read<MatchProvider>().setMatch(m);
+                Navigator.pushNamedAndRemoveUntil(context, '/EnterScore', ModalRoute.withName('/home'));
+              },
+
               btn3text: 'Cancel',
               btn3onPressed: () => Navigator.popUntil(context, ModalRoute.withName('/Home'))
             ),
@@ -65,13 +76,24 @@ class GamesState extends State<Games> {
       child: Consumer<MatchSetUpProvider> (
         builder: (context, provider, child) {
           return ListView.separated(
-            itemCount: provider.selectedCourse.teeboxes.length,
+            itemCount: provider.games.length,
             separatorBuilder: (context, index) => const Divider(
               color: Colors.black,
             ),
             shrinkWrap: true,
             itemBuilder: (BuildContext context, int index) {
-            return ListTile();
+            return ListTile(
+              leading: provider.selectedGames.contains(provider.games[index]) ? const CheckMarkBox(isChecked: true) : const CheckMarkBox(isChecked: false),
+              title: Text(provider.games[index].name, style: Theme.of(context).primaryTextTheme.headline4),
+              onTap: () {
+                if(provider.selectedGames.contains(provider.games[index])){
+                  provider.selectedGames.remove(provider.games[index]);
+                } else {
+                  provider.selectedGames.add(provider.games[index]);
+                }
+                setState(() {});
+              },
+            );
           },
         );},
       ),

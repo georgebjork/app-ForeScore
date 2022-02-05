@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:golf_app/Utils/Course.dart';
+import 'package:golf_app/Utils/Game.dart';
 import 'package:golf_app/Utils/TeeBox.dart';
 
 import '../Player.dart';
@@ -72,6 +73,24 @@ class API{
     return match;
   }
 
+  Future<Match> addMatchGames(Match m, List<Game> games) async {
+    Match match = m;
+    var res;
+
+    for(int i = 0; i < games.length; i++){
+      var payLoad = jsonEncode({
+        'id' : games[i].id.toString()
+      });
+
+      res = await post(Uri.parse(baseURL + "/matches/${match.id}/game"), body: payLoad, headers: postHeaders);
+    }
+
+    dynamic body = jsonDecode(res.body);
+    match = Match.fromJson(body);
+
+    return match;
+  }
+
   Future<Match> addMatchPlayers(Match m, List<Player> players) async {
     Match match = m;
     var res;
@@ -93,7 +112,7 @@ class API{
   }
 
 
-  Future<Match> createMatch(int teeboxId, List<int>gameIds, List<Player> players) async {
+  Future<Match> createMatch(int teeboxId, List<Game>games, List<Player> players) async {
     Match match;
     dynamic body;
 
@@ -114,6 +133,7 @@ class API{
         match = Match.fromJson(body);
 
         match = await addMatchPlayers(match, players);
+        match = await addMatchGames(match, games);
         return match;
       } 
       else{
