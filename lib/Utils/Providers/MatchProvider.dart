@@ -67,4 +67,13 @@ class MatchProvider extends ChangeNotifier{
   int getStrokesGiven(int index){
     return match.rounds[index].HoleScores[currentHole].strokes;
   }
+
+  dynamic getPlayerCurrentWinnings(int playerId, holeId){
+    //Total to be returned
+    dynamic total = 0;
+    //Find all elements given a player and hole id, convert to list and for each element in that list, get the sum
+    match.gamePlayerPoints.where((element) => element.playerId == playerId && element.holeNumber! <= holeId).toList().forEach((element) => total += element.value);
+    //Return the total
+    return total;
+  }
 }

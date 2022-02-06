@@ -35,7 +35,18 @@ class EnterScoreState extends State<EnterScore> {
                 const SizedBox(height: 10,),
         
                 Expanded(
-                  child: DisplayPlayerScores(),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text('Scores', style: Theme.of(context).primaryTextTheme.headline3),
+                      DisplayPlayerScores(),
+
+                      const SizedBox(height: 10),
+
+                      Text('Leaderboard', style: Theme.of(context).primaryTextTheme.headline3),
+                      DisplayLeaderBoard(),
+                    ],
+                  ),
                 ),
 
                 
@@ -92,6 +103,39 @@ class DisplayPlayerScoresState extends State<DisplayPlayerScores> {
                   backgroundColor: Colors.transparent,
                   builder: (context) => ModalData(currentIndex: index)
                 )
+              );
+            },
+          );
+        }
+      ),
+    );
+  }
+}
+
+class DisplayLeaderBoard extends StatefulWidget {
+
+  DisplayLeaderBoardState createState() => DisplayLeaderBoardState();
+}
+
+class DisplayLeaderBoardState extends State<DisplayLeaderBoard> {
+  Widget build(context){
+    return Container(
+      child: Consumer<MatchProvider> (
+        builder: (context, provider, child) {
+          return ListView.separated(
+            separatorBuilder: (context, index) => const Divider(
+              color: Colors.black,
+            ),
+            shrinkWrap: true, 
+            itemCount: provider.match.players.length,
+            itemBuilder: (BuildContext context, int index) {
+              return ListTile(
+                leading: Icon(Icons.account_circle),
+                title: Text(provider.getPlayerName(index), style: Theme.of(context).primaryTextTheme.headline3),
+                trailing: Text(
+                  "Winnings: \$" + provider.getPlayerCurrentWinnings(provider.match.players[index].id, provider.currentHole+1).toString(),
+                  style: Theme.of(context).primaryTextTheme.headline3
+                ),
               );
             },
           );
