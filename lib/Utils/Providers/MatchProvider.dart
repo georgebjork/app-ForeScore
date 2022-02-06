@@ -41,9 +41,10 @@ class MatchProvider extends ChangeNotifier{
     match = m;
   }
 
-  void postHoleScore(int playerId, int holeId, int matchId, int score) async {
-    //First post the hole score to the db
-    final updatedMatch = await service.postHoleScore(playerId, holeId, matchId, score);
+  //This function will post a hole to the database
+  void postHoleScore(int playerId, int score) async {
+    //This will tell the api call to post the score
+    final updatedMatch = await service.postHoleScore(playerId, currentHole, match.id, score);
 
     //Then update the local match
     match = updatedMatch;

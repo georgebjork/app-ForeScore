@@ -34,20 +34,15 @@ class EnterScoreState extends State<EnterScore> {
                 Text(provider.displayHoleDetails(), style: Theme.of(context).primaryTextTheme.headline4),
                 const SizedBox(height: 10,),
         
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text('Scores', style: Theme.of(context).primaryTextTheme.headline3),
-                      DisplayPlayerScores(),
+          
+                Text('Scores', style: Theme.of(context).primaryTextTheme.headline3),
+                DisplayPlayerScores(),
 
-                      const SizedBox(height: 10),
+                const SizedBox(height: 10),
 
-                      Text('Leaderboard', style: Theme.of(context).primaryTextTheme.headline3),
-                      DisplayLeaderBoard(),
-                    ],
-                  ),
-                ),
+                Text('Leaderboard', style: Theme.of(context).primaryTextTheme.headline3),
+                DisplayLeaderBoard(),
+                    
 
                 
                 NavWidget(
@@ -79,7 +74,7 @@ class DisplayPlayerScores extends StatefulWidget {
 
 class DisplayPlayerScoresState extends State<DisplayPlayerScores> {
   Widget build(context){
-    return Container(
+    return Expanded(
       child: Consumer<MatchProvider> (
         builder: (context, provider, child) {
           return ListView.separated(
@@ -119,7 +114,7 @@ class DisplayLeaderBoard extends StatefulWidget {
 
 class DisplayLeaderBoardState extends State<DisplayLeaderBoard> {
   Widget build(context){
-    return Container(
+    return Expanded(
       child: Consumer<MatchProvider> (
         builder: (context, provider, child) {
           return ListView.separated(
@@ -178,9 +173,7 @@ class ModalDataState extends State<ModalData> {
         
                   Container(width: 50, height: 30, child: ScoreInputWidget(
                     hintText: provider.match.rounds[widget.currentIndex].HoleScores[provider.currentHole].score.toString(),
-                    holeId: provider.currentHole+1,
                     playerId: provider.match.players[widget.currentIndex].id,
-                    matchId: provider.match.id,
                   ))
                 ],
               ),

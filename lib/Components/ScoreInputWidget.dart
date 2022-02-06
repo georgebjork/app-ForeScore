@@ -8,16 +8,12 @@ class ScoreInputWidget extends StatelessWidget {
 
   final String hintText;
   final _scoreController = TextEditingController();
-  final int holeId;
   final int playerId;
-  final int matchId;
-
+ 
   ScoreInputWidget({
     Key? key,
     required this.hintText,
-    required this.holeId,
     required this.playerId,
-    required this.matchId,
   }) : super(key: key);
 
   Widget build(BuildContext context){
@@ -38,7 +34,7 @@ class ScoreInputWidget extends StatelessWidget {
 
       onChanged: (string) {
         print(_scoreController.text);
-        matchProvider.postHoleScore(playerId, holeId, matchId, int.parse(_scoreController.text));
+        matchProvider.postHoleScore(playerId, int.parse(_scoreController.text));
       },
     );
   }
