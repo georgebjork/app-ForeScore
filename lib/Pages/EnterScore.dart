@@ -26,40 +26,44 @@ class EnterScoreState extends State<EnterScore> {
           return Container(
             padding: const EdgeInsets.only(left: 20.0, right: 20.0),
             child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(provider.match.course.name, style: Theme.of(context).primaryTextTheme.headline3),
-                const SizedBox(height: 5,),
-                Text(provider.displayCurrentHole(), style: Theme.of(context).primaryTextTheme.headline2),
-                Text(provider.displayHoleDetails(), style: Theme.of(context).primaryTextTheme.headline4),
-                const SizedBox(height: 10,),
-        
-          
-                Text('Scores', style: Theme.of(context).primaryTextTheme.headline3),
-                DisplayPlayerScores(),
-
-                const SizedBox(height: 10),
-
-                Text('Leaderboard', style: Theme.of(context).primaryTextTheme.headline3),
-                DisplayLeaderBoard(),
-                    
-
+                Expanded(
+                  child: ListView(
+                    // crossAxisAlignment: CrossAxisAlignment.start,
+                    physics: BouncingScrollPhysics(),
+                    children: [
+                      Text(provider.match.course.name, style: Theme.of(context).primaryTextTheme.headline3),
+                      const SizedBox(height: 5),
+                      Text(provider.displayCurrentHole(), style: Theme.of(context).primaryTextTheme.headline2),
+                      Text(provider.displayHoleDetails(), style: Theme.of(context).primaryTextTheme.headline4),
+                      const SizedBox(height: 10),
+                        
+                          
+                      Text('Scores', style: Theme.of(context).primaryTextTheme.headline3),
+                      DisplayPlayerScores(),
                 
+                      const SizedBox(height: 10),
+                
+                      Text('Leaderboard', style: Theme.of(context).primaryTextTheme.headline3),
+                      DisplayLeaderBoard(),
+                      
+                    ]
+                  ),
+                ),
+
                 NavWidget(
                   btn1text: 'Prev',
                   btn1onPressed: () => provider.prevHole(),
-
-
+            
                   btn2text: provider.currentHole == 17 ? 'Finish' : 'Next',
                   btn2onPressed: provider.currentHole == 17 ? () => Navigator.pushNamed(context, '/Home') : () => provider.nextHole(),
-
-
+          
                   btn3text: 'Cancel',
                   btn3onPressed: () {}
                 ),
                 
                 const SizedBox(height: 30)
-              ]
+              ],
             ),
           );
         }),
@@ -74,13 +78,14 @@ class DisplayPlayerScores extends StatefulWidget {
 
 class DisplayPlayerScoresState extends State<DisplayPlayerScores> {
   Widget build(context){
-    return Expanded(
+    return Container(
       child: Consumer<MatchProvider> (
         builder: (context, provider, child) {
           return ListView.separated(
             separatorBuilder: (context, index) => const Divider(
               color: Colors.black,
             ),
+            physics: ClampingScrollPhysics(),
             shrinkWrap: true, 
             itemCount: provider.match.players.length,
             itemBuilder: (BuildContext context, int index) {
@@ -114,13 +119,14 @@ class DisplayLeaderBoard extends StatefulWidget {
 
 class DisplayLeaderBoardState extends State<DisplayLeaderBoard> {
   Widget build(context){
-    return Expanded(
+    return Container(
       child: Consumer<MatchProvider> (
         builder: (context, provider, child) {
           return ListView.separated(
             separatorBuilder: (context, index) => const Divider(
               color: Colors.black,
             ),
+            physics: ClampingScrollPhysics(),
             shrinkWrap: true, 
             itemCount: provider.match.players.length,
             itemBuilder: (BuildContext context, int index) {
