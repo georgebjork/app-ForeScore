@@ -91,6 +91,7 @@ class FavoriteCoursesState extends State<FavoriteCourses> {
                 separatorBuilder: (context, index) => const Divider(
                   color: Colors.black,
                 ),
+                physics: BouncingScrollPhysics(),
                 shrinkWrap: true,
                 itemCount: provider.favoriteCourses.length,
                 itemBuilder: (BuildContext context, int index) {

@@ -80,6 +80,7 @@ class GamesState extends State<Games> {
             separatorBuilder: (context, index) => const Divider(
               color: Colors.black,
             ),
+            physics: BouncingScrollPhysics(),
             shrinkWrap: true,
             itemBuilder: (BuildContext context, int index) {
             return ListTile(

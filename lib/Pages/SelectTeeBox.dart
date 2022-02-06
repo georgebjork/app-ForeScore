@@ -82,6 +82,7 @@ class TeeBoxSelectionState extends State<TeeBoxSelection> {
             separatorBuilder: (context, index) => const Divider(
               color: Colors.black,
             ),
+            physics: BouncingScrollPhysics(),
             shrinkWrap: true,
             itemBuilder: (BuildContext context, int index) {
               return ListTile(

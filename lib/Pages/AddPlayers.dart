@@ -91,6 +91,7 @@ class FriendsState extends State<Friends> {
                 separatorBuilder: (context, index) => const Divider(
                   color: Colors.black,
                 ),
+                physics: BouncingScrollPhysics(),
                 shrinkWrap: true,
                 itemCount: provider.friends.length,
                 itemBuilder: (BuildContext context, int index) {
