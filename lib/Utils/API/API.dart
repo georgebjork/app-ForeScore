@@ -73,48 +73,63 @@ class API{
     return match;
   }
 
-  Future<Match> addMatchGames(Match m, List<Game> games) async {
-    Match match = m;
+  Future<Response> addMatchGames(Match m, List<Game> games) async {
+    //This will hold the final response
     var res;
 
     for(int i = 0; i < games.length; i++){
+      //Create payload
       var payLoad = jsonEncode({
         'id' : games[i].id.toString()
       });
-
-      res = await post(Uri.parse(baseURL + "/matches/${match.id}/game"), body: payLoad, headers: postHeaders);
+      //Post request
+      res = await post(Uri.parse(baseURL + "/matches/${m.id}/game"), 
+        body: payLoad, 
+        headers: postHeaders
+      ).then((response){
+        //If status code is 200 then return that response
+        if(response.statusCode == 200){
+          return response;
+        } 
+        else{
+          throw Exception("Error adding players to the match");
+        }
+      });
     }
-
-    dynamic body = jsonDecode(res.body);
-    match = Match.fromJson(body);
-
-    return match;
+    //Return res
+    return res;
   }
 
-  Future<Match> addMatchPlayers(Match m, List<Player> players) async {
-    Match match = m;
+  Future<Response> addMatchPlayers(Match m, List<Player> players) async {
+    //This will hold our response
     var res;
     
     for(int i = 0; i < players.length; i++){
-
-      var payLoad = jsonEncode({
-      'id' : players[i].id.toString()
+      //This will hold the payload
+      var payLoad = jsonEncode({  
+      'id' : '${players[i].id}'
       });
-
-      res = await post(Uri.parse(baseURL + "matches/" + m.id.toString() + "/player"), body: payLoad, headers: postHeaders);
-      
+      //Post request
+      res = await post(Uri.parse(baseURL + "matches/${m.id}/player"), 
+        body: payLoad, 
+        headers: postHeaders
+      ).then((response){
+        if(response.statusCode == 200){
+          //If response is 200 then return response
+          return response;
+        } 
+        else{
+          throw Exception("Error adding players to the match");
+        }
+      });
     }
-
-    dynamic body = jsonDecode(res.body);
-    match = Match.fromJson(body);
-
-    return match;
+    //Return res
+    return res;
   }
 
 
   Future<Match> createMatch(int teeboxId, List<Game>games, List<Player> players) async {
     Match match;
-    dynamic body;
 
     //Create the match
     var payLoad = jsonEncode({
@@ -127,23 +142,37 @@ class API{
           "content-type": "application/json"
         },
     ).then((response) async {
+      //Once we get a response, check the status code for a 200 code
       if(response.statusCode == 200){
-        body = jsonDecode(response.body);
-
-        match = Match.fromJson(body);
-
-        match = await addMatchPlayers(match, players);
-        match = await addMatchGames(match, games);
-        return match;
+        //If we get a 200 take the response and extract just the body and convert into a match
+        match = Match.fromJson(jsonDecode(response.body));
+        //Now we should add the players and get a repsonse back from our function.
+        var res = await addMatchPlayers(match, players);
+        //Return the response
+        return res;
+      } 
+      else{
+        //Throw an error
+        throw Exception("Error creating match");
+      }
+    }).then((response) async {
+      //Once we get a response returned from the previous statment, check the status code for a 200 code
+      if(response.statusCode == 200){
+        //If we get a 200 take the response and extract just the body and convert into a match
+        match = Match.fromJson(jsonDecode(response.body));
+        //Get a response from our function
+        var res = addMatchGames(match, games);
+        //Return the response
+        return res;
       } 
       else{
         throw Exception("Error creating match");
       }
     });
 
-    
-    print("Match with id: ${res.id} created");
-    return res;
+    match = Match.fromJson(jsonDecode(res.body));
+    print("Match with id: ${match.id} created");
+    return match;
 
   }
 
