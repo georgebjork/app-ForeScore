@@ -1,5 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:golf_app/Utils/Match.dart';
+import 'package:golf_app/Utils/ViewMatchArgs.dart';
 import 'package:golf_app/Utils/all.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:provider/provider.dart';
@@ -35,10 +37,15 @@ class HomeState extends State<Home> {
                 child: NavWidget(
                   btn1text: 'Stats',
                   btn1Color: themeProvider.getTan(),
-                  btn1onPressed: () => service.getMatch(119),
+                  btn1onPressed: () async {
+                    Match m = await service.getMatch(119);
+                    Navigator.pushNamed(context, '/ViewMatch', arguments: ViewMatchArgs(m));
+                  },
+
                   btn2text: 'Friends',
                   btn2Color: themeProvider.getTan(),
                   btn2onPressed: () {},
+
                   btn3text: 'Start Round',
                   btn3Color: themeProvider.getOrange(),
                   btn3onPressed: () => Navigator.pushNamed(context, '/SelectCourse'),
