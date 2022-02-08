@@ -1,3 +1,5 @@
+import 'package:flutter/material.dart';
+
 import '../Utils/Round.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:charts_flutter/flutter.dart' as charts;
@@ -5,7 +7,9 @@ import 'package:charts_flutter/flutter.dart' as charts;
 class ScoreStats {
   String type;
   int number;
-  ScoreStats(this.type, this.number);
+  charts.Color color;
+  ScoreStats(this.type, this.number, this.color);
+  
 }
 
 class PieChartStats extends StatefulWidget {
@@ -23,17 +27,17 @@ class PieChartStatsState extends State<PieChartStats> {
   List<charts.Series<ScoreStats, String>> chartData = [];
 
   void getData(){
-    data.add(ScoreStats('Eagles', widget.round.Stats.eagles));
-    data.add(ScoreStats('Birdies', widget.round.Stats.birdies));
-    data.add(ScoreStats('Par', widget.round.Stats.pars));
-    data.add(ScoreStats('Bogeys', widget.round.Stats.bogeys));
-    data.add(ScoreStats('Doubles', widget.round.Stats.doubles));
-    data.add(ScoreStats('Triples', widget.round.Stats.triples));
-    data.add(ScoreStats('Worse', widget.round.Stats.worse));
+    data.add(ScoreStats('Eagles', widget.round.Stats.eagles,  charts.ColorUtil.fromDartColor(Colors.purple.shade100)));
+    data.add(ScoreStats('Birdies', widget.round.Stats.birdies, charts.ColorUtil.fromDartColor(Colors.lightGreen.shade500)));
+    data.add(ScoreStats('Par', widget.round.Stats.pars, charts.ColorUtil.fromDartColor(Colors.lightGreen.shade200)));
+    data.add(ScoreStats('Bogeys', widget.round.Stats.bogeys, charts.ColorUtil.fromDartColor(Colors.orange.shade200)));
+    data.add(ScoreStats('Doubles', widget.round.Stats.doubles, charts.ColorUtil.fromDartColor(Colors.grey.shade400)));
+    data.add(ScoreStats('Triples', widget.round.Stats.triples, charts.ColorUtil.fromDartColor(Colors.grey.shade400)));
+    data.add(ScoreStats('Worse', widget.round.Stats.worse, charts.ColorUtil.fromDartColor(Colors.grey.shade400)));
 
     chartData.add(charts.Series(
       id: 'Stats',
-      colorFn: (_,__) =>charts.MaterialPalette.green.shadeDefault,
+      colorFn: (ScoreStats s, _) => s.color,
       data: data,
       domainFn: (ScoreStats s, _) => s.type,
       measureFn: (ScoreStats s, _) => s.number,
@@ -50,6 +54,6 @@ class PieChartStatsState extends State<PieChartStats> {
 
 
    Widget build(BuildContext context) {
-     return charts.PieChart(chartData, animate: true,);
+     return charts.PieChart(chartData, animate: true);
    }
 }
