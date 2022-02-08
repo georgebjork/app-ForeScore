@@ -32,7 +32,6 @@ class RoundStats {
 
 
   factory RoundStats.fromJson(dynamic res){
-    print('test');
     return RoundStats.fromRoundStats(
       roundId: res['roundId'],
       eagles: res['eagles'],

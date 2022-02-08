@@ -51,9 +51,27 @@ class ViewMatch extends StatelessWidget {
                   
                   const SizedBox(height: 10),
                   ScorecardMatchWidget(match: args.match),
-          
-                  Container(height: 500, width: 500, child: PieChartStats(round: args.match.rounds[0]))
-                  
+        
+
+                  const SizedBox(height: 10),
+                  ListView.builder(
+                    physics: ClampingScrollPhysics(),
+                     shrinkWrap: true, 
+                    itemCount: args.match.rounds.length,
+                    
+                    itemBuilder: (BuildContext context, int index) {
+                      return Card(
+                        child: ExpansionTile(
+                          title: Text(args.match.players[index].name.toString()),
+                          children: [
+                            Container(height: 200, width: 200, child: PieChartStats(round: args.match.rounds[index])),
+                          ],
+                        ),
+                      );
+                    }  
+                  ),
+
+                  SizedBox(height: 30,),
                 ]
               )
             ),
