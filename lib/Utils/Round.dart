@@ -38,7 +38,7 @@ class Round {
   List<HoleScore> FrontHoleScores;
   List<HoleScore> BackHoleScores;
   List<Hole> Holes;
-  //RoundStats Stats;
+  RoundStats Stats;
 
   Round(
     this.id,
@@ -71,7 +71,7 @@ class Round {
     this.FrontHoleScores,
     this.BackHoleScores,
     this.Holes,
-    //this.Stats
+    this.Stats
   );
 
   Round.fromRound({
@@ -105,7 +105,7 @@ class Round {
     required this.BackHoleScores,
     required this.FrontHoleScores,
     required this.Holes,
-    //required this.Stats
+    required this.Stats
   });
 
   factory Round.fromJson(dynamic res) {
@@ -113,6 +113,7 @@ class Round {
     List<dynamic> fhs = res['frontHoleScores'];
     List<dynamic> bhs = res['backHoleScores'];
     List<dynamic> h = res['holes'];
+
     return Round.fromRound(
       id: res['id'],
       Year: res['year'],
@@ -144,6 +145,7 @@ class Round {
       FrontHoleScores: fhs.map((e) => HoleScore.fromJson(e)).toList(),
       BackHoleScores: bhs.map((e) => HoleScore.fromJson(e)).toList(),
       Holes: h.map((e) => Hole.fromJson(e)).toList(),
+      Stats: RoundStats.fromJson(res['stats'])
     );
   }
 }

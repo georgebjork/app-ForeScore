@@ -1,10 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:golf_app/Components/PieChartStats.dart';
 import 'package:golf_app/Components/ScorecardMatchWidget.dart';
 import 'package:golf_app/Utils/Providers/MatchSetUpProvider.dart';
 import 'package:golf_app/Utils/ViewMatchArgs.dart';
 import '../Utils/Match.dart';
 import 'package:provider/provider.dart';
+
 
 
 
@@ -24,6 +26,8 @@ class ViewMatch extends StatelessWidget {
       return str.substring(0, str.length-2);
     }
 
+
+
     return Scaffold(
       appBar: AppBar(
         elevation: 0.0,
@@ -38,17 +42,23 @@ class ViewMatch extends StatelessWidget {
               child: ListView(
                 physics: BouncingScrollPhysics(),
                 children: [
+                  
                   Text(args.match.course.name, style: Theme.of(context).primaryTextTheme.headline2),
                   Text("Date: ", style: Theme.of(context).primaryTextTheme.headline3),
                   const SizedBox(height: 5),
                   Text("Players: " + getPlayers(), style: Theme.of(context).primaryTextTheme.headline3),
                   
-
+                  
                   const SizedBox(height: 10),
-                  ScorecardMatchWidget(match: args.match)
+                  ScorecardMatchWidget(match: args.match),
+          
+                  Container(height: 500, width: 500, child: PieChartStats(round: args.match.rounds[0]))
+                  
                 ]
               )
-            )
+            ),
+           
+
           ]
         ),
       ),
