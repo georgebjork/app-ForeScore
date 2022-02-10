@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import '../Utils/Round.dart';
 import '../Utils/Match.dart';
 
+import 'package:syncfusion_flutter_datagrid/datagrid.dart';
+
 class ScorecardMatchWidget extends StatelessWidget {
 
   final Match match;
@@ -13,16 +15,83 @@ class ScorecardMatchWidget extends StatelessWidget {
     required this.match
   }) : super(key: key);
 
+  ScoreCardSourceData getSourceData() {
+    return ScoreCardSourceData(match: match);
+  }
   
   Widget build(BuildContext context){
     return Container(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-          SingleChildScrollView(
-            scrollDirection: Axis.horizontal,
-            physics: const BouncingScrollPhysics(),
-            child: Column(
+      child: SfDataGrid(
+        horizontalScrollPhysics: BouncingScrollPhysics(),
+        verticalScrollPhysics: BouncingScrollPhysics(),
+        source: getSourceData(), 
+        columns: [
+          GridColumn(
+            columnName: 'Hole',
+            label: Container(
+              padding: EdgeInsets.symmetric(horizontal: 16.0),
+              alignment: Alignment.center,
+              child: const Text(
+                'Hole',
+                overflow: TextOverflow.ellipsis,
+              )
+            )
+          ),
+          GridColumn(
+            columnName: 'Par',
+            label: Container(
+              padding: EdgeInsets.symmetric(horizontal: 16.0),
+              alignment: Alignment.center,
+              child: const Text(
+                'Par',
+                overflow: TextOverflow.ellipsis,
+              )
+            )
+          ),
+        ] + match.players.map((e) => GridColumn(
+          columnName: e.id.toString(), 
+          label: Container( 
+            padding: EdgeInsets.symmetric(horizontal: 16.0),
+            alignment: Alignment.center,
+            child: Text(e.firstName, overflow: TextOverflow.ellipsis),
+          )
+        )).toList(),
+      ) 
+    );
+  }
+}
+
+class ScoreCardSourceData extends DataGridSource{
+  List<DataGridRow> dataGridRows = [];
+
+  ScoreCardSourceData({required Match match}) {
+    dataGridRows = match.course.teeboxes[0].holes.map((e) => DataGridRow(cells: [
+        DataGridCell<int>(columnName: 'Hole', value: e.number),
+        DataGridCell<int>(columnName: 'Par', value: e.par)
+      ] + match.rounds.map((r) => DataGridCell(columnName: r.PlayerId.toString(), value: r.HoleScores[e.number-1].score)).toList()
+    )).toList();
+  }
+
+  @override
+  List<DataGridRow> get rows => dataGridRows;
+
+  @override
+  DataGridRowAdapter? buildRow(DataGridRow row) {
+    return DataGridRowAdapter(
+        cells: row.getCells().map<Widget>((dataGridCell) {
+      return Container(
+          alignment: Alignment.center,
+          padding: EdgeInsets.symmetric(horizontal: 16.0),
+          child: Text(
+            dataGridCell.value.toString(),
+            overflow: TextOverflow.ellipsis,
+          ));
+    }).toList());
+  }
+}
+
+/*
+Column(
               children: [
                 DataTable(
                   showBottomBorder: true,
@@ -122,8 +191,5 @@ class ScorecardMatchWidget extends StatelessWidget {
                 )
               ],
             ),
-          )          
-      ]),
-    );
-  }
-}
+
+*/
