@@ -26,8 +26,6 @@ class ViewMatch extends StatelessWidget {
       return str.substring(0, str.length-2);
     }
 
-
-
     return Scaffold(
       appBar: AppBar(
         elevation: 0.0,
