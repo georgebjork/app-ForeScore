@@ -50,7 +50,7 @@ class SelectGameState extends State<SelectGame> {
                 //Match m = await service.getMatch(119);
                 Match m = await context.read<MatchSetUpProvider>().createMatch();
                 context.read<MatchProvider>().setMatch(m);
-                Navigator.pushNamedAndRemoveUntil(context, '/EnterScore', ModalRoute.withName('/home'));
+                Navigator.pushNamedAndRemoveUntil(context, '/EnterScore', ModalRoute.withName('/Home'));
               },
 
               btn3text: 'Cancel',
