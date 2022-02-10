@@ -17,8 +17,8 @@ class ScorecardMatchWidget extends StatelessWidget {
     required this.match
   }) : super(key: key);
 
-  ScoreCardSourceData getSourceData() {
-    return ScoreCardSourceData(match: match);
+  ScoreCardSourceData getSourceData(BuildContext context) {
+    return ScoreCardSourceData(match: match, context: context);
   }
   
   Widget build(BuildContext context){
@@ -31,7 +31,7 @@ class ScorecardMatchWidget extends StatelessWidget {
         child: SfDataGrid(
           horizontalScrollPhysics: BouncingScrollPhysics(),
           verticalScrollPhysics: BouncingScrollPhysics(),
-          source: getSourceData(), 
+          source: getSourceData(context), 
           frozenColumnsCount: 1,
           columns: [
             GridColumn(
@@ -39,29 +39,29 @@ class ScorecardMatchWidget extends StatelessWidget {
               label: Container(
                 padding: EdgeInsets.symmetric(horizontal: 16.0),
                 alignment: Alignment.center,
-                child: const Text(
+                child: Text(
                   'Hole',
                   overflow: TextOverflow.ellipsis,
+                  style: Theme.of(context).primaryTextTheme.headline3),
                 )
-              )
-            ),
+              ),
             GridColumn(
               columnName: 'Par',
               label: Container(
                 padding: EdgeInsets.symmetric(horizontal: 16.0),
                 alignment: Alignment.center,
-                child: const Text(
+                child: Text(
                   'Par',
                   overflow: TextOverflow.ellipsis,
+                  style: Theme.of(context).primaryTextTheme.headline3),
                 )
               )
-            ),
           ] + match.players.map((e) => GridColumn(
             columnName: e.id.toString(), 
             label: Container( 
               padding: EdgeInsets.symmetric(horizontal: 16.0),
               alignment: Alignment.center,
-              child: Text(e.firstName, overflow: TextOverflow.ellipsis),
+              child: Text(e.firstName, overflow: TextOverflow.ellipsis, style: Theme.of(context).primaryTextTheme.headline3),
             )
           )).toList(),
         ),
@@ -72,8 +72,9 @@ class ScorecardMatchWidget extends StatelessWidget {
 
 class ScoreCardSourceData extends DataGridSource{
   List<DataGridRow> dataGridRows = [];
+  BuildContext context;
 
-  ScoreCardSourceData({required Match match}) {
+  ScoreCardSourceData({required Match match, required this.context}) {
     dataGridRows = match.course.teeboxes[0].holes.map((e) => DataGridRow(cells: [
         DataGridCell<int>(columnName: 'Hole', value: e.number),
         DataGridCell<int>(columnName: 'Par', value: e.par)
@@ -111,9 +112,11 @@ class ScoreCardSourceData extends DataGridSource{
             child: Text(
               dataGridCell.value.toString(),
               overflow: TextOverflow.ellipsis,
-            )//Since our data is coming in as a combined number. Mod 10 will give strokes to par and divide by 10 will give the score
+              style: Theme.of(context).primaryTextTheme.headline3
+            )
           );
         }
+        //Since our data is coming in as a combined number. Mod 10 will give strokes to par and divide by 10 will give the score
         else {
           if(dataGridCell.value < 0){
             //Divide by -10 to get postive number 

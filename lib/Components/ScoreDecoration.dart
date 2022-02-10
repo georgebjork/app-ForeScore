@@ -22,7 +22,7 @@ class ScoreDecoration extends StatelessWidget {
         child: Container(
           width: 40,
           height: 40,
-          child: Center(child: Text(score.toString())),
+          child: Center(child: Text(score.toString(), style: Theme.of(context).primaryTextTheme.headline3)),
           decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(5.0),
           border: Border.all(color: Colors.purpleAccent.shade100, width: 4)
@@ -38,7 +38,7 @@ class ScoreDecoration extends StatelessWidget {
         child: Container(
           width: 40,
           height: 40,
-          child: Center(child: Text(score.toString())),
+          child: Center(child: Text(score.toString(), style: Theme.of(context).primaryTextTheme.headline3)),
           decoration: BoxDecoration(
           shape: BoxShape.circle,
           border: Border.all(color: Colors.lightGreen.shade500, width: 4)
@@ -53,7 +53,7 @@ class ScoreDecoration extends StatelessWidget {
         child: Container(
           width: 40,
           height: 40,
-          child: Center(child: Text(score.toString())),
+          child: Center(child: Text(score.toString(), style: Theme.of(context).primaryTextTheme.headline3)),
           decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(5.0),
           color: Colors.lightGreen.shade200
@@ -69,7 +69,7 @@ class ScoreDecoration extends StatelessWidget {
         child: Container(
           width: 40,
           height: 40,
-          child: Center(child: Text(score.toString())),
+          child: Center(child: Text(score.toString(), style: Theme.of(context).primaryTextTheme.headline3)),
           decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(5.0),
           border: Border.all(color: Colors.orange.shade200, width: 4)
@@ -84,7 +84,7 @@ class ScoreDecoration extends StatelessWidget {
         child: Container(
           width: 40,
           height: 40,
-          child: Center(child: Text(score.toString())),
+          child: Center(child: Text(score.toString(), style: Theme.of(context).primaryTextTheme.headline3)),
           decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(5.0),
           border: Border.all(color: Colors.grey.shade400, width: 4)
@@ -96,7 +96,7 @@ class ScoreDecoration extends StatelessWidget {
       return Container(
         alignment: Alignment.center,
         padding: EdgeInsets.symmetric(horizontal: 16.0),
-        child: Text(score.toString()));
+        child: Text(score.toString(), style: Theme.of(context).primaryTextTheme.headline3));
     }
 
   }
