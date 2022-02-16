@@ -1,11 +1,8 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:golf_app/Components/PieChartStats.dart';
 import 'package:golf_app/Components/ScorecardMatchWidget.dart';
-import 'package:golf_app/Utils/Providers/MatchSetUpProvider.dart';
 import 'package:golf_app/Utils/ViewMatchArgs.dart';
-import '../Utils/Match.dart';
-import 'package:provider/provider.dart';
+import 'package:carousel_slider/carousel_slider.dart';
 
 
 
