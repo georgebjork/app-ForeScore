@@ -29,6 +29,8 @@ class ScorecardMatchWidget extends StatelessWidget {
           frozenPaneElevation: null
         ),
         child: SfDataGrid(
+          rowsPerPage: 18,
+          shrinkWrapRows: true,
           horizontalScrollPhysics: BouncingScrollPhysics(),
           verticalScrollPhysics: BouncingScrollPhysics(),
           source: getSourceData(context), 
