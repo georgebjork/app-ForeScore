@@ -51,6 +51,10 @@ class ViewMatch extends StatelessWidget {
                   ScorecardMatchWidget(match: args.match),
         
 
+                  const SizedBox(height: 30),
+
+                  Text('Stats', style: Theme.of(context).primaryTextTheme.headline2),
+
                   const SizedBox(height: 10),
                   ListView.builder(
                     physics: ClampingScrollPhysics(),

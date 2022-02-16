@@ -15,18 +15,11 @@ class ScoreDecoration extends StatelessWidget {
 
   Widget build(BuildContext context) {
     //Return box for eagle or better
-    if(strokesToPar < -1 && strokesToPar != 0){
+    if(score == 0){
       return Container(
         alignment: Alignment.center,
         padding: EdgeInsets.symmetric(horizontal: 16.0),
-        child: Container(
-          width: 40,
-          height: 40,
-          child: Center(child: Text(score.toString(), style: Theme.of(context).primaryTextTheme.headline3)),
-          decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(5.0),
-          border: Border.all(color: Colors.purpleAccent.shade100, width: 4)
-        ))
+        child:  Center(child: Text(score.toString(), style: Theme.of(context).primaryTextTheme.headline3))
       );
     }
 
@@ -41,7 +34,7 @@ class ScoreDecoration extends StatelessWidget {
           child: Center(child: Text(score.toString(), style: Theme.of(context).primaryTextTheme.headline3)),
           decoration: BoxDecoration(
           shape: BoxShape.circle,
-          border: Border.all(color: Colors.lightGreen.shade500, width: 4)
+          border: Border.all(color: Colors.lightGreen.shade600, width: 4)
         ))
       );
     }
