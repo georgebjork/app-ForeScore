@@ -25,8 +25,8 @@ class ScorecardMatchWidget extends StatelessWidget {
     return Container(
       child: SfDataGridTheme(
         data: SfDataGridThemeData(
-          frozenPaneLineWidth: -1,
-          frozenPaneLineColor: Colors.transparent,
+          frozenPaneLineWidth: null,
+          //frozenPaneLineColor: Colors.transparent,
           frozenPaneElevation: null
         ),
         child: SfDataGrid(
@@ -36,7 +36,6 @@ class ScorecardMatchWidget extends StatelessWidget {
           verticalScrollPhysics: BouncingScrollPhysics(),
           source: getSourceData(context), 
           frozenColumnsCount: 1,
-          footerFrozenColumnsCount: 0,
           columns: [
             GridColumn(
               columnName: 'Hole',
@@ -69,13 +68,24 @@ class ScorecardMatchWidget extends StatelessWidget {
             )
           )).toList(),
 
-          footer: Container(
-            color: Colors.grey[400],
-            child: const Center(
-                child: Text(
-              'FOOTER VIEW',
-              style: TextStyle(fontWeight: FontWeight.bold),
-            ))),
+          tableSummaryRows: [
+            GridTableSummaryRow(
+              showSummaryInRow: false,
+              columns: const [
+                GridSummaryColumn(
+                  columnName: 'Par',
+                  name: 'sum',
+                  summaryType: GridSummaryType.sum
+                )
+              ] + match.players.map((e) => GridSummaryColumn(
+                columnName: e.id.toString(), 
+                name: 'sum',
+                summaryType: GridSummaryType.sum
+              )).toList(),
+              position: GridTableSummaryRowPosition.bottom
+            )
+          ],
+          
         ),
       ) 
     );
@@ -85,8 +95,11 @@ class ScorecardMatchWidget extends StatelessWidget {
 class ScoreCardSourceData extends DataGridSource{
   List<DataGridRow> dataGridRows = [];
   BuildContext context;
+  Match match;
+  
 
-  ScoreCardSourceData({required Match match, required this.context}) {
+  //This will create all of the source data for the table
+  ScoreCardSourceData({required this.match, required this.context}) {
     dataGridRows = match.course.teeboxes[0].holes.map((e) => DataGridRow(cells: [
         DataGridCell<int>(columnName: 'Hole', value: e.number),
         DataGridCell<int>(columnName: 'Par', value: e.par)
@@ -103,7 +116,7 @@ class ScoreCardSourceData extends DataGridSource{
         } else{
           str = str1 + str2;
         }
-        
+        //We give the value are combined number. First digit being the score and other digits being the strokes to par
         return DataGridCell(columnName: r.PlayerId.toString(), value: int.parse(str));
       }).toList()
     )).toList();
@@ -112,11 +125,15 @@ class ScoreCardSourceData extends DataGridSource{
   @override
   List<DataGridRow> get rows => dataGridRows;
 
+
+
+
+  //This builds each row in the table
   @override
   DataGridRowAdapter? buildRow(DataGridRow row) {
     return DataGridRowAdapter(
         cells: row.getCells().map<Widget>((dataGridCell) {
-
+        //Build rows for hole and par
         if(dataGridCell.columnName == 'Hole' || dataGridCell.columnName == 'Par') {
           return Container(
             alignment: Alignment.center,
@@ -141,4 +158,68 @@ class ScoreCardSourceData extends DataGridSource{
   
     }).toList());
   }
+
+  /*
+
+    BELOW WILL BUILD THE SUMMARY VIEW
+
+  */
+
+  //Custom implementation to summarize data
+
+  @override
+  String calculateSummaryValue(GridTableSummaryRow summaryRow, GridSummaryColumn? summaryColumn, RowColumnIndex rowColumnIndex) {
+
+    List<int> getCellValues(GridSummaryColumn summaryColumn) {
+      final List<int> values = <int>[];
+
+      for (final DataGridRow row in rows) {
+        
+        final DataGridCell? cell = row.getCells().firstWhere(
+            (DataGridCell element) =>
+                element.columnName == summaryColumn.columnName);
+        if (cell != null && cell.value != null) {
+          values.add(cell.value);
+        }
+      }
+      return values;
+    }
+
+    List<int> v = getCellValues(summaryColumn!);
+    int sum = 0;
+
+    //This will handle all sums of rounds
+    if(summaryColumn.columnName != 'Par'){
+      for(int i = 0; i < v.length; i++){
+        //If number is less than 0, we need to remove the negitive
+        if(v[i] < 0){
+          sum += v[i]~/-10;
+        } //Else divide by 10
+        else{
+          sum += v[i]~/10;
+        }
+      }
+    } 
+    else if(summaryColumn.columnName == 'Par'){
+      for(int i = 0; i < v.length; i++){
+        sum += v[i];
+      }
+    }
+    
+    return sum.toString();
+  }
+
+
+
+  //This will build the summary row and output the data 
+  @override
+  Widget? buildTableSummaryCellWidget(GridTableSummaryRow summaryRow, GridSummaryColumn? summaryColumn, RowColumnIndex rowColumnIndex, String summaryValue) {
+    return Container(
+      alignment: Alignment.center,
+      padding: EdgeInsets.all(15.0),
+      child: Text(summaryValue, style: Theme.of(context).primaryTextTheme.headline3),
+    );
+  }
+
+
 }
