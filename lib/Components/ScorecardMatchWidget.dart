@@ -25,7 +25,8 @@ class ScorecardMatchWidget extends StatelessWidget {
     return Container(
       child: SfDataGridTheme(
         data: SfDataGridThemeData(
-          frozenPaneLineWidth: null,
+          frozenPaneLineWidth: -1,
+          frozenPaneLineColor: Colors.transparent,
           frozenPaneElevation: null
         ),
         child: SfDataGrid(
@@ -35,6 +36,7 @@ class ScorecardMatchWidget extends StatelessWidget {
           verticalScrollPhysics: BouncingScrollPhysics(),
           source: getSourceData(context), 
           frozenColumnsCount: 1,
+          footerFrozenColumnsCount: 0,
           columns: [
             GridColumn(
               columnName: 'Hole',
@@ -66,6 +68,14 @@ class ScorecardMatchWidget extends StatelessWidget {
               child: Text(e.firstName, overflow: TextOverflow.ellipsis, style: Theme.of(context).primaryTextTheme.headline3),
             )
           )).toList(),
+
+          footer: Container(
+            color: Colors.grey[400],
+            child: const Center(
+                child: Text(
+              'FOOTER VIEW',
+              style: TextStyle(fontWeight: FontWeight.bold),
+            ))),
         ),
       ) 
     );
