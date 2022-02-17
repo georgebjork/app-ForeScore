@@ -107,7 +107,12 @@ class ViewMatch extends StatelessWidget {
                                   const SizedBox(width: 5),
                                   Container( height: 20, width: 20, decoration: BoxDecoration(color: Colors.grey.shade400, borderRadius: BorderRadius.circular(7.0))),
                                   const SizedBox(width: 5),
-                                  const Text('Double+'),
+                                  const Text('Double'),
+
+                                  const SizedBox(width: 5), //
+                                  Container( height: 20, width: 20, decoration: BoxDecoration(color: Colors.grey.shade800, borderRadius: BorderRadius.circular(7.0))),
+                                  const SizedBox(width: 5),
+                                  const Text('Triple+'),
                                 ],
                               ),
 

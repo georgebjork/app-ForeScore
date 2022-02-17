@@ -28,12 +28,12 @@ class PieChartStatsState extends State<PieChartStats> {
   List<charts.Series<ScoreStats, String>> chartData = [];
 
   //Because a score of 0 is recorded as worse, we need to parse those out for an unfinished rounds
-  int getWorse(){
+  int getTriplesAndWorse(){
     int total = 0;
     //We will go through hole by hole and calculate manually
     for(int i = 0; i < 18; i++){
       //If the score is greater than 0 and the strokes to par is greater than two, then we should record it because it is "worse"
-      if(widget.round.HoleScores[i].score > 0 && widget.round.HoleScores[i].strokesToPar >= 2){
+      if(widget.round.HoleScores[i].score > 0 && widget.round.HoleScores[i].strokesToPar > 2){
         total++;
       }
     }
@@ -47,8 +47,8 @@ class PieChartStatsState extends State<PieChartStats> {
     data.add(ScoreStats('Par', widget.round.Stats.pars, charts.ColorUtil.fromDartColor(Colors.lightGreen.shade200)));
     data.add(ScoreStats('Bogeys', widget.round.Stats.bogeys, charts.ColorUtil.fromDartColor(Colors.orange.shade200)));
     data.add(ScoreStats('Doubles', widget.round.Stats.doubles, charts.ColorUtil.fromDartColor(Colors.grey.shade400)));
-    data.add(ScoreStats('Triples', widget.round.Stats.triples, charts.ColorUtil.fromDartColor(Colors.grey.shade400)));
-    data.add(ScoreStats('Worse', getWorse(), charts.ColorUtil.fromDartColor(Colors.grey.shade400)));
+    data.add(ScoreStats('Triples+',getTriplesAndWorse(), charts.ColorUtil.fromDartColor(Colors.grey.shade800)));
+    //data.add(ScoreStats('Worse', getWorse(), charts.ColorUtil.fromDartColor(Colors.grey.shade400)));
 
     chartData.add(charts.Series(
       id: 'Stats',

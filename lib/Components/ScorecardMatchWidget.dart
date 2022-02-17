@@ -27,7 +27,8 @@ class ScorecardMatchWidget extends StatelessWidget {
         data: SfDataGridThemeData(
           frozenPaneLineWidth: null,
           //frozenPaneLineColor: Colors.transparent,
-          frozenPaneElevation: null
+          frozenPaneElevation: null,
+          headerColor: Colors.grey[400]
         ),
         child: SfDataGrid(
           rowsPerPage: 18,
@@ -36,6 +37,7 @@ class ScorecardMatchWidget extends StatelessWidget {
           verticalScrollPhysics: BouncingScrollPhysics(),
           source: getSourceData(context), 
           frozenColumnsCount: 1,
+          
           columns: [
             GridColumn(
               columnName: 'Hole',
