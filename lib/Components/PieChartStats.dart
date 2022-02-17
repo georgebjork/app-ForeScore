@@ -57,7 +57,7 @@ class PieChartStatsState extends State<PieChartStats> {
       domainFn: (ScoreStats s, _) => s.type,
       measureFn: (ScoreStats s, _) => s.number,
       displayName: 'stats',
-      //labelAccessorFn: (ScoreStats s, _) => s.type,
+      labelAccessorFn: (ScoreStats s, _) => s.type,
     ));
   }
 
@@ -72,6 +72,13 @@ class PieChartStatsState extends State<PieChartStats> {
    Widget build(BuildContext context) {
      return charts.PieChart(
        chartData, 
+      //  defaultRenderer: charts.ArcRendererConfig(
+      //   arcWidth: 5,
+      //   arcRendererDecorators: [
+      //     charts.ArcLabelDecorator(
+      //       labelPosition: charts.ArcLabelPosition.inside
+      //     )
+      //   ]),
        animate: true,
       );
    }
