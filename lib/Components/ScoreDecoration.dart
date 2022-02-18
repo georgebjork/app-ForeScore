@@ -23,6 +23,21 @@ class ScoreDecoration extends StatelessWidget {
       );
     }
 
+    else if(strokesToPar == -2){
+      return Container(
+        alignment: Alignment.center,
+        padding: EdgeInsets.symmetric(horizontal: 16.0),
+        child: Container(
+          width: 40,
+          height: 40,
+          child: Center(child: Text(score.toString(), style: Theme.of(context).primaryTextTheme.headline3)),
+          decoration: BoxDecoration(
+          shape: BoxShape.circle,
+          border: Border.all(color: Colors.purple.shade200, width: 4)
+        ))
+      );
+    }
+
     //Return box for birdie
     else if(strokesToPar == -1){
       return Container(

@@ -80,37 +80,41 @@ class ViewMatch extends StatelessWidget {
                               const SizedBox(height: 10),
 
                               //This will give use the legend
-                              Wrap(
-                               
-                                children: [
-                                  Container( height: 20, width: 20, decoration: BoxDecoration(color: Colors.purple.shade100, borderRadius: BorderRadius.circular(7.0))),
-                                  const SizedBox(width: 5),
-                                  const Text('Eagle'),
+                              SizedBox(
+                                width: 225,
+                                child: Wrap(
+                                  children: [
+                                    const SizedBox(width: 15),
+                                    Container( height: 20, width: 20, decoration: BoxDecoration(color: Colors.purple.shade100, borderRadius: BorderRadius.circular(7.0))),
+                                    const SizedBox(width: 5),
+                                    const Text('Eagle'),
 
-                                  const SizedBox(width: 5),
-                                  Container( height: 20, width: 20, decoration: BoxDecoration(color: Colors.lightGreen.shade600, borderRadius: BorderRadius.circular(7.0))),
-                                  const SizedBox(width: 5),
-                                  const Text('Birdie'),
+                                    const SizedBox(width: 5),
+                                    Container( height: 20, width: 20, decoration: BoxDecoration(color: Colors.lightGreen.shade600, borderRadius: BorderRadius.circular(7.0))),
+                                    const SizedBox(width: 5),
+                                    const Text('Birdie'),
 
-                                  const SizedBox(width: 5),
-                                  Container( height: 20, width: 20, decoration: BoxDecoration(color: Colors.lightGreen.shade200, borderRadius: BorderRadius.circular(7.0))),
-                                  const SizedBox(width: 5),
-                                  const Text('Par'),
+                                    const SizedBox(width: 5),
+                                    Container( height: 20, width: 20, decoration: BoxDecoration(color: Colors.lightGreen.shade200, borderRadius: BorderRadius.circular(7.0))),
+                                    const SizedBox(width: 5),
+                                    const Text('Par'),
+                                    const SizedBox(width: 30),
 
-                                  Container( height: 20, width: 20, decoration: BoxDecoration(color: Colors.orange.shade200, borderRadius: BorderRadius.circular(7.0))),
-                                  const SizedBox(width: 5),
-                                  const Text('Bogey'),
+                                    Container( height: 20, width: 20, decoration: BoxDecoration(color: Colors.orange.shade200, borderRadius: BorderRadius.circular(7.0))),
+                                    const SizedBox(width: 5),
+                                    const Text('Bogey'),
 
-                                  const SizedBox(width: 5),
-                                  Container( height: 20, width: 20, decoration: BoxDecoration(color: Colors.grey.shade400, borderRadius: BorderRadius.circular(7.0))),
-                                  const SizedBox(width: 5),
-                                  const Text('Double'),
+                                    const SizedBox(width: 5),
+                                    Container( height: 20, width: 20, decoration: BoxDecoration(color: Colors.grey.shade400, borderRadius: BorderRadius.circular(7.0))),
+                                    const SizedBox(width: 5),
+                                    const Text('Double'),
 
-                                  const SizedBox(width: 5), //
-                                  Container( height: 20, width: 20, decoration: BoxDecoration(color: Colors.grey.shade800, borderRadius: BorderRadius.circular(7.0))),
-                                  const SizedBox(width: 5),
-                                  const Text('Triple+'),
-                                ],
+                                    const SizedBox(width: 5), //
+                                    Container( height: 20, width: 20, decoration: BoxDecoration(color: Colors.grey.shade800, borderRadius: BorderRadius.circular(7.0))),
+                                    const SizedBox(width: 5),
+                                    const Text('Triple+'),
+                                  ],
+                                ),
                               ),
                                                         
                               //Seperate legend and round stats

@@ -3,9 +3,11 @@ import 'package:golf_app/Components/CheckBox.dart';
 import 'package:golf_app/Components/ScoreInputWidget.dart';
 import 'package:golf_app/Utils/Providers/MatchProvider.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
+import 'package:page_transition/page_transition.dart';
 import 'package:provider/provider.dart';
 
 import '../Components/NavWidget.dart';
+import 'ViewMatch.dart';
 
 class EnterScore extends StatefulWidget {
 
@@ -36,6 +38,12 @@ class EnterScoreState extends State<EnterScore> {
                       const SizedBox(height: 5),
                       Text(provider.displayCurrentHole(), style: Theme.of(context).primaryTextTheme.headline2),
                       Text(provider.displayHoleDetails(), style: Theme.of(context).primaryTextTheme.headline4),
+
+                      //This will pull up the scorecard
+                      ElevatedButton(child: Text('View scorecard'), onPressed: () {
+                         Navigator.push(context, PageTransition(type: PageTransitionType.bottomToTop, child: ViewMatch(match: provider.match)));
+                      }),
+
                       const SizedBox(height: 10),
                         
                           
