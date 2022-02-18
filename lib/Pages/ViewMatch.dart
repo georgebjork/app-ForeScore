@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:golf_app/Components/PieChartStats.dart';
 import 'package:golf_app/Components/ScorecardMatchWidget.dart';
@@ -30,8 +32,10 @@ class ViewMatch extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
+        leading: IconButton(icon: Platform.isAndroid ? const Icon(Icons.arrow_back) : const Icon(Icons.arrow_back_ios_new), color: Colors.black, onPressed: () => Navigator.pop(context)),
         elevation: 0.0,
         backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+        title: Text('Match id: ${match.id}', style: Theme.of(context).primaryTextTheme.headline3)
       ),
       body: Container(
         padding: const EdgeInsets.only(left: 20.0, right: 20.0),

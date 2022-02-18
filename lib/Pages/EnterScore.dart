@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:golf_app/Components/CheckBox.dart';
+import 'package:golf_app/Components/CustomNavButton.dart';
 import 'package:golf_app/Components/ScoreInputWidget.dart';
 import 'package:golf_app/Utils/Providers/MatchProvider.dart';
+import 'package:golf_app/Utils/all.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:provider/provider.dart';
@@ -40,7 +42,7 @@ class EnterScoreState extends State<EnterScore> {
                       Text(provider.displayHoleDetails(), style: Theme.of(context).primaryTextTheme.headline4),
 
                       //This will pull up the scorecard
-                      ElevatedButton(child: Text('View scorecard'), onPressed: () {
+                      CustomButton(text: 'View scorecard', width: double.infinity, color: context.read<ThemeProvider>().getRed(), onPressed: () {
                          Navigator.push(context, PageTransition(type: PageTransitionType.bottomToTop,  duration: const Duration(milliseconds: 500), child: ViewMatch(match: provider.match)));
                       }),
 
