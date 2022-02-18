@@ -1,11 +1,15 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:golf_app/Pages/EnterScore.dart';
+import 'package:golf_app/Pages/ViewMatch.dart';
+import 'package:golf_app/Pages/all.dart';
 import 'package:golf_app/Utils/Match.dart';
 import 'package:golf_app/Utils/ViewMatchArgs.dart';
 import 'package:golf_app/Utils/all.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:provider/provider.dart';
 import '../Components/NavWidget.dart';
+import 'package:page_transition/page_transition.dart';
 
 class Home extends StatefulWidget {
   @override
@@ -39,7 +43,8 @@ class HomeState extends State<Home> {
                   btn1Color: themeProvider.getTan(),
                   btn1onPressed: () async {
                     Match m = await service.getMatch(119);
-                    Navigator.pushNamed(context, '/ViewMatch', arguments: ViewMatchArgs(m));
+                    //Navigator.pushNamed(context, '/ViewMatch', arguments: ViewMatchArgs(m));
+                    Navigator.push(context, PageTransition(type: PageTransitionType.bottomToTop, child: ViewMatch(match: m)));
                   },
 
                   btn2text: 'Friends',

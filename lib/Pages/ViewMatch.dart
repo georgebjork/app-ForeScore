@@ -4,21 +4,25 @@ import 'package:golf_app/Components/ScorecardMatchWidget.dart';
 import 'package:golf_app/Utils/ViewMatchArgs.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:hexcolor/hexcolor.dart';
+import '../Utils/Match.dart';
 
 
 
 
 class ViewMatch extends StatelessWidget {
 
+  Match match;
+  ViewMatch({required this.match});
+
   @override
   Widget build(BuildContext context){
 
-    final args = ModalRoute.of(context)!.settings.arguments as ViewMatchArgs;
+    //final args = ModalRoute.of(context)!.settings.arguments as ViewMatchArgs;
 
     String getPlayers(){
       String str = "";
-      for(int i = 0; i < args.match.players.length; i++){
-        str += args.match.players[i].firstName + " " + args.match.players[i].lastName[0] + ', ';
+      for(int i = 0; i < match.players.length; i++){
+        str += match.players[i].firstName + " " + match.players[i].lastName[0] + ', ';
       }
       
       return str.substring(0, str.length-2);
@@ -39,7 +43,7 @@ class ViewMatch extends StatelessWidget {
                 physics: BouncingScrollPhysics(),
                 children: [
                   //Course name
-                  Text(args.match.course.name, style: Theme.of(context).primaryTextTheme.headline2),
+                  Text(match.course.name, style: Theme.of(context).primaryTextTheme.headline2),
                   //Date
                   Text("Date: ", style: Theme.of(context).primaryTextTheme.headline3),
                   //Players
@@ -48,7 +52,7 @@ class ViewMatch extends StatelessWidget {
                   
                   //This will display the scorecard
                   const SizedBox(height: 10),
-                  ScorecardMatchWidget(match: args.match),
+                  ScorecardMatchWidget(match: match),
         
 
                   const SizedBox(height: 30),
@@ -59,7 +63,7 @@ class ViewMatch extends StatelessWidget {
 
                   CarouselSlider.builder(
                     options: CarouselOptions(height: 700.0, enlargeCenterPage: true,),
-                    itemCount: args.match.rounds.length,
+                    itemCount: match.rounds.length,
                     itemBuilder: (BuildContext context, int index, int pageViewIndex) {
                       return Container(
                         decoration: BoxDecoration(color: HexColor("#e6e6e6"),  borderRadius: BorderRadius.circular(15.0),),
@@ -68,9 +72,9 @@ class ViewMatch extends StatelessWidget {
                               //Adds space from the top
                               const SizedBox(height: 20),
                               //Name of player
-                              Text(args.match.players[index].firstName, style: Theme.of(context).primaryTextTheme.headline2),
+                              Text(match.players[index].firstName, style: Theme.of(context).primaryTextTheme.headline2),
                               //Pie Chart
-                              SizedBox(height: 200, child: PieChartStats(round: args.match.rounds[index])),
+                              SizedBox(height: 200, child: PieChartStats(round: match.rounds[index])),
                               //Legend
                               Text('Legend', style: Theme.of(context).primaryTextTheme.headline3),
                               const SizedBox(height: 10),
@@ -124,9 +128,9 @@ class ViewMatch extends StatelessWidget {
                                 rows: [
                                   //Rows
                                   DataRow(cells: [
-                                    DataCell( Center(child: Text(args.match.rounds[index].Stats.par3ScoreAverage.toString()))),
-                                    DataCell( Center(child: Text(args.match.rounds[index].Stats.par4ScoreAverage.toString()))),
-                                    DataCell( Center(child: Text(args.match.rounds[index].Stats.par5ScoreAverage.toString())))
+                                    DataCell( Center(child: Text(match.rounds[index].Stats.par3ScoreAverage.toString()))),
+                                    DataCell( Center(child: Text(match.rounds[index].Stats.par4ScoreAverage.toString()))),
+                                    DataCell( Center(child: Text(match.rounds[index].Stats.par5ScoreAverage.toString())))
 
                                   ])
                                 ],
@@ -178,14 +182,14 @@ class ViewMatch extends StatelessWidget {
 // ListView.builder(
                   //   physics: ClampingScrollPhysics(),
                   //    shrinkWrap: true, 
-                  //   itemCount: args.match.rounds.length,
+                  //   itemCount: match.rounds.length,
                     
                   //   itemBuilder: (BuildContext context, int index) {
                   //     return Card(
                   //       child: ExpansionTile(
-                  //         title: Text(args.match.players[index].name.toString()),
+                  //         title: Text(match.players[index].name.toString()),
                   //         children: [
-                  //           Container(height: 200, width: 200, child: PieChartStats(round: args.match.rounds[index])),
+                  //           Container(height: 200, width: 200, child: PieChartStats(round: match.rounds[index])),
                   //         ],
                   //       ),
                   //     );
