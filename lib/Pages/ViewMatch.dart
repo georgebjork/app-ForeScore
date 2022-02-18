@@ -76,8 +76,8 @@ class ViewMatch extends StatelessWidget {
                               const SizedBox(height: 10),
 
                               //This will give use the legend
-                              Row(
-                                mainAxisSize: MainAxisSize.min,
+                              Wrap(
+                               
                                 children: [
                                   Container( height: 20, width: 20, decoration: BoxDecoration(color: Colors.purple.shade100, borderRadius: BorderRadius.circular(7.0))),
                                   const SizedBox(width: 5),
@@ -92,14 +92,7 @@ class ViewMatch extends StatelessWidget {
                                   Container( height: 20, width: 20, decoration: BoxDecoration(color: Colors.lightGreen.shade200, borderRadius: BorderRadius.circular(7.0))),
                                   const SizedBox(width: 5),
                                   const Text('Par'),
-                                ],
-                              ),
 
-                              const SizedBox(height: 5),
-
-                              Row(
-                                mainAxisSize: MainAxisSize.min,
-                                children: [
                                   Container( height: 20, width: 20, decoration: BoxDecoration(color: Colors.orange.shade200, borderRadius: BorderRadius.circular(7.0))),
                                   const SizedBox(width: 5),
                                   const Text('Bogey'),
@@ -115,8 +108,7 @@ class ViewMatch extends StatelessWidget {
                                   const Text('Triple+'),
                                 ],
                               ),
-
-
+                                                        
                               //Seperate legend and round stats
                               const SizedBox(height: 10),
                               //Par 3/4/5 Scoring average
