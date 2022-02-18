@@ -20,6 +20,45 @@ class ScorecardMatchWidget extends StatelessWidget {
   ScoreCardSourceData getSourceData(BuildContext context) {
     return ScoreCardSourceData(match: match, context: context);
   }
+
+  //This will generate all of the columns
+  List<GridColumn> generateColumns(BuildContext context){
+    return [  
+      //Hole
+      GridColumn(
+        columnName: 'Hole',
+        label: Container(
+          padding: EdgeInsets.symmetric(horizontal: 16.0),
+          alignment: Alignment.center,
+          child: Text(
+            'Hole',
+            overflow: TextOverflow.ellipsis,
+            style: Theme.of(context).primaryTextTheme.headline3
+          ),
+        )
+      ),
+      //Par
+      GridColumn(
+        columnName: 'Par',
+        label: Container(
+          padding: EdgeInsets.symmetric(horizontal: 16.0),
+          alignment: Alignment.center,
+          child: Text(
+            'Par',
+            overflow: TextOverflow.ellipsis,
+            style: Theme.of(context).primaryTextTheme.headline3
+          ),
+        )
+      )//This will map all players to their own columns
+    ] + match.players.map((e) => GridColumn(
+          columnName: e.id.toString(), 
+          label: Container( 
+            padding: EdgeInsets.symmetric(horizontal: 16.0),
+            alignment: Alignment.center,
+            child: Text(e.firstName, overflow: TextOverflow.ellipsis, style: Theme.of(context).primaryTextTheme.headline3),
+          )
+        )).toList();
+  }
   
   Widget build(BuildContext context){
     return Container(
@@ -38,37 +77,7 @@ class ScorecardMatchWidget extends StatelessWidget {
           source: getSourceData(context), 
           frozenColumnsCount: 1,
           
-          columns: [
-            GridColumn(
-              columnName: 'Hole',
-              label: Container(
-                padding: EdgeInsets.symmetric(horizontal: 16.0),
-                alignment: Alignment.center,
-                child: Text(
-                  'Hole',
-                  overflow: TextOverflow.ellipsis,
-                  style: Theme.of(context).primaryTextTheme.headline3),
-                )
-              ),
-            GridColumn(
-              columnName: 'Par',
-              label: Container(
-                padding: EdgeInsets.symmetric(horizontal: 16.0),
-                alignment: Alignment.center,
-                child: Text(
-                  'Par',
-                  overflow: TextOverflow.ellipsis,
-                  style: Theme.of(context).primaryTextTheme.headline3),
-                )
-              )
-          ] + match.players.map((e) => GridColumn(
-            columnName: e.id.toString(), 
-            label: Container( 
-              padding: EdgeInsets.symmetric(horizontal: 16.0),
-              alignment: Alignment.center,
-              child: Text(e.firstName, overflow: TextOverflow.ellipsis, style: Theme.of(context).primaryTextTheme.headline3),
-            )
-          )).toList(),
+          columns: generateColumns(context),
 
           tableSummaryRows: [
             GridTableSummaryRow(
@@ -86,8 +95,7 @@ class ScorecardMatchWidget extends StatelessWidget {
               )).toList(),
               position: GridTableSummaryRowPosition.bottom
             )
-          ],
-          
+          ]
         ),
       ) 
     );
