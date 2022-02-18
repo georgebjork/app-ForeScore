@@ -41,7 +41,7 @@ class EnterScoreState extends State<EnterScore> {
 
                       //This will pull up the scorecard
                       ElevatedButton(child: Text('View scorecard'), onPressed: () {
-                         Navigator.push(context, PageTransition(type: PageTransitionType.bottomToTop, child: ViewMatch(match: provider.match)));
+                         Navigator.push(context, PageTransition(type: PageTransitionType.bottomToTop,  duration: const Duration(milliseconds: 500), child: ViewMatch(match: provider.match)));
                       }),
 
                       const SizedBox(height: 10),
