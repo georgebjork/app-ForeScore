@@ -42,6 +42,7 @@ dependencies:
   charts_flutter: ^0.12.0
   syncfusion_flutter_datagrid: ^19.4.50
   carousel_slider: ^4.0.0
+  page_transition: ^2.0.5
 
 dev_dependencies:
   flutter_test:
