@@ -47,8 +47,8 @@ class SelectGameState extends State<SelectGame> {
 
               btn2text: 'Next',
               btn2onPressed: () async {
-                Match m = await service.getMatch(255);
-                //Match m = await context.read<MatchSetUpProvider>().createMatch();
+                //Match m = await service.getMatch(255);
+                Match m = await context.read<MatchSetUpProvider>().createMatch();
                 context.read<MatchProvider>().setMatch(m);
                 Navigator.pushNamedAndRemoveUntil(context, '/EnterScore', ModalRoute.withName('/Home'));
               },
