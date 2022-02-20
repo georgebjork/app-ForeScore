@@ -2,12 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:golf_app/Components/CheckBox.dart';
 import 'package:golf_app/Components/CustomNavButton.dart';
 import 'package:golf_app/Components/ScoreInputWidget.dart';
+import 'package:golf_app/Pages/RoundSummary.dart';
 import 'package:golf_app/Utils/Providers/MatchProvider.dart';
 import 'package:golf_app/Utils/all.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:provider/provider.dart';
-
+import '../Utils/Match.dart';
 import '../Components/NavWidget.dart';
 import 'ViewMatch.dart';
 
@@ -66,7 +67,7 @@ class EnterScoreState extends State<EnterScore> {
                   btn1onPressed: () => provider.prevHole(),
             
                   btn2text: provider.currentHole == 17 ? 'Finish' : 'Next',
-                  btn2onPressed: provider.currentHole == 17 ? () => Navigator.pushNamed(context, '/Home') : () => provider.nextHole(),
+                  btn2onPressed: provider.currentHole == 17 ? () => Navigator.push(context, PageTransition(type: PageTransitionType.rightToLeft, child: RoundSummary(provider.match))) : () => provider.nextHole(),
           
                   btn3text: 'Cancel',
                   btn3onPressed: () {}
