@@ -38,7 +38,7 @@ class ViewMatch extends StatelessWidget {
         title: Text('Match id: ${match.id}', style: Theme.of(context).primaryTextTheme.headline3)
       ),
       body: Container(
-        padding: const EdgeInsets.only(left: 20.0, right: 20.0),
+        //padding: const EdgeInsets.only(left: 20.0, right: 20.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -46,22 +46,32 @@ class ViewMatch extends StatelessWidget {
               child: ListView(
                 physics: BouncingScrollPhysics(),
                 children: [
-                  //Course name
-                  Text(match.course.name, style: Theme.of(context).primaryTextTheme.headline2),
-                  //Date
-                  Text("Date: ", style: Theme.of(context).primaryTextTheme.headline3),
-                  //Players
-                  const SizedBox(height: 5),
-                  Text("Players: " + getPlayers(), style: Theme.of(context).primaryTextTheme.headline3),
+                  //Course name                    
+                  Container(
+                    padding: const EdgeInsets.only(left: 20.0, right: 20.0),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(match.course.name, style: Theme.of(context).primaryTextTheme.headline2),
+                        //Date
+                        Text("Date: ", style: Theme.of(context).primaryTextTheme.headline3),
+                        //Players
+                        const SizedBox(height: 5),
+                        Text("Players: " + getPlayers(), style: Theme.of(context).primaryTextTheme.headline3),
+                      ],
+                    ),
+                  ),
+                  
                   
                   //This will display the scorecard
                   const SizedBox(height: 10),
+                  
                   ScorecardMatchWidget(match: match),
         
 
                   const SizedBox(height: 30),
                   //This will display stats
-                  Text('Stats', style: Theme.of(context).primaryTextTheme.headline2),
+                  Container( padding:  const EdgeInsets.only(left: 20.0, right: 20.0), child: Text('Stats', style: Theme.of(context).primaryTextTheme.headline2)),
 
                   const SizedBox(height: 10),
 

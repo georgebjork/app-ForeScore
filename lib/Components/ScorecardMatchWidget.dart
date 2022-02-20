@@ -67,16 +67,20 @@ class ScorecardMatchWidget extends StatelessWidget {
           frozenPaneLineWidth: null,
           //frozenPaneLineColor: Colors.transparent,
           frozenPaneElevation: null,
-          headerColor: Colors.grey[400]
+          headerColor: Colors.grey[400],
+          gridLineColor: Colors.grey, 
+          gridLineStrokeWidth: 2.0
         ),
         child: SfDataGrid(
-          rowsPerPage: 18,
+          gridLinesVisibility: GridLinesVisibility.both,
+          headerGridLinesVisibility: GridLinesVisibility.both,
+          columnWidthMode: (match.players.length > 2) ? ColumnWidthMode.none : ColumnWidthMode.fill,
           shrinkWrapRows: true,
           horizontalScrollPhysics: BouncingScrollPhysics(),
           verticalScrollPhysics: BouncingScrollPhysics(),
           source: getSourceData(context), 
           frozenColumnsCount: 1,
-          
+
           columns: generateColumns(context),
 
           tableSummaryRows: [
@@ -229,7 +233,5 @@ class ScoreCardSourceData extends DataGridSource{
       padding: EdgeInsets.all(15.0),
       child: Text(summaryValue, style: Theme.of(context).primaryTextTheme.headline3),
     );
-  }
-
-
+  }  
 }
