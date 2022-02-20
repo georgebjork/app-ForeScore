@@ -22,7 +22,7 @@ class RoundSummary extends StatelessWidget {
     
     return Scaffold(
       appBar: AppBar(
-        leading: IconButton(icon: Platform.isAndroid ? const Icon(Icons.arrow_back) : const Icon(Icons.arrow_back_ios_new), color: Colors.black, onPressed: () => Navigator.pop(context)),
+        //leading: IconButton(icon: Platform.isAndroid ? const Icon(Icons.arrow_back) : const Icon(Icons.arrow_back_ios_new), color: Colors.black, onPressed: () => Navigator.pop(context)),
         elevation: 0.0,
         backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       ),
