@@ -3,8 +3,13 @@ import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:golf_app/Utils/Round.dart';
+import 'package:hexcolor/hexcolor.dart';
 import 'package:provider/provider.dart';
+
+import 'package:golf_app/Utils/Round.dart';
+
+import '../Components/CustomNavButton.dart';
+import '../Utils/Game.dart';
 import '../Utils/Match.dart';
 import '../Utils/Player.dart';
 import '../Utils/Point.dart';
@@ -15,6 +20,18 @@ class RoundSummary extends StatelessWidget {
   Match match;
 
   RoundSummary(this.match);
+
+
+  //This will take in a game and display it to the screen
+  Widget displayGameSummary(Game game) {
+    //This switch statement will display the game based on the name of the game
+    switch(game.name) {
+      case 'Skins': return DisplaySkins(match: match);
+      case 'Nasseau' : return Container();
+    }
+    return Container();
+  }
+
 
   Widget build(BuildContext context){
 
@@ -33,13 +50,31 @@ class RoundSummary extends StatelessWidget {
           children: [
             Container(padding: const EdgeInsets.only(left: 20.0, right: 20.0), child: Text('Round Summary', style: Theme.of(context).primaryTextTheme.headline2)),
 
-            SizedBox(height: 10),
+            const SizedBox(height: 10),
             
             //const Divider(color: Colors.black, thickness: 3),
 
-            SizedBox(height: 10),
+            const SizedBox(height: 10),
 
-            DisplaySkins(match),
+            //Display the game summarys 
+            Expanded(
+              child: ListView(
+                children: match.games.map((e) => displayGameSummary(e)).toList()
+              ),
+            ),
+
+            //Finish button sent to the bottom of the screen
+            Container(
+              padding: const EdgeInsets.only(left: 20.0, right: 20.0),
+              child: CustomButton(
+                onPressed: () => Navigator.pushNamed(context, '/Home'),
+                width: double.infinity,
+                text: 'Finish',
+                color: HexColor("#A13333")
+              ),
+            ),
+            const SizedBox(height: 30)
+
           ],
         ),
       ),  
@@ -51,7 +86,10 @@ class RoundSummary extends StatelessWidget {
 class DisplaySkins extends StatelessWidget {
   Match match;
 
-  DisplaySkins(this.match);
+  DisplaySkins({
+    Key? key,
+    required this.match,
+  }) : super(key: key);
 
   //This will hold a running total of the most skins
   int mostSkins = 0;
@@ -63,10 +101,8 @@ class DisplaySkins extends StatelessWidget {
       mostSkins = numSkins;
     }
     return Container(
-      //padding: const EdgeInsets.all(10),
       decoration: BoxDecoration(
         color: Colors.grey[350],
-        
         borderRadius: BorderRadius.circular(10.0)
       ),
       child: Column(
@@ -88,7 +124,7 @@ class DisplaySkins extends StatelessWidget {
                     color: Colors.grey.withOpacity(0.5),
                     spreadRadius: 5,
                     blurRadius: 7,
-                    offset: Offset(0, 3), // changes position of shadow
+                    offset: const Offset(0, 3), // changes position of shadow
                 ),
               ],
             ),
@@ -113,9 +149,7 @@ class DisplaySkins extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: match.players.map((e) { 
 
-              int pointsIndex =  match.games.indexWhere((element) => element.name == 'Skins');
               int count = 0;
-              List<Point> points = match.games[pointsIndex].points;
 
               for(int i = 0; i < match.gamePlayerPoints.length; i++){
                 //We want to check all skins points
@@ -125,38 +159,12 @@ class DisplaySkins extends StatelessWidget {
               }
 
               return Expanded(child: Padding(
-                padding: EdgeInsets.all(5.0),
+                padding: const EdgeInsets.all(5.0),
                 child: displayPlayerSkins(e, count, context)
               ));
 
             }).toList()
           ),
-
-          // Row(
-          //   children: match.players.map((e) {
-          //     int pointsIndex =  match.games.indexWhere((element) => element.name == 'Skins');
-          //     int count = 0;
-          //     List<Point> points = match.games[pointsIndex].points;
-
-          //     for(int i = 0; i < match.gamePlayerPoints.length; i++){
-          //       //We want to check all skins points
-          //       if(match.gamePlayerPoints[i].gameId == 3 && match.gamePlayerPoints[i].playerId == e.id && match.gamePlayerPoints[i].pointId != 0){
-          //         count++;
-          //       }
-          //     }
-
-          //     return Expanded(child: Container(
-          //       padding: const EdgeInsets.only(left: 10, right: 10, top: 10, bottom: 10),
-          //       decoration: BoxDecoration(
-          //         border: Border.all(color: Colors.grey, width: 4)
-          //       ),
-          //      child: Center(child: Text(count.toString(), style: Theme.of(context).primaryTextTheme.headline2,  overflow: TextOverflow.ellipsis))
-          //     ));
-
-          //   }).toList()
-          // ),
-
-
         ],
       ),
     );
