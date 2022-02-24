@@ -11,6 +11,8 @@ import 'package:provider/provider.dart';
 import '../Components/NavWidget.dart';
 import 'package:page_transition/page_transition.dart';
 
+import 'RoundSummary.dart';
+
 class Home extends StatefulWidget {
   @override
   HomeState createState() => HomeState();
@@ -44,7 +46,8 @@ class HomeState extends State<Home> {
                   btn1onPressed: () async {
                     Match m = await service.getMatch(119);
                     //Navigator.pushNamed(context, '/ViewMatch', arguments: ViewMatchArgs(m));
-                    Navigator.push(context, PageTransition(type: PageTransitionType.bottomToTop, child: ViewMatch(match: m)));
+                    //Navigator.push(context, PageTransition(type: PageTransitionType.bottomToTop, child: ViewMatch(match: m)));
+                    Navigator.push(context, PageTransition(type: PageTransitionType.rightToLeft, child: RoundSummary(m)));
                   },
 
                   btn2text: 'Friends',

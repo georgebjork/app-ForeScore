@@ -3,6 +3,7 @@ import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:golf_app/Components/Statscard.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:provider/provider.dart';
 
@@ -52,14 +53,22 @@ class RoundSummary extends StatelessWidget {
 
             const SizedBox(height: 10),
             
-            //const Divider(color: Colors.black, thickness: 3),
-
             const SizedBox(height: 10),
 
             //Display the game summarys 
             Expanded(
-              child: ListView(
-                children: match.games.map((e) => displayGameSummary(e)).toList()
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  ListView(
+                    shrinkWrap: true,
+                    children: match.games.map((e) => displayGameSummary(e)).toList()
+                  ),
+
+                  //Display Round Stats
+                  Container(padding: const EdgeInsets.only(left: 20.0, right: 20.0), child: Text('Stats', style: Theme.of(context).primaryTextTheme.headline2)),
+                  DisplayRoundStats(match: match)
+                ],
               ),
             ),
 
@@ -169,5 +178,26 @@ class DisplaySkins extends StatelessWidget {
       ),
     );
   }
+}
 
+class DisplayRoundStats extends StatelessWidget {
+  Match match;
+
+  DisplayRoundStats({
+    Key? key,
+    required this.match,
+  }) : super(key: key);
+
+  Widget build(BuildContext context){
+    return Container(
+      padding: const EdgeInsets.only(left: 20, right: 20),
+      child: ListView( 
+        shrinkWrap: true,
+        children: match.players.map((e) => Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Statscard(title: 'testing this', color: Colors.grey[350],),
+        )).toList(),
+      )
+    );
+  }
 }

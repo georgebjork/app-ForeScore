@@ -1,7 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:golf_app/Components/PieChartStats.dart';
+import 'package:golf_app/Components/PieChartStatsScoring.dart';
 import 'package:golf_app/Components/ScorecardMatchWidget.dart';
 import 'package:golf_app/Utils/ViewMatchArgs.dart';
 import 'package:carousel_slider/carousel_slider.dart';
