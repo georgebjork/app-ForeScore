@@ -17,13 +17,11 @@
 ForeScore is the easy to way play games on the golf course. This app allows players to easily create matches with their friends, play games,and track payouts.
 
 <br/>
-<br/>
 
 ## Why Am I Building This app?
 
 Traditional scorecards quickly get cluttered with gross scores and net scores and determining payout can quickly get messy. ForeScore provides a solution. Most other apps out there don't allow for easy scoring with friends and allow only individual gross scoring. If apps do allow multiplayer scoring and games, the UIs are difficult to use and outdated. With ForeScore I hope to provide a modern scoring interface that allows players to step up to the tee box without any stress about scoring their rounds. Simply enter a player's gross score and let the app take care of the rest. 
 
-<br/>
 <br/>
 
 ## Try the app now
@@ -41,7 +39,6 @@ You can try the app here at this repository where you will see instructions on h
 
 
 <br/>
-<br/>
 
 ## Implmented Features 
 
@@ -51,13 +48,11 @@ You can try the app here at this repository where you will see instructions on h
 - [X] View Round Scorecards 
 
 <br/>
-<br/>
 
 ## Features In Progress
 
 - [ ] Round Summary 
 
-<br/>
 <br/>
 
 ## Features Not Yet Implmented
@@ -67,7 +62,6 @@ You can try the app here at this repository where you will see instructions on h
 - [ ] Ghin integration 
 - [ ] Resume Round 
 
-<br/>
 <br/>
 
 ## Demo
