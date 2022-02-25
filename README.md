@@ -21,7 +21,7 @@ ForeScore is the easy to way play games on the golf course. This app allows play
 
 ## Why Am I Building This app?
 
-Traditonal scorecards quickly get cluttered with gross scores and net scores, and determing payout can quickly get messy. ForeScore provides a solution. Most other apps out there dont allow for easy scoring with friends, and allow only individual gross scoring. If apps do allow multiplayer scoring and games, the UIs are difficult to use and outdated. With ForeScore I hope to provide a modern scoring interface that allow players to step up to the teebox without any stress about scoring their rounds. Simply enter a players gross score and let the app take care of the rest. 
+Traditional scorecards quickly get cluttered with gross scores and net scores and determining payout can quickly get messy. ForeScore provides a solution. Most other apps out there don't allow for easy scoring with friends and allow only individual gross scoring. If apps do allow multiplayer scoring and games, the UIs are difficult to use and outdated. With ForeScore I hope to provide a modern scoring interface that allows players to step up to the tee box without any stress about scoring their rounds. Simply enter a player's gross score and let the app take care of the rest. 
 
 <br/>
 <br/>
@@ -72,6 +72,9 @@ You can try the app here at this repository where you will see instructions on h
 
 ## Demo
 
+Before watching: 
+
+This video demonstrates implemented features and features in progress. You will see me skip to the end of the round. Once Hole 18 is reached, you will see a finish button appear. This will then take us to the round summary page which is still a work in progress as you will see. You will also notice on the scorecard page, it shows match id 282. You can also view that match scorecard here: https://tgin-mvc.azurewebsites.net/match/282
 
 https://user-images.githubusercontent.com/34782305/155658500-27c32dbf-b7bd-43dd-aade-df4345d1377c.mp4
 
