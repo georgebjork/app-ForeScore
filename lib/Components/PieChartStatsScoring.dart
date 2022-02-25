@@ -12,16 +12,16 @@ class ScoreStats {
   
 }
 
-class PieChartStats extends StatefulWidget {
+class PieChartStatsScoring extends StatefulWidget {
 
   final Round round;
 
-  PieChartStats({Key? key, required this.round});
+  PieChartStatsScoring({Key? key, required this.round});
 
-  PieChartStatsState createState() => PieChartStatsState();
+  PieChartStatsScoringState createState() => PieChartStatsScoringState();
 }
 
-class PieChartStatsState extends State<PieChartStats> {
+class PieChartStatsScoringState extends State<PieChartStatsScoring> {
 
   //This will hold all of our data
   List<ScoreStats> data = [];

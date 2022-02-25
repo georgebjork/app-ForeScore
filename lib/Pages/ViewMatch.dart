@@ -88,7 +88,7 @@ class ViewMatch extends StatelessWidget {
                               //Name of player
                               Text(match.players[index].firstName, style: Theme.of(context).primaryTextTheme.headline2),
                               //Pie Chart
-                              SizedBox(height: 200, child: PieChartStats(round: match.rounds[index])),
+                              SizedBox(height: 200, child: PieChartStatsScoring(round: match.rounds[index])),
                               //Legend
                               Text('Legend', style: Theme.of(context).primaryTextTheme.headline3),
                               const SizedBox(height: 10),
