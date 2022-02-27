@@ -2,15 +2,21 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:golf_app/Components/CheckBox.dart';
+import 'package:golf_app/Utils/CreateMatch.dart';
 import 'package:golf_app/Utils/Providers/MatchSetUpProvider.dart';
 import 'package:golf_app/Utils/Providers/ThemeProvider.dart';
 import 'package:golf_app/Utils/constants.dart';
 import 'package:provider/provider.dart';
 
 import '../Components/NavWidget.dart';
+import '../Utils/Player.dart';
 import '../Utils/Providers/UserProvider.dart';
 
 class AddPlayers extends StatefulWidget {
+
+  CreateMatch newMatch;
+  AddPlayers({Key? key, required this.newMatch}) : super(key: key);
+  
   @override
   AddPlayersState createState() => AddPlayersState();
 }
@@ -18,7 +24,6 @@ class AddPlayers extends StatefulWidget {
 class AddPlayersState extends State<AddPlayers> {
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
   }
 
@@ -38,15 +43,17 @@ class AddPlayersState extends State<AddPlayers> {
             const SizedBox(height: 10,),
 
             Text('Friends', style: Theme.of(context).primaryTextTheme.headline3),
-            Friends(),
 
+            Friends(
+              onPlayersChanged: (players) => widget.newMatch.setPlayer(players)
+            ),
 
             NavWidget(
               btn1text: 'Prev',
               btn1onPressed: () => Navigator.pop(context),
               btn2text: 'Next',
               btn2onPressed: () {
-                if(context.read<MatchSetUpProvider>().selectedPlayers.isEmpty){
+                if(widget.newMatch.players.isEmpty){
                   context.showSnackBar(message: "At least one player must be selected", backgroundColor: Colors.red);
                 } else{
                   Navigator.pushNamed(context, '/TeeBox');
@@ -65,62 +72,76 @@ class AddPlayersState extends State<AddPlayers> {
 }
 
 class Friends extends StatefulWidget {
+  //This will be triggered on a course change
+  final ValueChanged<List<Player>> onPlayersChanged;
+
+  const Friends({Key? key, required this.onPlayersChanged}) : super(key: key);
+
   @override
   FriendsState createState() => FriendsState();
 }
 
 class FriendsState extends State<Friends> {
+
+  List<Player> friends = [];
+  List<Player> selectedPlayers = [];
   
   void initState() {
 
   }
 
+  getFriends() async {
+    friends = await service.getFriends();
+    return friends;
+  }
+
   Widget build(BuildContext context) {
     
-    final match = context.read<MatchSetUpProvider>();
     return Expanded(
-      child: Consumer<UserProvider>(
-        builder: (context, provider, child) {
-          return FutureBuilder(
-            future: provider.friends.isEmpty ? provider.getFriends() : null,
-            builder: (context, snapshot) {
-              if(provider.friends.isEmpty == true){
-                return Center(child: CircularProgressIndicator(color: context.read<ThemeProvider>().getGreen(), strokeWidth: 6.0,));
-              }
-              return ListView.separated(
-                separatorBuilder: (context, index) => const Divider(
-                  color: Colors.black,
+      child: FutureBuilder(
+        future: friends.isEmpty ? getFriends() : null,
+        builder: (context, snapshot) {
+          if(snapshot.hasData == false){
+            return Center(child: CircularProgressIndicator(color: context.read<ThemeProvider>().getGreen(), strokeWidth: 6.0));
+          }
+          return ListView.separated(
+            separatorBuilder: (context, index) => const Divider(
+              color: Colors.black,
+            ),
+            physics: BouncingScrollPhysics(),
+            shrinkWrap: true,
+            itemCount: friends.length,
+            itemBuilder: (BuildContext context, int index) {
+              return ListTile(
+                onTap: () {
+                  setState(() {
+                    //if tapped and exists within list, then we should remove the player
+                    if(selectedPlayers.contains(friends[index])){
+                      //Remove from list
+                      selectedPlayers.remove(friends[index]);
+                      //Give updated list
+                      widget.onPlayersChanged(selectedPlayers);
+                    }
+                    //add player to the selected player list. set state to rerender 
+                    else{
+                      //Add player
+                      selectedPlayers.add(friends[index]);
+                      //Give updated list
+                      widget.onPlayersChanged(selectedPlayers);
+                    }
+                  });
+                },
+                //if in the list then set checkmark to true
+                leading: selectedPlayers.contains(friends[index]) == true ? const CheckMarkBox(isChecked: true) : const CheckMarkBox(isChecked: false),
+                title: Text(
+                  friends[index].firstName + ' ' + friends[index].lastName,
+                  style: Theme.of(context).primaryTextTheme.headline4,
                 ),
-                physics: BouncingScrollPhysics(),
-                shrinkWrap: true,
-                itemCount: provider.friends.length,
-                itemBuilder: (BuildContext context, int index) {
-                  return ListTile(
-                    onTap: () {
-                      setState(() {
-                        //if tapped and exists within list, then we should remove the player
-                        if(match.selectedPlayers.contains(provider.friends[index])){
-                          match.removePlayer(provider.friends[index]);
-                        }
-                        //add player to the selected player list. set state to rerender 
-                        else{
-                          match.addPlayer(provider.friends[index]);
-                        }
-                      });
-                    },
-                    //if in the list then set checkmark to true
-                    leading: match.selectedPlayers.contains(provider.friends[index]) == true ? const CheckMarkBox(isChecked: true) : const CheckMarkBox(isChecked: false),
-                    title: Text(
-                      provider.friends[index].firstName + ' ' + provider.friends[index].lastName,
-                      style: Theme.of(context).primaryTextTheme.headline4,
-                    ),
-                    subtitle: Text(
-                      'Hdcp: ' + provider.friends[index].handicap.toString(),
-                      style: Theme.of(context).primaryTextTheme.headline5
-                    ),
-                    trailing: IconTheme(data: Theme.of(context).iconTheme, child: Icon(Icons.star))
-                  );
-                }
+                subtitle: Text(
+                  'Hdcp: ' + friends[index].handicap.toString(),
+                  style: Theme.of(context).primaryTextTheme.headline5
+                ),
+                trailing: IconTheme(data: Theme.of(context).iconTheme, child: Icon(Icons.star))
               );
             }
           );
