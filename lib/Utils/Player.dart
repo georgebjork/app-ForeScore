@@ -28,5 +28,10 @@ class Player {
       );
   }
 
+
+  @override
+  String toString() {
+    return name;
+  }
   
 }
