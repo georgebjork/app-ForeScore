@@ -1,15 +1,13 @@
-
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:golf_app/Components/CheckBox.dart';
-import 'package:golf_app/Utils/Providers/MatchSetUpProvider.dart';
+import 'package:golf_app/Utils/CreateMatch.dart';
 import 'package:golf_app/Utils/Providers/ThemeProvider.dart';
 import 'package:golf_app/Utils/constants.dart';
 import 'package:provider/provider.dart';
 
 import '../Components/NavWidget.dart';
 import '../Utils/Course.dart';
-import '../Utils/Providers/UserProvider.dart';
+
 
 class SelectCourse extends StatefulWidget {
   @override
@@ -17,6 +15,11 @@ class SelectCourse extends StatefulWidget {
 }
 
 class SelectCourseState extends State<SelectCourse> {
+
+  //This will be our new match
+  CreateMatch newMatch = CreateMatch();
+
+
   @override
   void initState() {
     // TODO: implement initState
@@ -39,7 +42,11 @@ class SelectCourseState extends State<SelectCourse> {
             const SizedBox(height: 10,),
 
             Text('Favorite Courses', style: Theme.of(context).primaryTextTheme.headline3),
-            FavoriteCourses(),
+
+            //When the a new course is selected, the onChangedFunction will be triggered and the course will be set
+            FavoriteCourses(
+              onCourseChanged: (newCourse) => newMatch.setCourse(newCourse)
+            ),
 
 
             NavWidget(
@@ -47,7 +54,7 @@ class SelectCourseState extends State<SelectCourse> {
               btn1onPressed: () => Navigator.pop(context),
               btn2text: 'Next',
               btn2onPressed: () {
-                if(context.read<MatchSetUpProvider>().isCourseSelected == true){
+                if(newMatch.selectedCourse != Course(-1, 'null')){
                   Navigator.pushNamed(context, '/AddPlayers');
                 } else{
                   context.showSnackBar(message: "A course must be selected", backgroundColor: Colors.red);
@@ -66,51 +73,64 @@ class SelectCourseState extends State<SelectCourse> {
 }
 
 class FavoriteCourses extends StatefulWidget {
+  //This will be triggered on a course change
+  final ValueChanged<Course> onCourseChanged;
+
+  FavoriteCourses({Key? key, required this.onCourseChanged})  : super(key: key) ;
+
   @override
   FavoriteCoursesState createState() => FavoriteCoursesState();
 }
 
 class FavoriteCoursesState extends State<FavoriteCourses> {
-  
-  void initState() {
 
+  //Hold a list of favorite courses
+  List<Course> favoriteCourses = [];
+  //The course to be selected
+  Course selectedCourse = Course(-1, 'null');
+
+  @override
+  void initState() {}
+
+  getFavoriteCourses() async {
+    favoriteCourses =  await service.getFavoriteCourses();
+    return favoriteCourses;
   }
 
   Widget build(BuildContext context) {
 
     return Expanded(
-      child: Consumer<MatchSetUpProvider>(
-        builder: (context, provider, child) {
-          return FutureBuilder(
-            future: provider.favoriteCourses.isEmpty ? provider.getFavoriteCourses() : null,
-            builder: (context, snapshot) {
-              if(provider.favoriteCourses.isEmpty == true){
-                return Center(child: CircularProgressIndicator(color: context.read<ThemeProvider>().getGreen(), strokeWidth: 6.0,));
-              }
-              return ListView.separated(
-                separatorBuilder: (context, index) => const Divider(
-                  color: Colors.black,
+      child: FutureBuilder(
+        future: favoriteCourses.isEmpty ? getFavoriteCourses() : null,
+        builder: (context, snapshot) {
+          if(snapshot.hasData == false){
+            return Center(child: CircularProgressIndicator(color: context.read<ThemeProvider>().getGreen(), strokeWidth: 6.0));
+          }
+          return ListView.separated(
+            separatorBuilder: (context, index) => const Divider(
+              color: Colors.black,
+            ),
+            physics: const BouncingScrollPhysics(),
+            shrinkWrap: true,
+            itemCount: favoriteCourses.length,
+            itemBuilder: (BuildContext context, int index) {
+              return ListTile(
+                onTap: () {
+                  //Sets the selected course. We need to update the state in order for it to re rerender
+                  setState(() {
+                    //Update selected course
+                    selectedCourse = favoriteCourses[index];
+                    //Trigger onchanged
+                    widget.onCourseChanged(selectedCourse);
+                  });
+                },
+                //check if its equal to the seleced course so we can update the checkbox
+                leading:  selectedCourse == favoriteCourses[index] ? const CheckMarkBox(isChecked: true) : const CheckMarkBox(isChecked: false),
+                title: Text(
+                  favoriteCourses[index].name,
+                  style: Theme.of(context).primaryTextTheme.headline4,
                 ),
-                physics: BouncingScrollPhysics(),
-                shrinkWrap: true,
-                itemCount: provider.favoriteCourses.length,
-                itemBuilder: (BuildContext context, int index) {
-                  return ListTile(
-                    onTap: () {
-                      //Sets the selected course. We need to update the state in order for it to re rerender
-                      setState(() {
-                        provider.setCourse(provider.favoriteCourses[index]);
-                      });
-                    },
-                    //check if its equal to the seleced course so we can update the checkbox
-                    leading:  provider.selectedCourse == provider.favoriteCourses[index] ? const CheckMarkBox(isChecked: true) : const CheckMarkBox(isChecked: false),
-                    title: Text(
-                      provider.favoriteCourses[index].name,
-                      style: Theme.of(context).primaryTextTheme.headline4,
-                    ),
-                    trailing: IconTheme(data: Theme.of(context).iconTheme, child: Icon(Icons.star))
-                  );
-                }
+                trailing: IconTheme(data: Theme.of(context).iconTheme, child: const Icon(Icons.star))
               );
             }
           );
