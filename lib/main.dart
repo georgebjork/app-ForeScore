@@ -49,7 +49,7 @@ class MyApp extends StatelessWidget {
         '/login': (_) => const Login(),
         '/signUp': (_) => SignUp(),
         '/Home' : (_) => Home(),
-        '/AddPlayers' : (_) => AddPlayers(),
+        //'/AddPlayers' : (_) => AddPlayers(),
         '/SelectCourse' : (_) => SelectCourse(),
         '/TeeBox' : (_) => SelectTeeBox(),
         '/EnterScore' : (_) => EnterScore(),

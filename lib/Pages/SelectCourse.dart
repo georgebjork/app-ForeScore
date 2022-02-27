@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:golf_app/Components/CheckBox.dart';
+import 'package:golf_app/Pages/AddPlayers.dart';
 import 'package:golf_app/Utils/CreateMatch.dart';
 import 'package:golf_app/Utils/Providers/ThemeProvider.dart';
 import 'package:golf_app/Utils/constants.dart';
+import 'package:page_transition/page_transition.dart';
 import 'package:provider/provider.dart';
 
 import '../Components/NavWidget.dart';
@@ -55,7 +57,7 @@ class SelectCourseState extends State<SelectCourse> {
               btn2text: 'Next',
               btn2onPressed: () {
                 if(newMatch.selectedCourse != Course(-1, 'null')){
-                  Navigator.pushNamed(context, '/AddPlayers');
+                 Navigator.push(context, PageTransition(type: PageTransitionType.rightToLeft, child: AddPlayers(newMatch: newMatch)));
                 } else{
                   context.showSnackBar(message: "A course must be selected", backgroundColor: Colors.red);
                 }
