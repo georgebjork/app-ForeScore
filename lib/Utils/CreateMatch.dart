@@ -35,14 +35,22 @@ class CreateMatch {
 
   void setTeeBox(TeeBox t){
     selectedTeeBox = t;
+    print('Selected TeeBox is: ${selectedTeeBox.name}');
   }
 
   void addPlayer(Player p){
     players.add(p);
+    print('Added Player: ${p.name}');
+  }
+
+  void setPlayer(List<Player> p){
+    players = p;
+    print('Updated Players to: $p');
   }
 
   void addGame(Game g){
     games.add(g);
+    print('Added Game: ${g.name}');
   }
 
 }
