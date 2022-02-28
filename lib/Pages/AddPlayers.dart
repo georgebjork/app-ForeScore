@@ -2,10 +2,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:golf_app/Components/CheckBox.dart';
+import 'package:golf_app/Pages/SelectTeeBox.dart';
 import 'package:golf_app/Utils/CreateMatch.dart';
 import 'package:golf_app/Utils/Providers/MatchSetUpProvider.dart';
 import 'package:golf_app/Utils/Providers/ThemeProvider.dart';
 import 'package:golf_app/Utils/constants.dart';
+import 'package:page_transition/page_transition.dart';
 import 'package:provider/provider.dart';
 
 import '../Components/NavWidget.dart';
@@ -56,7 +58,7 @@ class AddPlayersState extends State<AddPlayers> {
                 if(widget.newMatch.players.isEmpty){
                   context.showSnackBar(message: "At least one player must be selected", backgroundColor: Colors.red);
                 } else{
-                  Navigator.pushNamed(context, '/TeeBox');
+                 Navigator.push(context, PageTransition(type: PageTransitionType.rightToLeft, child: SelectTeeBox(newMatch: widget.newMatch)));
                 }
               }, 
               btn3text: 'Cancel',

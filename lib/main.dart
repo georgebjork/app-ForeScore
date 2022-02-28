@@ -51,7 +51,7 @@ class MyApp extends StatelessWidget {
         '/Home' : (_) => Home(),
         //'/AddPlayers' : (_) => AddPlayers(),
         '/SelectCourse' : (_) => SelectCourse(),
-        '/TeeBox' : (_) => SelectTeeBox(),
+        //'/TeeBox' : (_) => SelectTeeBox(),
         '/EnterScore' : (_) => EnterScore(),
         '/SelectGame' : (_) => SelectGame(),
         //'/ViewMatch' : (_) => ViewMatch(),
