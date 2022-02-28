@@ -118,6 +118,8 @@ class Match {
   //This function will post a hole to the database
   Future<Match> postHoleScore(int playerId, int score) async {
     //This will tell the api call to post the score
-    return await service.postHoleScore(playerId, currentHole, id, score);
+    Match updatedMatch = await service.postHoleScore(playerId, currentHole, id, score);
+    updatedMatch.currentHole = currentHole;
+    return updatedMatch;
   }
 }
