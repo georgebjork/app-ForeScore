@@ -2,8 +2,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:golf_app/Components/CheckBox.dart';
+import 'package:golf_app/Pages/EnterScore.dart';
+import 'package:golf_app/Pages/all.dart';
 import 'package:golf_app/Utils/Match.dart';
 import 'package:golf_app/Utils/Providers/MatchSetUpProvider.dart';
+import 'package:page_transition/page_transition.dart';
 import 'package:provider/provider.dart';
 
 import '../Components/NavWidget.dart';
@@ -59,7 +62,8 @@ class SelectGameState extends State<SelectGame> {
                 //Create the match
                 Match m = await widget.newMatch.createMatch();
                 context.read<MatchProvider>().setMatch(m);
-                Navigator.pushNamedAndRemoveUntil(context, '/EnterScore', ModalRoute.withName('/Home'));
+                Navigator.pushAndRemoveUntil(context, PageTransition(type: PageTransitionType.rightToLeft, child: EnterScore(match: m)), ModalRoute.withName('/Home'));
+               
               },
 
               btn3text: 'Cancel',

@@ -3,21 +3,26 @@ import 'package:flutter/material.dart';
 import 'package:golf_app/Utils/Providers/MatchProvider.dart';
 import 'package:provider/provider.dart';
 import '../Utils/constants.dart';
+import '../Utils/Match.dart';
 
 class ScoreInputWidget extends StatelessWidget {
 
+  final ValueChanged<Match> onMatchChanged;
   final String hintText;
   final _scoreController = TextEditingController();
   final int playerId;
+  Match match;
  
   ScoreInputWidget({
     Key? key,
+    required this.onMatchChanged,
+    required this.match,
     required this.hintText,
     required this.playerId,
   }) : super(key: key);
 
   Widget build(BuildContext context){
-    final matchProvider = context.read<MatchProvider>();
+    //final matchProvider = context.read<MatchProvider>();
     return TextFormField(
       showCursor: false,
       textAlign: TextAlign.center, 
@@ -32,9 +37,10 @@ class ScoreInputWidget extends StatelessWidget {
         )
       ),
 
-      onChanged: (string) {
+      onChanged: (string) async {
         print(_scoreController.text);
-        matchProvider.postHoleScore(playerId, int.parse(_scoreController.text));
+        Match m = await match.postHoleScore(playerId, int.parse(_scoreController.text));
+        onMatchChanged(m);
       },
     );
   }
