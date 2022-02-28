@@ -24,6 +24,18 @@ class EnterScore extends StatefulWidget {
 
 class EnterScoreState extends State<EnterScore> {
 
+  //This function will be called when the navigator pops and we need to update the state of the match
+  void updateMatch(Match m){
+    setState(() {
+      widget.match = m;
+    });
+  }
+
+  void nextPage() async {
+    final updatedMatch = await Navigator.push(context, PageTransition(type: PageTransitionType.rightToLeft, child: EnterScore(match: widget.match)));
+    updateMatch(updatedMatch);
+  }
+
   Widget build(context){
     return Scaffold(
       appBar: AppBar(
@@ -80,12 +92,12 @@ class EnterScoreState extends State<EnterScore> {
 
             NavWidget(
               btn1text: 'Prev',
-              btn1onPressed: () async => await widget.match.prevHole().then((value) => Navigator.pop(context)),
+              btn1onPressed: () async => await widget.match.prevHole().then((value) => Navigator.pop(context, widget.match)),
         
               btn2text: widget.match.currentHole == 17 ? 'Finish' : 'Next',
               btn2onPressed: widget.match.currentHole == 17 ? 
                 () => Navigator.push(context, PageTransition(type: PageTransitionType.rightToLeft, child: RoundSummary(widget.match))) 
-                : () async => await widget.match.nextHole().then((value) => Navigator.push(context, PageTransition(type: PageTransitionType.rightToLeft, child: EnterScore(match: widget.match)))),
+                : () async => await widget.match.nextHole().then((value) => nextPage()),
       
               btn3text: 'Cancel',
               btn3onPressed: () {}

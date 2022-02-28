@@ -63,7 +63,6 @@ class SelectGameState extends State<SelectGame> {
                 Match m = await widget.newMatch.createMatch();
                 context.read<MatchProvider>().setMatch(m);
                 Navigator.pushAndRemoveUntil(context, PageTransition(type: PageTransitionType.rightToLeft, child: EnterScore(match: m)), ModalRoute.withName('/Home'));
-               
               },
 
               btn3text: 'Cancel',
