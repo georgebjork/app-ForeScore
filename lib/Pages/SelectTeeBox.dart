@@ -33,8 +33,6 @@ class SelectTeeBoxState extends State<SelectTeeBox> {
   }
 
   Widget build(BuildContext context) {
-    final provider = context.read<MatchSetUpProvider>();
-
     return Scaffold(
       appBar: AppBar(
         elevation: 0.0,

@@ -24,7 +24,7 @@ Future<void> main() async {
       providers: [
         ChangeNotifierProvider(create: (_) => ThemeProvider(lightTheme)),
         ChangeNotifierProvider(create: (_) => UserProvider()),
-        ChangeNotifierProvider(create: (_) => MatchSetUpProvider()),
+        //ChangeNotifierProvider(create: (_) => MatchSetUpProvider()),
         ChangeNotifierProvider(create: (_) => MatchProvider())
       ],
       

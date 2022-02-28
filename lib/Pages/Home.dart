@@ -56,7 +56,7 @@ class HomeState extends State<Home> {
 
                   btn3text: 'Start Round',
                   btn3Color: themeProvider.getOrange(),
-                  btn3onPressed: () => Navigator.pushNamed(context, '/SelectCourse'),
+                  btn3onPressed: () => Navigator.push(context, PageTransition(type: PageTransitionType.rightToLeft, child: SelectCourse()))
                 ))
           ],
         ),
