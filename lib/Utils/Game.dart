@@ -23,4 +23,9 @@ class Game {
       points: p.map((e) => Point.fromJson(e)).toList(),
     );
   }
+
+  @override
+  String toString() {
+    return name;
+  }
 }

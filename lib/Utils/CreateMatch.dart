@@ -53,4 +53,9 @@ class CreateMatch {
     print('Added Game: ${g.name}');
   }
 
+  void setGames(List<Game> g){
+    games = g;
+    print('Updated Games to: $games');
+  }
+
 }

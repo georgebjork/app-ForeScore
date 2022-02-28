@@ -2,10 +2,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:golf_app/Components/CheckBox.dart';
+import 'package:golf_app/Pages/SelectGame.dart';
 import 'package:golf_app/Utils/Match.dart';
 import 'package:golf_app/Utils/Providers/MatchProvider.dart';
 import 'package:golf_app/Utils/Providers/MatchSetUpProvider.dart';
 import 'package:golf_app/Utils/TeeBox.dart';
+import 'package:page_transition/page_transition.dart';
 import 'package:provider/provider.dart';
 
 import '../Components/NavWidget.dart';
@@ -58,7 +60,13 @@ class SelectTeeBoxState extends State<SelectTeeBox> {
               btn1text: 'Prev',
               btn1onPressed: () => Navigator.pop(context),
               btn2text: 'Next',
-              btn2onPressed: context.read<MatchSetUpProvider>().isCourseSelected ? () => Navigator.pushNamed(context, '/SelectGame') : () => context.showSnackBar(message: "A course must be selected", backgroundColor: Colors.red),
+              btn2onPressed: () {
+                if(widget.newMatch.selectedTeeBox == TeeBox(-1, -1, "null", -1, -1, -1, -1, -1)){
+                  context.showSnackBar(message: "A Teebox must be selected", backgroundColor: Colors.red);
+                } else {
+                  Navigator.push(context, PageTransition(type: PageTransitionType.rightToLeft, child: SelectGame(newMatch: widget.newMatch)));
+                }
+              },
               btn3text: 'Cancel',
               btn3onPressed: () => Navigator.popUntil(context, ModalRoute.withName('/Home'))
             ),
