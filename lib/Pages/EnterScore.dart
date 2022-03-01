@@ -92,12 +92,12 @@ class EnterScoreState extends State<EnterScore> {
 
             NavWidget(
               btn1text: 'Prev',
-              btn1onPressed: () async => await widget.match.prevHole().then((value) => Navigator.pop(context, widget.match)),
+              btn1onPressed: ()  => setState(() { widget.match.prevHole(); }),
         
               btn2text: widget.match.currentHole == 18 ? 'Finish' : 'Next',
               btn2onPressed: widget.match.currentHole == 18 ? 
                 () => Navigator.push(context, PageTransition(type: PageTransitionType.rightToLeft, child: RoundSummary(widget.match))) 
-                : () async => await widget.match.nextHole().then((value) => nextPage()),
+                : () => setState(() { widget.match.nextHole(); }),
       
               btn3text: 'Cancel',
               btn3onPressed: () {}

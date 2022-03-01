@@ -67,13 +67,13 @@ class Match {
   }
 
 
-  Future<void> nextHole() async {
+  void nextHole() {
     if(currentHole < 18){
       currentHole++;
     }
   }
 
-  Future<void> prevHole() async {
+  void prevHole() {
     if(currentHole > 1){
       currentHole --;
     }
