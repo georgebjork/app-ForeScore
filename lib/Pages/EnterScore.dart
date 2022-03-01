@@ -92,14 +92,18 @@ class EnterScoreState extends State<EnterScore> {
 
             NavWidget(
               btn1text: 'Prev',
+              //When the prev button is pressed, we should set a new state of the match and decrease the current hole
               btn1onPressed: ()  => setState(() { widget.match.prevHole(); }),
         
               btn2text: widget.match.currentHole == 18 ? 'Finish' : 'Next',
+              //When the prev button is pressed, we should set a new state of the match and increase the current hole
+              //If the hole number is 18, then move to a match summary
               btn2onPressed: widget.match.currentHole == 18 ? 
                 () => Navigator.push(context, PageTransition(type: PageTransitionType.rightToLeft, child: RoundSummary(widget.match))) 
                 : () => setState(() { widget.match.nextHole(); }),
       
               btn3text: 'Cancel',
+              //No implementation yet 
               btn3onPressed: () {}
             ),
             
