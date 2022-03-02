@@ -68,7 +68,7 @@ class DisplaySkins extends StatelessWidget {
           Text('Skins', style: Theme.of(context).primaryTextTheme.headline2),
 
           Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            mainAxisAlignment: MainAxisAlignment.center,
             children: match.players.map((e) { 
 
               int count = 0;
@@ -79,11 +79,13 @@ class DisplaySkins extends StatelessWidget {
                   count++;
                 }
               }
-
-              return Expanded(child: Padding(
-                padding: const EdgeInsets.all(5.0),
-                child: displayPlayerSkins(e, count, context)
-              ));
+              return SizedBox(
+                width: MediaQuery.of(context).size.width * 0.22,
+                
+                child: Padding(
+                  padding: const EdgeInsets.all(5.0),
+                  child: displayPlayerSkins(e, count, context))
+              );
 
             }).toList()
           ),
