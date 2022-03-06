@@ -45,9 +45,9 @@ class MyApp extends StatelessWidget {
       theme: themeNotifier.getTheme(),
       initialRoute: '/Home',
       routes: <String, WidgetBuilder>{
-        '/': (_) => const SplashPage(),
-        '/login': (_) => const Login(),
-        '/signUp': (_) => SignUp(),
+        //'/': (_) => const SplashPage(),
+        //'/login': (_) => const Login(),
+        //'/signUp': (_) => SignUp(),
         '/Home' : (_) => Home(),
         //'/AddPlayers' : (_) => AddPlayers(),
         '/SelectCourse' : (_) => SelectCourse(),

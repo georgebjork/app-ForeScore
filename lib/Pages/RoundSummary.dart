@@ -2,6 +2,8 @@
 
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
+import 'package:golf_app/Components/PieChartStats.dart';
+import 'package:golf_app/Utils/Stat.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:provider/provider.dart';
 
@@ -65,7 +67,7 @@ class RoundSummary extends StatelessWidget {
                   Container(padding: const EdgeInsets.only(left: 20.0, right: 20.0), child: Text('Scores', style: Theme.of(context).primaryTextTheme.headline2)),
                   DisplayScores(match: match),
 
-                  SizedBox(height: 10),
+                  const SizedBox(height: 10),
 
                   //Display the game summarys 
                   ListView(
@@ -132,9 +134,9 @@ class DisplayScores extends StatelessWidget {
         ), 
         itemBuilder: (BuildContext context, int index) {
           return ListTile(
-            leading: Icon(Icons.account_circle),
+            leading: const Icon(Icons.account_circle),
             title: Text(match.getPlayerName(index), style: Theme.of(context).primaryTextTheme.headline3),
-            subtitle: const Text('Tap to view stats'),
+            subtitle: const Text('Tap to view stats', overflow: TextOverflow.ellipsis, style: TextStyle(fontSize: 10),),
             trailing: Text(
               "Gross: " + match.rounds[index].Score.toString() + "   " +
               "Net: " + match.rounds[index].Net.toString(),
@@ -172,10 +174,7 @@ class ModalDisplayRoundStats extends StatelessWidget {
           const SizedBox(height: 30),
           //Player name
           Center(child: Text(match.players[playerIndex].name, style: Theme.of(context).primaryTextTheme.headline3)),
-        
-        ] + match.players.map((e) {
-          //This will show a score disribution
-          return Padding(
+          Padding(
             padding: const EdgeInsets.all(8.0),
             child: Statscard(
               chart: PieChartStatsScoring(round: match.rounds[playerIndex]), 
@@ -190,6 +189,25 @@ class ModalDisplayRoundStats extends StatelessWidget {
                 Legend(color: Colors.grey.shade800, name:'Triple+'),      
               ],
             )
+          ),
+        ] + match.players.map((e) {
+          //This will show a score disribution
+          return Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Statscard(
+              chart: PieChartStats(
+                stats: [
+                  Stat(type: 'Hit', color: Colors.red, number: 10),
+                  Stat(type: 'Missed', color: Colors.grey, number: 4)
+                ],
+              ),
+              title: 'Fairways',
+              color: Colors.grey[350],
+              legend: const [
+                Legend(color: Colors.red, name: 'Hit'),
+                Legend(color: Colors.grey, name:'Missed'),
+              ],
+            ),
           );
         }).toList(),
       ),

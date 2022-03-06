@@ -49,17 +49,17 @@ final darkTheme = ThemeData(
     ),
 
     primaryTextTheme: TextTheme(
-      headline1: GoogleFonts.openSans( fontSize: 40, color: Colors.black),
-      headline2: GoogleFonts.openSans( fontSize: 26, color: Colors.black),
-      headline3: GoogleFonts.openSans( fontSize: 16, color: Colors.black),
-      headline4: GoogleFonts.openSans( fontSize: 14, color: Colors.black),
-      headline5: GoogleFonts.openSans( fontSize: 12, color: Colors.black),
+      headline1: GoogleFonts.openSans( fontSize: 38, color: Colors.black),
+      headline2: GoogleFonts.openSans( fontSize: 24, color: Colors.black),
+      headline3: GoogleFonts.openSans( fontSize: 14, color: Colors.black),
+      headline4: GoogleFonts.openSans( fontSize: 12, color: Colors.black),
+      headline5: GoogleFonts.openSans( fontSize: 10, color: Colors.black),
     ),
     textTheme: TextTheme(
-      headline1: GoogleFonts.openSans( fontSize: 40, color: Colors.white),
-      headline2: GoogleFonts.openSans( fontSize: 26, color: Colors.white),
-      headline3: GoogleFonts.openSans( fontSize: 16, color: Colors.white),
-      headline4: GoogleFonts.openSans( fontSize: 14, color: Colors.white),
-      headline5: GoogleFonts.openSans( fontSize: 12, color: Colors.white),
+      headline1: GoogleFonts.openSans( fontSize: 38, color: Colors.white),
+      headline2: GoogleFonts.openSans( fontSize: 24, color: Colors.white),
+      headline3: GoogleFonts.openSans( fontSize: 14, color: Colors.white),
+      headline4: GoogleFonts.openSans( fontSize: 12, color: Colors.white),
+      headline5: GoogleFonts.openSans( fontSize: 10, color: Colors.white),
     ),
   );

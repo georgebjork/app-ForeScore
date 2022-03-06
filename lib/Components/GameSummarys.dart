@@ -32,7 +32,7 @@ class DisplaySkins extends StatelessWidget {
           //This will be the player name
           Padding(
             padding: const EdgeInsets.all(15.0),
-            child: Center(child: Text(p.firstName, overflow: TextOverflow.ellipsis, style: Theme.of(context).primaryTextTheme.headline3)),
+            child: Center(child: Text(p.firstName, overflow: TextOverflow.ellipsis, style: Theme.of(context).primaryTextTheme.headline4)),
           ),
           //This will be the skins 
           Container(
@@ -68,7 +68,7 @@ class DisplaySkins extends StatelessWidget {
           Text('Skins', style: Theme.of(context).primaryTextTheme.headline2),
 
           Row(
-            mainAxisAlignment: MainAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: match.players.map((e) { 
 
               int count = 0;

@@ -6,7 +6,7 @@ import '../Utils/Round.dart';
 
 class Statscard extends StatelessWidget {
 
-  final Widget chart;
+  final Widget? chart;
   final Color? color;
   final String title;
   List<Widget> legend = [];
