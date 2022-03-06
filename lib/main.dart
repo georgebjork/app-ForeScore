@@ -6,7 +6,6 @@ import 'package:golf_app/Pages/ViewMatch.dart';
 import 'package:golf_app/Utils/Providers/MatchSetUpProvider.dart';
 import 'package:golf_app/Utils/Providers/MatchProvider.dart';
 import 'package:golf_app/Utils/TeeBox.dart';
-import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:provider/provider.dart';
 import '/Utils/all.dart';
 import '/Pages/all.dart';
@@ -15,9 +14,9 @@ import '/Pages/all.dart';
 
 Future<void> main() async {
 
-  WidgetsFlutterBinding.ensureInitialized();
+  //WidgetsFlutterBinding.ensureInitialized();
 
-  await Supabase.initialize(url: supabaseUrl, anonKey: supabaseAnnonKey);
+  //await Supabase.initialize(url: supabaseUrl, anonKey: supabaseAnnonKey);
 
   runApp(
     MultiProvider(

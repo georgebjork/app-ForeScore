@@ -11,7 +11,7 @@ class SplashPage extends StatefulWidget {
   _SplashPageState createState() => _SplashPageState();
 }
 
-class _SplashPageState extends AuthState<SplashPage> {
+class _SplashPageState extends State<SplashPage> {
 
   Timer? recoverSessionTimer;
 
@@ -21,10 +21,10 @@ class _SplashPageState extends AuthState<SplashPage> {
 
       
 
-     const _duration = Duration(seconds: 2);
-      recoverSessionTimer = Timer(_duration, () {
-      recoverSupabaseSession();
-    });
+    //  const _duration = Duration(seconds: 2);
+    //   recoverSessionTimer = Timer(_duration, () {
+    //   recoverSupabaseSession();
+    // });
   }
 
   @override
