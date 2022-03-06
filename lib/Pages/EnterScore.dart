@@ -139,7 +139,7 @@ class DisplayPlayerScoresState extends State<DisplayPlayerScores> {
           return ListTile(
             leading: Icon(Icons.account_circle),
             title: Text(widget.match.getPlayerName(index), style: Theme.of(context).primaryTextTheme.headline3),
-            subtitle: Text("Strokes: " + widget.match.getStrokesGiven(index).toString()),
+            subtitle: Text("Strokes: " + widget.match.getStrokesGiven(index).toString(), style: const TextStyle(fontSize: 10),),
             trailing: Text(
               "Gross: " + widget.match.getGrossScore(index).toString() + "   " +
               "Net: " + widget.match.getNetScore(index).toString(),
@@ -229,7 +229,7 @@ class ModalDataState extends State<ModalData> {
               const SizedBox(height: 60,),
               Text('Gross Score: ', style: Theme.of(context).primaryTextTheme.headline3),
               
-              Expanded(child: Center()),
+              const Expanded(child: Center()),
     
               Container(width: 50, height: 30, child: ScoreInputWidget(
                 onMatchChanged: (value) {

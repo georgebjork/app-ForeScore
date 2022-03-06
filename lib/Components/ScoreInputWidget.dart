@@ -27,11 +27,11 @@ class ScoreInputWidget extends StatelessWidget {
       showCursor: false,
       textAlign: TextAlign.center, 
       keyboardType: TextInputType.number,
-      style: Theme.of(context).primaryTextTheme.headline2,
+      style: const TextStyle(fontSize: 24),
       controller: _scoreController,
       decoration: InputDecoration(
         hintText: hintText,
-        hintStyle: Theme.of(context).primaryTextTheme.headline2,
+        hintStyle: const TextStyle(fontSize: 24),
         enabledBorder: const UnderlineInputBorder(
           borderSide: BorderSide(width: 3, color: Colors.grey),
         )
