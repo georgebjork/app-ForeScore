@@ -52,6 +52,7 @@ You can try the app here at this repository where you will see instructions on h
 ## Features In Progress
 
 - [ ] Round Summary 
+- [ ] Home Page Rework
 
 <br/>
 
