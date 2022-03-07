@@ -9,6 +9,7 @@ import 'package:hexcolor/hexcolor.dart';
 import 'package:provider/provider.dart';
 import '../Components/NavWidget.dart';
 import 'package:page_transition/page_transition.dart';
+import '../Components/NavBar.dart';
 
 import 'RoundSummary.dart';
 
@@ -31,6 +32,7 @@ class HomeState extends State<Home> {
         elevation: 0,
         leading: const Icon(Icons.menu_rounded),
       ),
+     // bottomNavigationBar: NavBar(index: 0),
       body: Container(
         child: Column(
           children: [
@@ -119,3 +121,5 @@ class PlayerDetailsState extends State<PlayerDetails> {
         }));
   }
 }
+
+
