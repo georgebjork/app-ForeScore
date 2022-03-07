@@ -31,19 +31,20 @@ class _DisplaySkinsState extends State<DisplaySkins> {
     int count = 0;
 
     for(int i = 0; i < widget.match.players.length; i++){
+       print('Calculating Player id: ${widget.match.players[i].id}');
       for(int j = 0; j < widget.match.gamePlayerPoints.length; j++){
         if(widget.match.gamePlayerPoints[j].gameId == 3 && widget.match.gamePlayerPoints[j].playerId == widget.match.players[i].id && widget.match.gamePlayerPoints[j].pointId != 0)
         {
           count++;
-          print(widget.match.players[i].id.toString());
+          //print(widget.match.players[i].id.toString());
         }
       }
       if(count > mostSkins){
         mostSkins = count;
-        count = 0;
       }
+      count = 0;
     }
-    print('Skins: $mostSkins');
+    print('Most Skins: $mostSkins');
   }
 
   displayPlayerSkins(Player p, int numSkins, BuildContext context) {
@@ -59,6 +60,7 @@ class _DisplaySkinsState extends State<DisplaySkins> {
           //This will be the player name
           Padding(
             padding: const EdgeInsets.all(15.0),
+            //name
             child: Center(child: Text(p.firstName, overflow: TextOverflow.ellipsis, style: Theme.of(context).primaryTextTheme.headline4)),
           ),
           //This will be the skins 
@@ -67,7 +69,7 @@ class _DisplaySkinsState extends State<DisplaySkins> {
             width: double.infinity,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(10.0),
-              color: numSkins == mostSkins && mostSkins != 0 ? themeProvider.getGreen() : Colors.grey,
+              color: numSkins >= mostSkins && mostSkins != 0 ? themeProvider.getGreen() : Colors.grey,
               boxShadow: [
                 BoxShadow(
                     color: Colors.grey.withOpacity(0.5),
@@ -77,7 +79,7 @@ class _DisplaySkinsState extends State<DisplaySkins> {
                 ),
               ],
             ),
-          
+            //Num Skins
             child: Center(child: Text(numSkins.toString(), style: Theme.of(context).primaryTextTheme.headline2)),
           )
 

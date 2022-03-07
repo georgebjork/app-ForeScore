@@ -86,7 +86,7 @@ class Legend extends StatelessWidget {
           children: [
             Container( height: 15, width: 15, decoration: BoxDecoration(color: color, borderRadius: BorderRadius.circular(5.0))),
             const SizedBox(width: 5),
-            Text(name), 
+            Text(name, style: const TextStyle(fontSize: 10)), 
 
           ],
         ),

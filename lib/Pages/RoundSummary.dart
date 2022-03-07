@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:golf_app/Components/PieChartStats.dart';
 import 'package:golf_app/Utils/Stat.dart';
 import 'package:hexcolor/hexcolor.dart';
+import 'package:page_transition/page_transition.dart';
 import 'package:provider/provider.dart';
 
 import 'package:golf_app/Components/PieChartStatsScoring.dart';
@@ -17,6 +18,7 @@ import '../Utils/Match.dart';
 import '../Utils/Player.dart';
 import '../Utils/Point.dart';
 import '../Utils/Providers/ThemeProvider.dart';
+import 'ViewMatch.dart';
 
 class RoundSummary extends StatelessWidget {
 
@@ -59,9 +61,16 @@ class RoundSummary extends StatelessWidget {
                   Container(padding: const EdgeInsets.only(left: 20.0, right: 20.0), child: Text('Round Summary', style: Theme.of(context).primaryTextTheme.headline2)),
                   Container(padding: const EdgeInsets.only(left: 20.0, right: 20.0), child: Text(match.course.name, style: Theme.of(context).primaryTextTheme.headline4)),
 
-                  const SizedBox(height: 10),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: CustomButton(text: 'View scorecard', width: double.infinity, color: context.read<ThemeProvider>().getRed(), onPressed: () {
+                        Navigator.push(context, PageTransition(type: PageTransitionType.bottomToTop,  duration: const Duration(milliseconds: 500), child: ViewMatch(match: match)));
+                    }),
+                  ),
                   
-                  const SizedBox(height: 10),
+                  //const SizedBox(height: 10),
+                  
+                 // const SizedBox(height: 10),
 
                   //Display Scores
                   Container(padding: const EdgeInsets.only(left: 20.0, right: 20.0), child: Text('Scores', style: Theme.of(context).primaryTextTheme.headline2)),
@@ -174,6 +183,8 @@ class ModalDisplayRoundStats extends StatelessWidget {
           const SizedBox(height: 30),
           //Player name
           Center(child: Text(match.players[playerIndex].name, style: Theme.of(context).primaryTextTheme.headline3)),
+          
+          //Score Distribution
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: Statscard(
@@ -190,27 +201,63 @@ class ModalDisplayRoundStats extends StatelessWidget {
               ],
             )
           ),
-        ] + match.players.map((e) {
-          //This will show a score disribution
-          return Padding(
+
+          //Fairways
+          Padding(
             padding: const EdgeInsets.all(8.0),
             child: Statscard(
               chart: PieChartStats(
                 stats: [
-                  Stat(type: 'Hit', color: Colors.red, number: 10),
-                  Stat(type: 'Missed', color: Colors.grey, number: 4)
+                  Stat(type: 'Hit', color: Colors.red, number: 8),
+                  Stat(type: 'Missed Right', color: Colors.grey.shade500, number: 2),
+                  Stat(type: 'Missed Left', color: Colors.grey.shade700, number: 4)
                 ],
               ),
               title: 'Fairways',
               color: Colors.grey[350],
+              legend: [
+                const Legend(color: Colors.red, name: 'Hit'),
+                Legend(color: Colors.grey.shade500, name:'Miss Right'),
+                Legend(color: Colors.grey.shade700, name:'Miss Left'),
+              ],
+            ),
+          ),
+
+          //Greens
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Statscard(
+              chart: PieChartStats(
+                stats: [
+                  Stat(type: 'Hit', color: Colors.green, number: 10),
+                  Stat(type: 'Missed', color: Colors.grey, number: 4)
+                ],
+              ),
+              title: 'Greens',
+              color: Colors.grey[350],
               legend: const [
-                Legend(color: Colors.red, name: 'Hit'),
+                Legend(color: Colors.green, name: 'Hit'),
                 Legend(color: Colors.grey, name:'Missed'),
               ],
             ),
-          );
-        }).toList(),
+          )
+
+        ] 
       ),
     ); 
   }  
+}
+
+
+class PayOuts extends StatefulWidget {
+  @override
+  State<PayOuts> createState() => _PayOutsState();
+}
+
+class _PayOutsState extends State<PayOuts> {
+  @override
+  Widget build(BuildContext context) {
+    // TODO: implement build
+    throw UnimplementedError();
+  }
 }
