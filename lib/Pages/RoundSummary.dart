@@ -2,15 +2,17 @@
 
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
-import 'package:golf_app/Components/PieChartStats.dart';
-import 'package:golf_app/Utils/Stat.dart';
 import 'package:hexcolor/hexcolor.dart';
+import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:provider/provider.dart';
 
+import 'package:golf_app/Components/PieChartStats.dart';
 import 'package:golf_app/Components/PieChartStatsScoring.dart';
 import 'package:golf_app/Components/Statscard.dart';
-import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
+import 'package:golf_app/Utils/GamePlayerResult.dart';
+import 'package:golf_app/Utils/Stat.dart';
+
 import '../Components/CustomNavButton.dart';
 import '../Components/GameSummarys.dart';
 import '../Utils/Game.dart';
@@ -24,7 +26,7 @@ class RoundSummary extends StatelessWidget {
 
   Match match;
 
-  RoundSummary(this.match);
+  RoundSummary(this.match, {Key? key}) : super(key: key);
 
 
   //This will take in a game and display it to the screen
@@ -91,7 +93,7 @@ class RoundSummary extends StatelessWidget {
 
                       //Display Payouts
                       Container(padding: const EdgeInsets.only(left: 20.0, right: 20.0), child: Text('Payouts', style: Theme.of(context).primaryTextTheme.headline2)),
-                      
+                      PayOuts(match: match)
                     ],
                   ),
                 ],
@@ -248,16 +250,93 @@ class ModalDisplayRoundStats extends StatelessWidget {
   }  
 }
 
-
+//This will calculate and display all payouts
 class PayOuts extends StatefulWidget {
+
+  Match match;
+  PayOuts({
+    Key? key,
+    required this.match,
+  }) : super(key: key);
+
   @override
   State<PayOuts> createState() => _PayOutsState();
 }
 
 class _PayOutsState extends State<PayOuts> {
+
+  List<GamePlayerResult> results = [];
+  List<Player> players = [];
+
+  Map<Player, List<Pays>> payOuts = {};
+
+
+  void calculatePayouts(){
+    //set gpr to results
+    results = widget.match.gamePlayerResult;
+    //set players
+    players = widget.match.players;
+    //Go through each game result 
+    for(int i = 0; i < players.length; i++){
+      //This is the player to be payed
+      int toBePayed = players[i].id;
+      //Now go through each player each player has the pay the person those winnings
+      List<Pays> pays = [];
+      for(int j = 0; j < results.length; j++){
+        //Add to pays list
+        if(results[j].playerId != toBePayed){
+          //Get the player index of the person to that is paying from the player list
+          int payerIndex = players.indexWhere((element) => element.id == results[j].playerId);
+          //Check to make sure we dont have duplicate payers. If we do, combine them
+          if(pays.indexWhere((element) => element.id == players[payerIndex].id) != -1){
+            //Get the right index
+            int index = pays.indexWhere((element) => element.id == players[payerIndex].id);
+            //Update
+            pays[index].pays += results[j].winnings;
+          }
+          else{
+            //Add the player and the how much they owe to list
+            pays.add(Pays(pays: results[j].winnings, player: players[payerIndex]));
+          }
+         
+        }
+      }
+
+      
+      int payeeIndex = players.indexWhere((element) => element.id == toBePayed);
+      Player payee = players[payeeIndex];
+
+      //Now add to payouts map
+      payOuts.addAll({payee : pays});
+    
+    }
+
+    print(payOuts);
+  }
+
+  @override
+  void initState() {
+    //We want to first calculate all payouts
+    calculatePayouts();
+
+    super.initState();
+
+    
+  }
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
-    throw UnimplementedError();
+    return Container(child: Center(child: Text('Hello world')),);
+  }
+}
+
+//This class will extened the player class and display how much a player owes someone
+class Pays extends Player {
+  dynamic pays;
+
+  Pays({required this.pays, required Player player}) : super(player.id, player.firstName, player.lastName, player.name, null);
+
+  @override
+  String toString() {
+    return '${name} pays: ' + pays.toString();
   }
 }
