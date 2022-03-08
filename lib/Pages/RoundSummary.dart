@@ -273,7 +273,7 @@ class _PayOutsState extends State<PayOuts> {
   Map<Player, List<Pays>> payOuts = {};
 
 
-  void calculatePayouts(){
+  Map<Player, List<Pays>> calculatePayouts(){
     //set gpr to results
     gameResults = widget.match.gamePlayerResult;
     //set players
@@ -305,22 +305,73 @@ class _PayOutsState extends State<PayOuts> {
       payOuts.addAll({payee : playersWhoPay});
     }
   
-
+    //Print
     print(payOuts);
+
+    return payOuts;
+  }
+
+  double calculateNetWinnings(int id){
+    //Winnings to return 
+    double winnings = 0;
+    //Player winnings
+    double pWinnings = 0;
+    //Sum of other player winnings
+    double oWinnings = 0;
+    //Sum of all other winnings and getting player winnings
+    for (var element in matchResults) {
+      if(element.playerId == id){
+        pWinnings = element.winnings;
+      } else{
+        oWinnings += element.winnings;
+      }
+    }
+    winnings = (pWinnings*(players.length-1)) - oWinnings;   
+    return winnings;
+  }
+
+  //This will map out text widgets to display the winnings 
+  displayPayOuts(Player p){
+    List<Pays>? toDisplay = payOuts[p];
+
+    return toDisplay?.map((e) {
+      return Text('${e.firstName}: ${e.pays}0', textAlign: TextAlign.right,);
+    }).toList();
   }
 
   @override
   void initState() {
-    //We want to first calculate all payouts
-    calculatePayouts();
-
     super.initState();
-
-    
+    //We want to first calculate all payouts
+    payOuts = calculatePayouts();    
   }
+  //Display Payouts
   @override
   Widget build(BuildContext context) {
-    return Container(child: Center(child: Text('Hello world')),);
+    Match match = widget.match;
+    
+    return Container(
+      padding: const EdgeInsets.only(left: 20.0, right: 20.0), 
+      child: ListView.separated(
+        shrinkWrap: true,
+        physics: const BouncingScrollPhysics(),
+        itemCount: match.players.length,
+        separatorBuilder: (context, index) => const Divider(
+          color: Colors.black,
+        ), 
+        itemBuilder: (BuildContext context, int index) {
+          return ListTile(
+            leading: const Icon(Icons.account_circle),
+            title: Text(match.getPlayerName(index), style: Theme.of(context).primaryTextTheme.headline3),
+            subtitle: Text('Net Winnings: \$' + calculateNetWinnings(match.players[index].id).toString() + '0', overflow: TextOverflow.ellipsis, style: const TextStyle(fontSize: 10),),
+            trailing: Column(
+              crossAxisAlignment: CrossAxisAlignment.end,
+              children: displayPayOuts(match.players[index])
+            )
+          );
+        }, 
+      ),
+    );
   }
 }
 
