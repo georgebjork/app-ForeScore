@@ -2,6 +2,7 @@
 
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
+import 'package:golf_app/Utils/MatchPlayerResult.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:page_transition/page_transition.dart';
@@ -265,51 +266,45 @@ class PayOuts extends StatefulWidget {
 
 class _PayOutsState extends State<PayOuts> {
 
-  List<GamePlayerResult> results = [];
+  List<GamePlayerResult> gameResults = [];
   List<Player> players = [];
+  List<MatchPlayerResult> matchResults = [];
 
   Map<Player, List<Pays>> payOuts = {};
 
 
   void calculatePayouts(){
     //set gpr to results
-    results = widget.match.gamePlayerResult;
+    gameResults = widget.match.gamePlayerResult;
     //set players
     players = widget.match.players;
-    //Go through each game result 
+    //set match results
+    matchResults = widget.match.matchPlayerResult;
+
+    //This will store all the payouts and key values will be players
+    Map<Player, List<Pays>> payOuts = {};
+
+    //We want to go through each player and grab their results
     for(int i = 0; i < players.length; i++){
-      //This is the player to be payed
-      int toBePayed = players[i].id;
-      //Now go through each player each player has the pay the person those winnings
-      List<Pays> pays = [];
-      for(int j = 0; j < results.length; j++){
-        //Add to pays list
-        if(results[j].playerId != toBePayed){
-          //Get the player index of the person to that is paying from the player list
-          int payerIndex = players.indexWhere((element) => element.id == results[j].playerId);
-          //Check to make sure we dont have duplicate payers. If we do, combine them
-          if(pays.indexWhere((element) => element.id == players[payerIndex].id) != -1){
-            //Get the right index
-            int index = pays.indexWhere((element) => element.id == players[payerIndex].id);
-            //Update
-            pays[index].pays += results[j].winnings;
-          }
-          else{
-            //Add the player and the how much they owe to list
-            pays.add(Pays(pays: results[j].winnings, player: players[payerIndex]));
-          }
-         
+      //This is the payee
+      Player payee = players[i];
+      //This is the winnings each player owes payee
+      dynamic winnings = matchResults[i].winnings;
+
+      //This will hold all the players who pay and how mucu
+      List<Pays> playersWhoPay = [];
+
+      for(int j = 0; j < players.length; j++){
+        //Make sure its not the payee
+        if(payee != players[j]){
+          //Add to list
+          playersWhoPay.add(Pays(pays: winnings, player: players[j]));
         }
       }
-
-      
-      int payeeIndex = players.indexWhere((element) => element.id == toBePayed);
-      Player payee = players[payeeIndex];
-
-      //Now add to payouts map
-      payOuts.addAll({payee : pays});
-    
+      //Add to map
+      payOuts.addAll({payee : playersWhoPay});
     }
+  
 
     print(payOuts);
   }
