@@ -18,13 +18,13 @@ ForeScore is the easy to way play games on the golf course. This app allows play
 
 <br/>
 
-## Why Am I Building This app?
+## Why Am I Building This App?
 
 Traditional scorecards quickly get cluttered with gross scores and net scores and determining payout can quickly get messy. ForeScore provides a solution. Most other apps out there don't allow for easy scoring with friends and allow only individual gross scoring. If apps do allow multiplayer scoring and games, the UIs are difficult to use and outdated. With ForeScore I hope to provide a modern scoring interface that allows players to step up to the tee box without any stress about scoring their rounds. Simply enter a player's gross score and let the app take care of the rest. 
 
 <br/>
 
-## Try the app now
+## Try The App Now
 
 <br/>
 
