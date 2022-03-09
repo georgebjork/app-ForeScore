@@ -46,12 +46,12 @@ You can try the app here at this repository where you will see instructions on h
 - [X] Skins and Nassau added 
 - [X] Post scores to rounds 
 - [X] View Round Scorecards 
+- [X] Round Summary 
 
 <br/>
 
 ## Features In Progress
 
-- [ ] Round Summary 
 - [ ] Home Page Rework
 
 <br/>
