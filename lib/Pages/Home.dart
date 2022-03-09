@@ -4,12 +4,12 @@ import 'package:golf_app/Pages/EnterScore.dart';
 import 'package:golf_app/Pages/ViewMatch.dart';
 import 'package:golf_app/Pages/all.dart';
 import 'package:golf_app/Utils/Match.dart';
-import 'package:golf_app/Utils/ViewMatchArgs.dart';
 import 'package:golf_app/Utils/all.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:provider/provider.dart';
 import '../Components/NavWidget.dart';
 import 'package:page_transition/page_transition.dart';
+import '../Components/NavBar.dart';
 
 import 'RoundSummary.dart';
 
@@ -32,6 +32,7 @@ class HomeState extends State<Home> {
         elevation: 0,
         leading: const Icon(Icons.menu_rounded),
       ),
+     // bottomNavigationBar: NavBar(index: 0),
       body: Container(
         child: Column(
           children: [
@@ -44,7 +45,7 @@ class HomeState extends State<Home> {
                   btn1text: 'Stats',
                   btn1Color: themeProvider.getTan(),
                   btn1onPressed: () async {
-                    Match m = await service.getMatch(119);
+                    Match m = await service.getMatch(330);
                     //Navigator.pushNamed(context, '/ViewMatch', arguments: ViewMatchArgs(m));
                     //Navigator.push(context, PageTransition(type: PageTransitionType.bottomToTop, child: ViewMatch(match: m)));
                     Navigator.push(context, PageTransition(type: PageTransitionType.rightToLeft, child: RoundSummary(m)));
@@ -56,7 +57,7 @@ class HomeState extends State<Home> {
 
                   btn3text: 'Start Round',
                   btn3Color: themeProvider.getOrange(),
-                  btn3onPressed: () => Navigator.pushNamed(context, '/SelectCourse'),
+                  btn3onPressed: () => Navigator.push(context, PageTransition(type: PageTransitionType.rightToLeft, child: SelectCourse()))
                 ))
           ],
         ),
@@ -120,3 +121,5 @@ class PlayerDetailsState extends State<PlayerDetails> {
         }));
   }
 }
+
+

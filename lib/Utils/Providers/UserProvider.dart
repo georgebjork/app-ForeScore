@@ -11,7 +11,7 @@ class UserProvider extends ChangeNotifier{
 
   String firstName = "George";
   String lastName = "Bjork";
-  final String uuid = supabase.auth.currentUser!.id;
+  //final String uuid = supabase.auth.currentUser!.id;
 
   double handicap = 10.2;
 

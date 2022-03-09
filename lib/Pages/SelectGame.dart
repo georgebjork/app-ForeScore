@@ -2,25 +2,29 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:golf_app/Components/CheckBox.dart';
+import 'package:golf_app/Pages/EnterScore.dart';
+import 'package:golf_app/Pages/all.dart';
 import 'package:golf_app/Utils/Match.dart';
 import 'package:golf_app/Utils/Providers/MatchSetUpProvider.dart';
+import 'package:page_transition/page_transition.dart';
 import 'package:provider/provider.dart';
 
 import '../Components/NavWidget.dart';
+import '../Utils/CreateMatch.dart';
+import '../Utils/Game.dart';
 import '../Utils/Providers/MatchProvider.dart';
 import '../Utils/constants.dart';
 
 class SelectGame extends StatefulWidget {
+  
+  CreateMatch newMatch;
+  SelectGame({Key? key, required this.newMatch}) : super(key: key);
+
   @override
   SelectGameState createState() => SelectGameState();
 }
 
 class SelectGameState extends State<SelectGame> {
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-  }
 
   Widget build(BuildContext context) {
     return Scaffold(
@@ -39,18 +43,26 @@ class SelectGameState extends State<SelectGame> {
 
             //Display Games
             Text('Games', style: Theme.of(context).primaryTextTheme.headline3),
-            Games(),
+
+            Games(
+              onGamesChanged: (value) => widget.newMatch.setGames(value),
+            ),
 
             NavWidget(
               btn1text: 'Prev',
               btn1onPressed: () => Navigator.pop(context),
 
-              btn2text: 'Next',
+              btn2text: 'Create Match',
               btn2onPressed: () async {
                 //Match m = await service.getMatch(255);
-                Match m = await context.read<MatchSetUpProvider>().createMatch();
+                // Match m = await context.read<MatchSetUpProvider>().createMatch();
+                // context.read<MatchProvider>().setMatch(m);
+                // Navigator.pushNamedAndRemoveUntil(context, '/EnterScore', ModalRoute.withName('/Home'));
+
+                //Create the match
+                Match m = await widget.newMatch.createMatch();
                 context.read<MatchProvider>().setMatch(m);
-                Navigator.pushNamedAndRemoveUntil(context, '/EnterScore', ModalRoute.withName('/Home'));
+                Navigator.pushAndRemoveUntil(context, PageTransition(type: PageTransitionType.rightToLeft, child: EnterScore(match: m)), ModalRoute.withName('/Home'));
               },
 
               btn3text: 'Cancel',
@@ -67,37 +79,50 @@ class SelectGameState extends State<SelectGame> {
 
 
 class Games extends StatefulWidget {
+  //This will be triggered on a course change
+  final ValueChanged<List<Game>> onGamesChanged;
+  List<Game> games = [Game(3, 'Skins'), Game(4, 'Nassau')];
+
+  Games({Key? key, required this.onGamesChanged});
+
   GamesState createState() => GamesState();
 }
 
 class GamesState extends State<Games> {
-   Widget build(BuildContext context) {
+
+  List<Game> selectedGames = [];
+
+  Widget build(BuildContext context) {
     return Expanded(
-      child: Consumer<MatchSetUpProvider> (
-        builder: (context, provider, child) {
-          return ListView.separated(
-            itemCount: provider.games.length,
-            separatorBuilder: (context, index) => const Divider(
-              color: Colors.black,
-            ),
-            physics: BouncingScrollPhysics(),
-            shrinkWrap: true,
-            itemBuilder: (BuildContext context, int index) {
-            return ListTile(
-              leading: provider.selectedGames.contains(provider.games[index]) ? const CheckMarkBox(isChecked: true) : const CheckMarkBox(isChecked: false),
-              title: Text(provider.games[index].name, style: Theme.of(context).primaryTextTheme.headline4),
-              onTap: () {
-                if(provider.selectedGames.contains(provider.games[index])){
-                  provider.selectedGames.remove(provider.games[index]);
+      child: ListView.separated(
+        itemCount: widget.games.length,
+        separatorBuilder: (context, index) => const Divider(
+          color: Colors.black,
+        ),
+        physics: const BouncingScrollPhysics(),
+        shrinkWrap: true,
+        itemBuilder: (BuildContext context, int index) {
+          return ListTile(
+            leading: selectedGames.contains(widget.games[index]) ? const CheckMarkBox(isChecked: true) : const CheckMarkBox(isChecked: false),
+            title: Text(widget.games[index].name, style: Theme.of(context).primaryTextTheme.headline4),
+            onTap: () {
+              setState(() {
+                if(selectedGames.contains(widget.games[index])){
+                  //Remove from list
+                  selectedGames.remove(widget.games[index]);
+                  //Update match
+                  widget.onGamesChanged(selectedGames);
                 } else {
-                  provider.selectedGames.add(provider.games[index]);
+                  //add to list
+                  selectedGames.add(widget.games[index]);
+                  //update match
+                  widget.onGamesChanged(selectedGames);
                 }
-                setState(() {});
-              },
-            );
-          },
-        );},
-      ),
+              });
+            },
+          );
+        }
+      )
     );
   }
 }

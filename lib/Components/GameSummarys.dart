@@ -5,7 +5,7 @@ import '../Utils/Player.dart';
 import '../Utils/Match.dart';
 import '../Utils/Providers/ThemeProvider.dart';
 
-class DisplaySkins extends StatelessWidget {
+class DisplaySkins extends StatefulWidget {
   Match match;
 
   DisplaySkins({
@@ -13,15 +13,43 @@ class DisplaySkins extends StatelessWidget {
     required this.match,
   }) : super(key: key);
 
+  @override
+  State<DisplaySkins> createState() => _DisplaySkinsState();
+}
+
+class _DisplaySkinsState extends State<DisplaySkins> {
   //This will hold a running total of the most skins
   int mostSkins = 0;
 
+  void initState(){
+    getMostSkins();
+    super.initState();
+    
+  }
+
+  void getMostSkins() {
+    int count = 0;
+
+    for(int i = 0; i < widget.match.players.length; i++){
+       print('Calculating Player id: ${widget.match.players[i].id}');
+      for(int j = 0; j < widget.match.gamePlayerPoints.length; j++){
+        if(widget.match.gamePlayerPoints[j].gameId == 3 && widget.match.gamePlayerPoints[j].playerId == widget.match.players[i].id && widget.match.gamePlayerPoints[j].pointId != 0)
+        {
+          count++;
+          //print(widget.match.players[i].id.toString());
+        }
+      }
+      if(count > mostSkins){
+        mostSkins = count;
+      }
+      count = 0;
+    }
+    print('Most Skins: $mostSkins');
+  }
+
   displayPlayerSkins(Player p, int numSkins, BuildContext context) {
     final themeProvider = context.read<ThemeProvider>();
-    //If the most skins is overruled, then we will set it to the new highest
-    if(numSkins > mostSkins){
-      mostSkins = numSkins;
-    }
+   
     return Container(
       decoration: BoxDecoration(
         color: Colors.grey[350],
@@ -32,7 +60,8 @@ class DisplaySkins extends StatelessWidget {
           //This will be the player name
           Padding(
             padding: const EdgeInsets.all(15.0),
-            child: Center(child: Text(p.firstName, overflow: TextOverflow.ellipsis, style: Theme.of(context).primaryTextTheme.headline3)),
+            //name
+            child: Center(child: Text(p.firstName, overflow: TextOverflow.ellipsis, style: Theme.of(context).primaryTextTheme.headline4)),
           ),
           //This will be the skins 
           Container(
@@ -40,7 +69,7 @@ class DisplaySkins extends StatelessWidget {
             width: double.infinity,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(10.0),
-              color: numSkins == mostSkins && mostSkins != 0 ? themeProvider.getGreen() : Colors.grey,
+              color: numSkins >= mostSkins && mostSkins != 0 ? themeProvider.getGreen() : Colors.grey,
               boxShadow: [
                 BoxShadow(
                     color: Colors.grey.withOpacity(0.5),
@@ -50,7 +79,7 @@ class DisplaySkins extends StatelessWidget {
                 ),
               ],
             ),
-          
+            //Num Skins
             child: Center(child: Text(numSkins.toString(), style: Theme.of(context).primaryTextTheme.headline2)),
           )
 
@@ -69,21 +98,23 @@ class DisplaySkins extends StatelessWidget {
 
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: match.players.map((e) { 
+            children: widget.match.players.map((e) { 
 
               int count = 0;
 
-              for(int i = 0; i < match.gamePlayerPoints.length; i++){
+              for(int i = 0; i < widget.match.gamePlayerPoints.length; i++){
                 //We want to check all skins points
-                if(match.gamePlayerPoints[i].gameId == 3 && match.gamePlayerPoints[i].playerId == e.id && match.gamePlayerPoints[i].pointId != 0){
+                if(widget.match.gamePlayerPoints[i].gameId == 3 && widget.match.gamePlayerPoints[i].playerId == e.id && widget.match.gamePlayerPoints[i].pointId != 0){
                   count++;
                 }
               }
-
-              return Expanded(child: Padding(
-                padding: const EdgeInsets.all(5.0),
-                child: displayPlayerSkins(e, count, context)
-              ));
+              return SizedBox(
+                width: MediaQuery.of(context).size.width * 0.22,
+                
+                child: Padding(
+                  padding: const EdgeInsets.all(5.0),
+                  child: displayPlayerSkins(e, count, context))
+              );
 
             }).toList()
           ),

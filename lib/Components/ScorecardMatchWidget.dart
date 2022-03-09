@@ -74,7 +74,7 @@ class ScorecardMatchWidget extends StatelessWidget {
         child: SfDataGrid(
           gridLinesVisibility: GridLinesVisibility.both,
           headerGridLinesVisibility: GridLinesVisibility.both,
-          columnWidthMode: (match.players.length > 2) ? ColumnWidthMode.none : ColumnWidthMode.fill,
+          columnWidthMode: (match.players.length > 3) ? ColumnWidthMode.none : ColumnWidthMode.fill,
           shrinkWrapRows: true,
           horizontalScrollPhysics: BouncingScrollPhysics(),
           verticalScrollPhysics: BouncingScrollPhysics(),

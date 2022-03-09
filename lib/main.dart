@@ -6,7 +6,6 @@ import 'package:golf_app/Pages/ViewMatch.dart';
 import 'package:golf_app/Utils/Providers/MatchSetUpProvider.dart';
 import 'package:golf_app/Utils/Providers/MatchProvider.dart';
 import 'package:golf_app/Utils/TeeBox.dart';
-import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:provider/provider.dart';
 import '/Utils/all.dart';
 import '/Pages/all.dart';
@@ -15,16 +14,16 @@ import '/Pages/all.dart';
 
 Future<void> main() async {
 
-  WidgetsFlutterBinding.ensureInitialized();
+  //WidgetsFlutterBinding.ensureInitialized();
 
-  await Supabase.initialize(url: supabaseUrl, anonKey: supabaseAnnonKey);
+  //await Supabase.initialize(url: supabaseUrl, anonKey: supabaseAnnonKey);
 
   runApp(
     MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (_) => ThemeProvider(lightTheme)),
         ChangeNotifierProvider(create: (_) => UserProvider()),
-        ChangeNotifierProvider(create: (_) => MatchSetUpProvider()),
+        //ChangeNotifierProvider(create: (_) => MatchSetUpProvider()),
         ChangeNotifierProvider(create: (_) => MatchProvider())
       ],
       
@@ -45,15 +44,15 @@ class MyApp extends StatelessWidget {
       theme: themeNotifier.getTheme(),
       initialRoute: '/Home',
       routes: <String, WidgetBuilder>{
-        '/': (_) => const SplashPage(),
-        '/login': (_) => const Login(),
-        '/signUp': (_) => SignUp(),
+        //'/': (_) => const SplashPage(),
+        //'/login': (_) => const Login(),
+        //'/signUp': (_) => SignUp(),
         '/Home' : (_) => Home(),
-        '/AddPlayers' : (_) => AddPlayers(),
+        //'/AddPlayers' : (_) => AddPlayers(),
         '/SelectCourse' : (_) => SelectCourse(),
-        '/TeeBox' : (_) => SelectTeeBox(),
-        '/EnterScore' : (_) => EnterScore(),
-        '/SelectGame' : (_) => SelectGame(),
+        //'/TeeBox' : (_) => SelectTeeBox(),
+       // '/EnterScore' : (_) => EnterScore(),
+        //'/SelectGame' : (_) => SelectGame(),
         //'/ViewMatch' : (_) => ViewMatch(),
       }
     );
