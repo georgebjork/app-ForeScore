@@ -1,4 +1,5 @@
 //This class will hold all of the needed information to create a match 
+import 'package:golf_app/Utils/MatchPoint.dart';
 import 'package:golf_app/Utils/all.dart';
 
 import 'Course.dart';
@@ -6,6 +7,8 @@ import 'TeeBox.dart';
 import 'Player.dart';
 import 'Game.dart';
 import 'Match.dart';
+
+
 class CreateMatch {
   //This will be the desired course for the match
   Course selectedCourse = Course(-1, "null");
@@ -18,6 +21,9 @@ class CreateMatch {
 
   //This will be the games to be played
   List<Game> games = [];
+
+  //This will hold how much each point is worth
+  List<MatchPoint> points = [];
 
   //In order to initate the process of creating a match, we first need a course
   //CreateMatch({required this.selectedCourse});
