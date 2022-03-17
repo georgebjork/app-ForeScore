@@ -7,7 +7,7 @@ import 'package:golf_app/Utils/Match.dart';
 import 'package:golf_app/Utils/all.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:provider/provider.dart';
-import '../Components/NavWidget.dart';
+import '../Components/NavigationWidget.dart';
 import 'package:page_transition/page_transition.dart';
 import '../Components/NavBar.dart';
 
@@ -41,7 +41,7 @@ class HomeState extends State<Home> {
             Container(
                 padding: const EdgeInsets.only(
                     left: 20.0, right: 20.0), //add left right padding
-                child: NavWidget(
+                child: NavigationWidget(
                   btn1text: 'Stats',
                   btn1Color: themeProvider.getTan(),
                   btn1onPressed: () async {

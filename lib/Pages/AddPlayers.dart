@@ -10,7 +10,7 @@ import 'package:golf_app/Utils/constants.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:provider/provider.dart';
 
-import '../Components/NavWidget.dart';
+import '../Components/NavigationWidget.dart';
 import '../Utils/Player.dart';
 import '../Utils/Providers/UserProvider.dart';
 
@@ -50,7 +50,7 @@ class AddPlayersState extends State<AddPlayers> {
               onPlayersChanged: (players) => widget.newMatch.setPlayer(players)
             ),
 
-            NavWidget(
+            NavigationWidget(
               btn1text: 'Prev',
               btn1onPressed: () => Navigator.pop(context),
               btn2text: 'Next',

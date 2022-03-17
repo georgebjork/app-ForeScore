@@ -9,7 +9,7 @@ import 'package:golf_app/Utils/Providers/MatchSetUpProvider.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:provider/provider.dart';
 
-import '../Components/NavWidget.dart';
+import '../Components/NavigationWidget.dart';
 import '../Utils/CreateMatch.dart';
 import '../Utils/Game.dart';
 import '../Utils/Providers/MatchProvider.dart';
@@ -48,7 +48,7 @@ class SelectGameState extends State<SelectGame> {
               onGamesChanged: (value) => widget.newMatch.setGames(value),
             ),
 
-            NavWidget(
+            NavigationWidget(
               btn1text: 'Prev',
               btn1onPressed: () => Navigator.pop(context),
 

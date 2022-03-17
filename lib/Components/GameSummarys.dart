@@ -89,37 +89,34 @@ class _DisplaySkinsState extends State<DisplaySkins> {
   }
 
   Widget build(BuildContext context){
-    return Container(
-      padding: const EdgeInsets.only(left: 20.0, right: 20.0),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text('Skins', style: Theme.of(context).primaryTextTheme.headline2),
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text('Skins', style: Theme.of(context).primaryTextTheme.headline2),
 
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: widget.match.players.map((e) { 
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: widget.match.players.map((e) { 
 
-              int count = 0;
+            int count = 0;
 
-              for(int i = 0; i < widget.match.gamePlayerPoints.length; i++){
-                //We want to check all skins points
-                if(widget.match.gamePlayerPoints[i].gameId == 3 && widget.match.gamePlayerPoints[i].playerId == e.id && widget.match.gamePlayerPoints[i].pointId != 0){
-                  count++;
-                }
+            for(int i = 0; i < widget.match.gamePlayerPoints.length; i++){
+              //We want to check all skins points
+              if(widget.match.gamePlayerPoints[i].gameId == 3 && widget.match.gamePlayerPoints[i].playerId == e.id && widget.match.gamePlayerPoints[i].pointId != 0){
+                count++;
               }
-              return SizedBox(
-                width: MediaQuery.of(context).size.width * 0.22,
-                
-                child: Padding(
-                  padding: const EdgeInsets.all(5.0),
-                  child: displayPlayerSkins(e, count, context))
-              );
+            }
+            return SizedBox(
+              width: MediaQuery.of(context).size.width * 0.22,
+              
+              child: Padding(
+                padding: const EdgeInsets.all(5.0),
+                child: displayPlayerSkins(e, count, context))
+            );
 
-            }).toList()
-          ),
-        ],
-      ),
+          }).toList()
+        ),
+      ],
     );
   }
 }

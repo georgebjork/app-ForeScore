@@ -7,7 +7,7 @@ import 'package:golf_app/Utils/constants.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:provider/provider.dart';
 
-import '../Components/NavWidget.dart';
+import '../Components/NavigationWidget.dart';
 import '../Utils/Course.dart';
 
 
@@ -51,7 +51,7 @@ class SelectCourseState extends State<SelectCourse> {
             ),
 
 
-            NavWidget(
+            NavigationWidget(
               btn1text: 'Prev',
               btn1onPressed: () => Navigator.pop(context),
               btn2text: 'Next',
