@@ -4,7 +4,7 @@ import 'package:page_transition/page_transition.dart';
 import 'package:provider/provider.dart';
 import 'package:salomon_bottom_bar/salomon_bottom_bar.dart';
 
-import '../Pages/RoundSummary.dart';
+import '../Pages/MatchSummary.dart';
 import '../Utils/Providers/ThemeProvider.dart';
 
 class NavBar extends StatefulWidget {

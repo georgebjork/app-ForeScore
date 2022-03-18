@@ -8,11 +8,11 @@ import '../Utils/Match.dart';
 import 'package:syncfusion_flutter_datagrid/datagrid.dart';
 import 'package:syncfusion_flutter_core/theme.dart';
 
-class ScorecardMatchWidget extends StatelessWidget {
+class MatchScorecard extends StatelessWidget {
 
   final Match match;
 
-  const ScorecardMatchWidget({
+  const MatchScorecard({
     Key? key, 
     required this.match
   }) : super(key: key);

@@ -9,9 +9,9 @@ class Statscard extends StatelessWidget {
   final Widget? chart;
   final Color? color;
   final String title;
-  List<Widget> legend = [];
+  final List<Widget> legend;
 
-  Statscard({
+  const Statscard({
      Key? key,
      required this.chart,
      required this.color,

@@ -11,7 +11,7 @@ import '../Components/NavigationWidget.dart';
 import 'package:page_transition/page_transition.dart';
 import '../Components/NavBar.dart';
 
-import 'RoundSummary.dart';
+import 'MatchSummary.dart';
 
 class Home extends StatefulWidget {
   @override
@@ -48,7 +48,7 @@ class HomeState extends State<Home> {
                     Match m = await service.getMatch(330);
                     //Navigator.pushNamed(context, '/ViewMatch', arguments: ViewMatchArgs(m));
                     //Navigator.push(context, PageTransition(type: PageTransitionType.bottomToTop, child: ViewMatch(match: m)));
-                    Navigator.push(context, PageTransition(type: PageTransitionType.rightToLeft, child: RoundSummary(m)));
+                    Navigator.push(context, PageTransition(type: PageTransitionType.rightToLeft, child: MatchSummary(m)));
                   },
 
                   btn2text: 'Friends',

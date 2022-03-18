@@ -19,13 +19,13 @@ import '../Utils/Player.dart';
 import '../Utils/Providers/ThemeProvider.dart';
 import 'ViewMatch.dart';
 
-class RoundSummary extends StatelessWidget {
+class MatchSummary extends StatelessWidget {
 
   //Match we will work off of. This is final since the widget is stateless
   final Match match;
 
   //Constructor
-  const RoundSummary(this.match, {Key? key}) : super(key: key);
+  const MatchSummary(this.match, {Key? key}) : super(key: key);
 
 
   //This will take in a game and display it to the screen

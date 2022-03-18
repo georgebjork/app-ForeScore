@@ -23,7 +23,7 @@ class ScoreDecoration extends StatelessWidget {
       );
     }
 
-    else if(strokesToPar == -2){
+    else if(strokesToPar <= -2){
       return Container(
         alignment: Alignment.center,
         padding: EdgeInsets.symmetric(horizontal: 16.0),
