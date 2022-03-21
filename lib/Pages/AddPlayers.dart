@@ -44,6 +44,7 @@ class AddPlayersState extends State<AddPlayers> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       appBar: AppBar(
         elevation: 0.0,
         leading: null,

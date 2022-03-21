@@ -41,6 +41,7 @@ class SelectCourseState extends State<SelectCourse> {
 
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       appBar: AppBar(
         elevation: 0.0,
         leading: null,
@@ -115,7 +116,7 @@ class FavoriteCoursesState extends State<FavoriteCourses> {
   void initState() {
     super.initState();
   }
-  
+
   @override
   Widget build(BuildContext context) {
     if(widget.favoriteCourses.isEmpty){
