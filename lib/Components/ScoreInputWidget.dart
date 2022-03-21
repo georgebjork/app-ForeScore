@@ -6,14 +6,13 @@ import '../Utils/constants.dart';
 import '../Utils/Match.dart';
 
 class ScoreInputWidget extends StatelessWidget {
-
+  
   final ValueChanged<Match> onMatchChanged;
   final String hintText;
-  final _scoreController = TextEditingController();
   final int playerId;
-  Match match;
+  final Match match;
  
-  ScoreInputWidget({
+  const ScoreInputWidget({
     Key? key,
     required this.onMatchChanged,
     required this.match,
@@ -23,6 +22,8 @@ class ScoreInputWidget extends StatelessWidget {
 
   Widget build(BuildContext context){
     //final matchProvider = context.read<MatchProvider>();
+    final _scoreController = TextEditingController();
+
     return TextFormField(
       showCursor: false,
       textAlign: TextAlign.center, 

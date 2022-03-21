@@ -1,6 +1,3 @@
-
-
-import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:golf_app/Utils/MatchPlayerResult.dart';
 import 'package:hexcolor/hexcolor.dart';
@@ -14,20 +11,21 @@ import 'package:golf_app/Components/Statscard.dart';
 import 'package:golf_app/Utils/GamePlayerResult.dart';
 import 'package:golf_app/Utils/Stat.dart';
 
-import '../Components/CustomNavButton.dart';
+import '../Components/NavigationButton.dart';
 import '../Components/GameSummarys.dart';
 import '../Utils/Game.dart';
 import '../Utils/Match.dart';
 import '../Utils/Player.dart';
-import '../Utils/Point.dart';
 import '../Utils/Providers/ThemeProvider.dart';
 import 'ViewMatch.dart';
 
-class RoundSummary extends StatelessWidget {
+class MatchSummary extends StatelessWidget {
 
-  Match match;
+  //Match we will work off of. This is final since the widget is stateless
+  final Match match;
 
-  RoundSummary(this.match, {Key? key}) : super(key: key);
+  //Constructor
+  const MatchSummary(this.match, {Key? key}) : super(key: key);
 
 
   //This will take in a game and display it to the screen
@@ -42,17 +40,14 @@ class RoundSummary extends StatelessWidget {
 
 
   Widget build(BuildContext context){
-
-    final themeProvider = context.read<ThemeProvider>();
     
     return Scaffold(
       appBar: AppBar(
-        //leading: IconButton(icon: Platform.isAndroid ? const Icon(Icons.arrow_back) : const Icon(Icons.arrow_back_ios_new), color: Colors.black, onPressed: () => Navigator.pop(context)),
         elevation: 0.0,
         backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       ),
       body: Container(
-        //padding: const EdgeInsets.only(left: 20.0, right: 20.0),
+        padding: const EdgeInsets.only(left: 20.0, right: 20.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -61,57 +56,43 @@ class RoundSummary extends StatelessWidget {
                 shrinkWrap: true,
                 physics: const BouncingScrollPhysics(),
                 children: [
-                  Container(padding: const EdgeInsets.only(left: 20.0, right: 20.0), child: Text('Round Summary', style: Theme.of(context).primaryTextTheme.headline2)),
-                  Container(padding: const EdgeInsets.only(left: 20.0, right: 20.0), child: Text(match.course.name, style: Theme.of(context).primaryTextTheme.headline4)),
 
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: CustomButton(text: 'View scorecard', width: double.infinity, color: context.read<ThemeProvider>().getRed(), onPressed: () {
-                        Navigator.push(context, PageTransition(type: PageTransitionType.bottomToTop,  duration: const Duration(milliseconds: 500), child: ViewMatch(match: match)));
-                    }),
-                  ),
-                  
-                  //const SizedBox(height: 10),
-                  
-                 // const SizedBox(height: 10),
+                  //This is the basic layout of the page
 
+                  //Title
+                  Text('Round Summary', style: Theme.of(context).primaryTextTheme.headline2),
+                  Text(match.course.name, style: Theme.of(context).primaryTextTheme.headline4),
+
+                  //View scorecard button and navigate to it
+                  NavigationButton(text: 'View scorecard', width: double.infinity, color: context.read<ThemeProvider>().getRed(), onPressed: () {
+                      Navigator.push(context, PageTransition(type: PageTransitionType.bottomToTop,  duration: const Duration(milliseconds: 500), child: ViewMatch(match: match)));
+                  }),
+  
                   //Display Scores
-                  Container(padding: const EdgeInsets.only(left: 20.0, right: 20.0), child: Text('Scores', style: Theme.of(context).primaryTextTheme.headline2)),
+                  Text('Scores', style: Theme.of(context).primaryTextTheme.headline2),
                   DisplayScores(match: match),
 
-                  const SizedBox(height: 10),
-
-                  //Display the game summarys 
+                  //Display list of games played
                   ListView(
                     physics: const BouncingScrollPhysics(),
                     shrinkWrap: true,
-                    children: [
-                      ListView(
-                        shrinkWrap: true,
-                        physics: const BouncingScrollPhysics(),
-                        children: match.games.map((e) => displayGameSummary(e)).toList()
-                      ),
-
-                      //Display Payouts
-                      Container(padding: const EdgeInsets.only(left: 20.0, right: 20.0), child: Text('Payouts', style: Theme.of(context).primaryTextTheme.headline2)),
-                      PayOuts(match: match)
-                    ],
+                    children: match.games.map((e) => displayGameSummary(e)).toList() 
                   ),
+                  
+                  //Display Payouts
+                  Text('Payouts', style: Theme.of(context).primaryTextTheme.headline2),
+                  PayOuts(match: match),
                 ],
               )
             ),
             
 
             //Finish button sent to the bottom of the screen
-            Container(
-              padding: const EdgeInsets.only(left: 20.0, right: 20.0, top: 10),
-              color: Colors.transparent,
-              child: CustomButton(
-                onPressed: () => Navigator.pushNamed(context, '/Home'),
-                width: double.infinity,
-                text: 'Finish',
-                color: HexColor("#A13333")
-              ),
+            NavigationButton(
+              onPressed: () => Navigator.pop(context),
+              width: double.infinity,
+              text: 'Finish',
+              color: HexColor('#89A057')
             ),
             const SizedBox(height: 20)
 
@@ -126,8 +107,10 @@ class RoundSummary extends StatelessWidget {
 
 class DisplayScores extends StatelessWidget {
 
+  //Match we will work off of
   final Match match;
 
+  //Constructor
   const DisplayScores({
     Key? key,
     required this.match,
@@ -135,37 +118,34 @@ class DisplayScores extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.only(left: 20.0, right: 20.0), 
-      child: ListView.separated(
-        shrinkWrap: true,
-        physics: const BouncingScrollPhysics(),
-        itemCount: match.players.length,
-        separatorBuilder: (context, index) => const Divider(
-          color: Colors.black,
-        ), 
-        itemBuilder: (BuildContext context, int index) {
-          return ListTile(
-            leading: const Icon(Icons.account_circle),
-            title: Text(match.getPlayerName(index), style: Theme.of(context).primaryTextTheme.headline3),
-            subtitle: const Text('Tap to view stats', overflow: TextOverflow.ellipsis, style: TextStyle(fontSize: 10),),
-            trailing: Text(
-              "Gross: " + match.rounds[index].Score.toString() + "   " +
-              "Net: " + match.rounds[index].Net.toString(),
-              style: Theme.of(context).primaryTextTheme.headline3
-            ),
-            onTap: () => showBarModalBottomSheet(
-              context: context, 
-              expand: true,
-              backgroundColor: Colors.transparent,
-              builder: (context) => ModalDisplayRoundStats(
-                playerIndex: index, 
-                match: match,
-              )
-            ),
-          );
-        }, 
-      ),
+    return ListView.separated(
+      shrinkWrap: true,
+      physics: const BouncingScrollPhysics(),
+      itemCount: match.players.length,
+      separatorBuilder: (context, index) => const Divider(
+        color: Colors.black,
+      ), 
+      itemBuilder: (BuildContext context, int index) {
+        return ListTile(
+          leading: const Icon(Icons.account_circle),
+          title: Text(match.getPlayerName(index), style: Theme.of(context).primaryTextTheme.headline3),
+          subtitle: const Text('Tap to view stats', overflow: TextOverflow.ellipsis, style: TextStyle(fontSize: 10),),
+          trailing: Text(
+            "Gross: " + match.rounds[index].Score.toString() + "   " +
+            "Net: " + match.rounds[index].Net.toString(),
+            style: Theme.of(context).primaryTextTheme.headline3
+          ),
+          onTap: () => showBarModalBottomSheet(
+            context: context, 
+            expand: true,
+            backgroundColor: Colors.transparent,
+            builder: (context) => ModalDisplayRoundStats(
+              playerIndex: index, 
+              match: match,
+            )
+          ),
+        );
+      }, 
     );
   }
 }
@@ -254,8 +234,8 @@ class ModalDisplayRoundStats extends StatelessWidget {
 //This will calculate and display all payouts
 class PayOuts extends StatefulWidget {
 
-  Match match;
-  PayOuts({
+  final Match match;
+  const PayOuts({
     Key? key,
     required this.match,
   }) : super(key: key);
@@ -350,27 +330,24 @@ class _PayOutsState extends State<PayOuts> {
   Widget build(BuildContext context) {
     Match match = widget.match;
     
-    return Container(
-      padding: const EdgeInsets.only(left: 20.0, right: 20.0), 
-      child: ListView.separated(
-        shrinkWrap: true,
-        physics: const BouncingScrollPhysics(),
-        itemCount: match.players.length,
-        separatorBuilder: (context, index) => const Divider(
-          color: Colors.black,
-        ), 
-        itemBuilder: (BuildContext context, int index) {
-          return ListTile(
-            leading: const Icon(Icons.account_circle),
-            title: Text(match.getPlayerName(index), style: Theme.of(context).primaryTextTheme.headline3),
-            subtitle: Text('Net Winnings: \$' + calculateNetWinnings(match.players[index].id).toString() + '0', overflow: TextOverflow.ellipsis, style: const TextStyle(fontSize: 10),),
-            trailing: Column(
-              crossAxisAlignment: CrossAxisAlignment.end,
-              children: displayPayOuts(match.players[index])
-            )
-          );
-        }, 
-      ),
+    return ListView.separated(
+      shrinkWrap: true,
+      physics: const BouncingScrollPhysics(),
+      itemCount: match.players.length,
+      separatorBuilder: (context, index) => const Divider(
+        color: Colors.black,
+      ), 
+      itemBuilder: (BuildContext context, int index) {
+        return ListTile(
+          leading: const Icon(Icons.account_circle),
+          title: Text(match.getPlayerName(index), style: Theme.of(context).primaryTextTheme.headline3),
+          subtitle: Text('Net Winnings: \$' + calculateNetWinnings(match.players[index].id).toString() + '0', overflow: TextOverflow.ellipsis, style: const TextStyle(fontSize: 10),),
+          trailing: Column(
+            crossAxisAlignment: CrossAxisAlignment.end,
+            children: displayPayOuts(match.players[index])
+          )
+        );
+      }, 
     );
   }
 }

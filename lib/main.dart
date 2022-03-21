@@ -45,7 +45,7 @@ class MyApp extends StatelessWidget {
       initialRoute: '/Home',
       routes: <String, WidgetBuilder>{
         //'/': (_) => const SplashPage(),
-        //'/login': (_) => const Login(),
+        '/login': (_) => LoginPage(),
         //'/signUp': (_) => SignUp(),
         '/Home' : (_) => Home(),
         //'/AddPlayers' : (_) => AddPlayers(),

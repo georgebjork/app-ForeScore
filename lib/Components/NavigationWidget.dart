@@ -1,8 +1,18 @@
 import 'package:flutter/cupertino.dart';
 import 'package:hexcolor/hexcolor.dart';
-import 'CustomNavButton.dart';
+import 'NavigationButton.dart';
 
-class NavWidget extends StatelessWidget {
+/*
+
+  This widget will be used to for navigation layout seen throughout the app.
+  
+  +---------------------+
+  | Button      Button  |
+  |       Button        |
+  +---------------------+
+*/
+
+class NavigationWidget extends StatelessWidget {
 
   
     final String btn1text;
@@ -15,7 +25,7 @@ class NavWidget extends StatelessWidget {
     Color? btn2Color = HexColor("#C56824"); //orange
     Color? btn3Color = HexColor("#CFB784"); //red
 
-    NavWidget({
+    NavigationWidget({
       Key? key,
       required this.btn1text,
       required this.btn2text,
@@ -43,7 +53,7 @@ class NavWidget extends StatelessWidget {
       Row(
         children: <Widget>[
           Expanded(
-              child: CustomButton(
+              child: NavigationButton(
                   onPressed: btn1onPressed,
                   width: double.infinity,
                   text: btn1text,
@@ -51,7 +61,7 @@ class NavWidget extends StatelessWidget {
           ),),
           SizedBox(width: _width / 10),
           Expanded(
-              child: CustomButton(
+              child: NavigationButton(
                   onPressed: btn2onPressed,
                   width: double.infinity,
                   text: btn2text,
@@ -63,7 +73,7 @@ class NavWidget extends StatelessWidget {
         height: _height / 30,
       ),
 
-      CustomButton(
+      NavigationButton(
           onPressed: btn3onPressed,
           width: double.infinity,
           text: btn3text,

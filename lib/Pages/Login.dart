@@ -108,3 +108,116 @@ class _LoginPageState extends AuthState<Login> {
 }
 
 */
+
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
+
+import '../Utils/Providers/ThemeProvider.dart';
+
+class LoginPage extends StatefulWidget {
+  @override
+  State<LoginPage> createState() => _LoginPageState();
+}
+
+class _LoginPageState extends State<LoginPage> {
+  bool _isLoading = false;
+
+
+  Widget build(BuildContext context){
+    final themeProvider = context.read<ThemeProvider>();
+    return Scaffold(
+      
+      appBar: AppBar(
+        backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+        title: Text('Log in', style: Theme.of(context).primaryTextTheme.headline2),
+        elevation: 0,
+      ),
+      body: Container(
+        padding: const EdgeInsets.only(left: 20.0, right: 20.0),
+        child: ListView(
+          children: [
+            
+            //Email address input
+            Padding(
+              padding: const EdgeInsets.only(top: 10, bottom: 10),
+              child: TextFormField(
+                //Cursor color
+                cursorColor: Colors.grey,
+
+                //Keyboard
+                keyboardType: TextInputType.emailAddress,
+
+                decoration: InputDecoration(
+                  //Label
+                  labelText: 'Email',
+                  labelStyle: Theme.of(context).primaryTextTheme.headline3,
+
+                  //Fill the field
+                  filled: true,
+                  fillColor: Colors.grey.shade300,
+
+                  //Border of the input
+                  hoverColor: Colors.grey,
+                  border: const OutlineInputBorder(borderSide: BorderSide(color:Colors.grey)),
+                  focusedBorder: const OutlineInputBorder(borderSide: BorderSide(color: Colors.grey)),
+                  enabledBorder: const OutlineInputBorder(borderSide: BorderSide(color: Colors.grey)),
+                  errorBorder: OutlineInputBorder(borderSide: BorderSide(color: themeProvider.getRed())),
+                  focusedErrorBorder: OutlineInputBorder(borderSide: BorderSide(color: themeProvider.getRed())),           
+                ),
+              ),
+            ),
+
+            //Password input
+            Padding(
+              padding: const EdgeInsets.only(top: 10, bottom: 10),
+              child: TextFormField(
+                //Cursor color
+                cursorColor: Colors.grey,
+
+                //Hide the text
+                obscureText: true,
+
+                decoration: InputDecoration(
+                  //Label
+                  labelText: 'Password',
+                  labelStyle: Theme.of(context).primaryTextTheme.headline3,
+
+                  //Fill the field
+                  filled: true,
+                  fillColor: Colors.grey.shade300,
+
+                  //Border of the input
+                  hoverColor: Colors.grey,
+                  border: const OutlineInputBorder(borderSide: BorderSide(color:Colors.grey)),
+                  focusedBorder: const OutlineInputBorder(borderSide: BorderSide(color: Colors.grey)),
+                  enabledBorder: const OutlineInputBorder(borderSide: BorderSide(color: Colors.grey)),
+                  errorBorder: OutlineInputBorder(borderSide: BorderSide(color: themeProvider.getRed())),
+                  focusedErrorBorder: OutlineInputBorder(borderSide: BorderSide(color: themeProvider.getRed())),           
+                ),
+              ),
+            ),
+
+            Container(
+              width: MediaQuery.of(context).size.width/5,
+              child: TextButton(
+                
+                onPressed: () {},
+                child: Center(child: Text('Login', style: Theme.of(context).textTheme.headline4)),
+              
+                style: TextButton.styleFrom(
+                  backgroundColor: themeProvider.getGreen(),
+                  padding: const EdgeInsets.all(10.0),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10.0)
+                  )
+                ),
+              ),
+            )
+          ],
+        ),
+      ),
+    );
+  }
+}

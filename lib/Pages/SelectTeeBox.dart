@@ -10,7 +10,7 @@ import 'package:golf_app/Utils/TeeBox.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:provider/provider.dart';
 
-import '../Components/NavWidget.dart';
+import '../Components/NavigationWidget.dart';
 import '../Utils/CreateMatch.dart';
 import '../Utils/Providers/ThemeProvider.dart';
 import '../Utils/constants.dart';
@@ -54,7 +54,7 @@ class SelectTeeBoxState extends State<SelectTeeBox> {
               teeboxes: widget.newMatch.selectedCourse.teeboxes,
             ),
 
-            NavWidget(
+            NavigationWidget(
               btn1text: 'Prev',
               btn1onPressed: () => Navigator.pop(context),
               btn2text: 'Next',
