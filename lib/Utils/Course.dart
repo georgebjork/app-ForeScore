@@ -25,4 +25,10 @@ class Course {
 
     );
   }
+
+  @override
+  String toString() {
+    return name;
+  }
+  
 }
