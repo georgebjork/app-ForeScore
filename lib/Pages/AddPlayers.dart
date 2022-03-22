@@ -136,7 +136,7 @@ class ShowFriendsState extends State<ShowFriends> {
   @override
   Widget build(BuildContext context) {
     if(widget.friends.isEmpty){
-      return Center(child: CircularProgressIndicator(color: context.read<ThemeProvider>().getGreen(), strokeWidth: 6.0));
+      return Expanded(child: Center(child: CircularProgressIndicator(color: context.read<ThemeProvider>().getGreen(), strokeWidth: 6.0)));
     }
     return Expanded(
       //List view of friends
