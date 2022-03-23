@@ -47,17 +47,18 @@ You can try the app here at this repository where you will see instructions on h
 - [X] Post scores to rounds 
 - [X] View Round Scorecards 
 - [X] Round Summary 
+- [X] Search bar
 
 <br/>
 
 ## Features In Progress
 
-- [ ] Home Page Rework
+- [ ] User Auth
 
 <br/>
 
 ## Features Not Yet Implmented
-- [ ] User Auth
+
 - [ ] Stats (Fairways, Putts, Greens)
 - [ ] Match History 
 - [ ] Ghin integration 
