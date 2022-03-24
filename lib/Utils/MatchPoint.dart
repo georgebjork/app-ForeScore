@@ -1,4 +1,6 @@
-class MatchPoint {
+import 'package:golf_app/Utils/Point.dart';
+
+class MatchPoint{
   
   int id;
   int matchId;

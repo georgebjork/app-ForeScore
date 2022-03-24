@@ -18,7 +18,7 @@ class MatchSetUpProvider extends ChangeNotifier {
   TeeBox selectedTeeBox = TeeBox(-1, -1, "null", -1, -1, -1, -1, -1);
   bool isTeeBoxSelected = false;
 
-  List<Game> games = [Game(3, 'Skins'), Game(4, 'Nassau')];
+  //List<Game> games = [Game(3, 'Skins'), Game(4, 'Nassau')];
   List<Game> selectedGames = []; 
 
   List<Course> favoriteCourses = [];

@@ -64,4 +64,9 @@ class CreateMatch {
     print('Updated Games to: $games');
   }
 
+  void addGamePoint(MatchPoint p){
+    points.add(p);
+    print('Added Point to: $points');
+  }
+
 }

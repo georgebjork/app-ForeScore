@@ -5,9 +5,9 @@ class Game {
 
   int id;
   String name;
-  List<Point> points = [];
+  List<Point>? points;
 
-  Game(this.id, this.name);
+  Game(this.id, this.name, this.points);
 
   Game.fromGame({
     required this.id,
