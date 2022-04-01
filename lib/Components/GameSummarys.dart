@@ -21,10 +21,10 @@ class _DisplaySkinsState extends State<DisplaySkins> {
   //This will hold a running total of the most skins
   int mostSkins = 0;
 
+  @override
   void initState(){
     getMostSkins();
     super.initState();
-    
   }
 
   void getMostSkins() {

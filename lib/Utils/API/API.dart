@@ -170,6 +170,12 @@ class API{
 
   //********************************************//
 
+  // Future<List<Match>> getMatchWithPlayer(int id){
+  //   List<Match>> matches = [];
+
+  //   return matches;
+  // }
+
 
 
   Future<List<Player>> getFriends() async {

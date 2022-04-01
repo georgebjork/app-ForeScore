@@ -315,7 +315,7 @@ class _PayOutsState extends State<PayOuts> {
     List<Pays>? toDisplay = payOuts[p];
 
     return toDisplay?.map((e) {
-      return Text('${e.firstName}: ${e.pays}0', textAlign: TextAlign.right,);
+      return Text('${e.firstName}: ${e.pays}', textAlign: TextAlign.right,);
     }).toList();
   }
 
@@ -341,7 +341,7 @@ class _PayOutsState extends State<PayOuts> {
         return ListTile(
           leading: const Icon(Icons.account_circle),
           title: Text(match.getPlayerName(index), style: Theme.of(context).primaryTextTheme.headline3),
-          subtitle: Text('Net Winnings: \$' + calculateNetWinnings(match.players[index].id).toString() + '0', overflow: TextOverflow.ellipsis, style: const TextStyle(fontSize: 10),),
+          subtitle: Text('Net Winnings: \$' + calculateNetWinnings(match.players[index].id).toString(), overflow: TextOverflow.ellipsis, style: const TextStyle(fontSize: 10),),
           trailing: Column(
             crossAxisAlignment: CrossAxisAlignment.end,
             children: displayPayOuts(match.players[index])
