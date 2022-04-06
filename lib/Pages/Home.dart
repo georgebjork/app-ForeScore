@@ -7,10 +7,12 @@ import 'package:golf_app/Utils/Match.dart';
 import 'package:golf_app/Utils/all.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:provider/provider.dart';
+import '../Components/NavigationButton.dart';
 import '../Components/NavigationWidget.dart';
 import 'package:page_transition/page_transition.dart';
 import '../Components/NavBar.dart';
 
+import '../Components/ScoreInputWidget.dart';
 import 'MatchSummary.dart';
 
 class Home extends StatefulWidget {
@@ -27,6 +29,8 @@ class HomeState extends State<Home> {
 
   Widget build(BuildContext context) {
     final themeProvider = context.read<ThemeProvider>();
+    final _scoreController = TextEditingController();
+
     return Scaffold(
       appBar: AppBar(
         elevation: 0,
@@ -58,7 +62,48 @@ class HomeState extends State<Home> {
                   btn3text: 'Start Round',
                   btn3Color: themeProvider.getOrange(),
                   btn3onPressed: () => Navigator.push(context, PageTransition(type: PageTransitionType.rightToLeft, child: SelectCourse()))
-                ))
+                )),
+
+            SizedBox(height: 50,),
+            Container(
+                padding: const EdgeInsets.only(
+                    left: 20.0, right: 20.0), //add left right padding
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    NavigationButton(
+                      width: 200,
+                      text: 'Resume Round',
+                      color: themeProvider.getGreen(),
+                      onPressed: () async {
+                        Match m = await service.getMatch(int.parse(_scoreController.text));
+                        Navigator.push(context, PageTransition(type: PageTransitionType.rightToLeft, child: EnterScore(match: m)));
+                      },
+                    ),
+
+                    SizedBox(
+                      height: 50,
+                      width: 60,
+                      child: TextFormField(
+                        showCursor: false,
+                        textAlign: TextAlign.center, 
+                        keyboardType: TextInputType.number,
+                        style: const TextStyle(fontSize: 24),
+                        controller: _scoreController,
+                        decoration: const InputDecoration(
+                          enabledBorder: UnderlineInputBorder(
+                            borderSide: BorderSide(width: 3, color: Colors.grey),
+                          )
+                        ),
+
+                        onChanged: (string) async {
+                          print('Match to get: ' + _scoreController.text);
+                          
+                        },
+                      ),
+                    )
+                  ],
+                )),
           ],
         ),
       ),
